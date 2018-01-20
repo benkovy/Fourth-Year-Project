@@ -16,10 +16,8 @@ final class LoginViewController: UIViewController, NibLoadableView {
     
     let database = Database()
     
-
     override func viewDidLoad() {
         super.viewDidLoad()
-        
     }
     
     init() {
