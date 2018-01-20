@@ -7,19 +7,26 @@
 //
 
 import UIKit
+import Firebase
 
 class ViewController: UIViewController {
 
+    lazy var ref: Database = {
+        return Database()
+    }()
+        
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        let movements = Movement(name: "New name", bodyPart: .chest, sets: 4, reps: 10, restTime: 45)
+        let workout = Workout(id: "12345", movements: movements, dateCreated: 1, popularity: 4)
+        ref.persist(workout)
+//        ref.update(workout)
+        
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-
 }
 

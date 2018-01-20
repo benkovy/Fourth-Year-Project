@@ -8,15 +8,32 @@
 
 import UIKit
 import CoreData
+import Firebase
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
+    var mainViewController: UIViewController {
+        let home = HomeViewController()
+        home.view.backgroundColor = .white
+        home.tabBarItem = TabItem.home.item
+        
+        let controllers = [home].map {UINavigationController(rootViewController: $0)}
+        
+        let tabBarController = UITabBarController()
+        tabBarController.viewControllers = controllers
+        
+        return tabBarController
+    }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        FirebaseApp.configure()
+        
+        self.window?.rootViewController = mainViewController
+        
         return true
     }
 
