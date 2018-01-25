@@ -8,15 +8,38 @@
 
 import Foundation
 
-struct User: Codable {
+struct Account: Persistable {
     let firstName: String?
     let lastName: String?
     let email: String
-    let userImage: String?
-    let id: String?
+    let uid: String
     let credentials: Credentials?
     
     var fullName: String? {
         return firstName! + " " + lastName!
     }
 }
+
+struct User: Persistable {
+    
+    var firstname: String
+    var lastname: String
+    var email: String
+    var password: String
+    var description: String
+    var dateOfBirth: Int
+    var type: String
+    let uid: String?
+    let credentials: Credentials?
+    
+    var fullName: String? {
+        return firstname + " " + lastname
+    }
+}
+
+extension User {
+    func createUserRequest(_ user: User) {
+//        let resource = Resource(request: <#T##URLRequest#>, parse: <#T##(Data) -> _?#>)
+    }
+}
+

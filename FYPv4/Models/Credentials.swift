@@ -15,6 +15,6 @@ struct UsernamePassword {
 
 struct Credentials: Persistable {
     let token: String
-    let userId: Int
+    let userId: String
 }
 

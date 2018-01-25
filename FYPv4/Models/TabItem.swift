@@ -26,4 +26,12 @@ enum TabItem: String {
         case .workout: return 3
         }
     }
+    
+    var insets: UIEdgeInsets {
+        switch self {
+        case .home: return UIEdgeInsets(top: 5, left: 0, bottom: -5, right: 0)
+        case .workout: return UIEdgeInsets(top: 5, left: 0, bottom: -5, right: 0)
+        case .profile: return UIEdgeInsets(top: 5, left: 0, bottom: -5, right: 0)
+        }
+    }
 }

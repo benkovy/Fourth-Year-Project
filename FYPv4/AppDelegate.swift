@@ -8,7 +8,6 @@
 
 import UIKit
 import CoreData
-import Firebase
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -19,8 +18,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let home = HomeViewController()
         home.view.backgroundColor = .white
         home.tabBarItem = TabItem.home.item
+        home.tabBarItem.imageInsets = TabItem.home.insets
         
-        let controllers = [home].map {UINavigationController(rootViewController: $0)}
+        let profile = ProfileViewController()
+        profile.view.backgroundColor = .black
+        profile.tabBarItem = TabItem.profile.item
+        profile.tabBarItem.imageInsets = TabItem.profile.insets
+        
+        let routine = RoutineViewController()
+        routine.view.backgroundColor = .blue
+        routine.tabBarItem = TabItem.workout.item
+        routine.tabBarItem.imageInsets = TabItem.workout.insets
+        
+        let authentication = LoginViewController()
+        authentication.view.backgroundColor = .red
+        authentication.tabBarItem = TabItem.profile.item
+        authentication.tabBarItem.imageInsets = TabItem.profile.insets
+        
+        var controllers = [UIViewController]()
+        controllers.append(UINavigationController(rootViewController: routine))
+        controllers.append(UINavigationController(rootViewController: home))
+        
+        if UserDefaultsStore.retrieve(Credentials.self).first == nil {
+            controllers.append(authentication)
+        } else {
+            controllers.append(UINavigationController(rootViewController: profile))
+        }
         
         let tabBarController = UITabBarController()
         tabBarController.viewControllers = controllers
@@ -30,7 +53,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        FirebaseApp.configure()
         
         self.window?.rootViewController = mainViewController
         

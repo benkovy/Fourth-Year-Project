@@ -15,10 +15,11 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let ben = User(firstName: "Ben", lastName: "Kovacs", email: "kovacs1@live.ca", userImage: "sad", id: "asd", credentials: Credentials(token: "asdasd", userId: 1234))
-        
-        UserDefaultsStore.store(persistables: [ben.credentials!])
-        UserDefaultsStore.retrieve(Credentials.self)
+//        let ben = User(firstName: "Ben", lastName: "Kovacs", email: "kovacs1@live.ca", userImage: "sad", id: "asd", credentials: Credentials(token: "asdasd", userId: 1234))
+//
+//        UserDefaultsStore.store(persistables: [ben.credentials!])
+//        UserDefaultsStore.retrieve(Credentials.self)
+//        UserDefaultsStore.delete(withKey: Credentials.self)
         
     }
 }
