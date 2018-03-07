@@ -20,10 +20,4 @@ final class Database {
     func getUserToken(completion: @escaping (Result<String>) -> ()) {
     }
     
-    func createUser(_ usernamePassword: UsernamePassword, completion: @escaping (Result<Account>) -> ()) {
-    }
-    
-    func signInUser(_ usernamePassword: UsernamePassword, completion: @escaping (Result<Account>) -> ()) {
-    }
-    
 }

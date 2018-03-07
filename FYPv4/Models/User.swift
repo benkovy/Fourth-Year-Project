@@ -8,38 +8,54 @@
 
 import Foundation
 
-struct Account: Persistable {
-    let firstName: String?
-    let lastName: String?
-    let email: String
-    let uid: String
-    let credentials: Credentials?
-    
-    var fullName: String? {
-        return firstName! + " " + lastName!
-    }
-}
-
-struct User: Persistable {
-    
+struct User: Codable {
     var firstname: String
     var lastname: String
     var email: String
-    var password: String
+    var password: String?
     var description: String
-    var dateOfBirth: Int
+    var dateofbirth: String
     var type: String
-    let uid: String?
-    let credentials: Credentials?
+    var id: String?
+    var token: Token?
     
     var fullName: String? {
         return firstname + " " + lastname
     }
+    
+    enum CodingKeys: String, CodingKey {
+        case firstname
+        case lastname
+        case email
+        case password
+        case description
+        case dateofbirth
+        case type
+        case id
+        case token
+    }
 }
 
 extension User {
-    func createUserRequest(_ user: User) {
-//        let resource = Resource(request: <#T##URLRequest#>, parse: <#T##(Data) -> _?#>)
+    init() {
+        self.firstname = ""
+        self.lastname = ""
+        self.email = ""
+        self.password = ""
+        self.description = "This is my description"
+        self.dateofbirth = ""
+        self.type = "Fitness"
+        self.id = nil
+        self.token = nil
     }
 }
+
+extension User {
+    
+    static func createUserRequest(_ user: User) -> Resource<User> {
+        let userResponse = Resource<User>(Router.create(user: user).request)
+        return userResponse
+    }
+}
+
 

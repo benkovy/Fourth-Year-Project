@@ -9,8 +9,19 @@
 import Foundation
 
 struct Workout: Codable {
-    let id: String
-    let movements: Movement
-    let dateCreated: Int
-    let popularity: Int
+    var name: String
+    var creator: String
+    var time: Int
+    var description: String?
+    var image: Bool
+    var rating: Int
+    var id: String?
+}
+
+extension Workout {
+    
+    static func createWorkoutRequest() -> Resource<[Workout]> {
+        let workoutRequest = Resource<[Workout]>(Router.workout(amount: 0).request)
+        return workoutRequest
+    }
 }

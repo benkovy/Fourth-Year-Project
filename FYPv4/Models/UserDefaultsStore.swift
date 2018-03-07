@@ -10,26 +10,21 @@ import Foundation
 
 final class UserDefaultsStore {
     
-    static func store<T: Persistable>(persistables: [T]) {
-        let dictionaries = persistables.flatMap { item -> Any? in
-            guard let data = try? JSONEncoder().encode(item) else { return nil }
-            return try? JSONSerialization.jsonObject(with: data, options: [])
-        }
-        UserDefaults.standard.set(dictionaries, forKey: T.id)
+    static func store<T: Codable>(persistables: T) {
+        guard let data = try? JSONEncoder().encode(persistables) else { return }
+        guard let dictionary =  try? JSONSerialization.jsonObject(with: data, options: []) else { return }
+        print(String(describing: T.self))
+        UserDefaults.standard.set(dictionary, forKey: String(describing: T.self))
      }
     
-    static func retrieve<T: Persistable>(_ type: T.Type) -> [T] {
-        guard let results = UserDefaults.standard.value(forKey: T.id) as? [Any] else { return [] }
-        let datas = results.flatMap { data in
-            return try? JSONSerialization.data(withJSONObject: data, options: [])
-        }
-        let objects = datas.flatMap { item in
-            return try? JSONDecoder().decode(type, from: item)
-        }
-        return objects
+    static func retrieve<T: Codable>(_ type: T.Type) -> T? {
+        guard let results = UserDefaults.standard.value(forKey: String(describing: T.self)) as? [String: Any] else { return nil }
+        guard let data = try? JSONSerialization.data(withJSONObject: results, options: []) else { return nil }
+        guard let object = try? JSONDecoder().decode(type, from: data) else { return nil }
+        return object
     }
     
-    static func delete<T: Persistable>(withKey: T.Type) {
-        UserDefaults.standard.removeObject(forKey: withKey.id)
+    static func delete<T: Codable>(withKey: T.Type) {
+        UserDefaults.standard.removeObject(forKey: String(describing: T.self))
     }
 }

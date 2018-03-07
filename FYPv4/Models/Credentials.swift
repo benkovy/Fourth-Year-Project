@@ -8,13 +8,20 @@
 
 import Foundation
 
+struct Token: Codable {
+    let token: String
+}
+
 struct UsernamePassword {
     let username: String
     let password: String
 }
 
-struct Credentials: Persistable {
-    let token: String
-    let userId: String
+extension Token {
+    
+    static func getToken(_ username: String, _ password: String) -> Resource<Token> {
+        let resource = Resource<Token>(Router.login(username: username, password: password).request)
+        return resource
+    }
+    
 }
-

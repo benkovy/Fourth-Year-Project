@@ -16,9 +16,9 @@ class ViewController: UIViewController {
         
     override func viewDidLoad() {
         super.viewDidLoad()
-        let movements = Movement(name: "New name", bodyPart: .chest, sets: 4, reps: 10, restTime: 45)
-        let workout = Workout(id: "12345", movements: movements, dateCreated: 1, popularity: 4)
-        ref.persist(workout)
+//        let movements = Movement(name: "New name", bodyPart: .chest, sets: 4, reps: 10, restTime: 45)
+//        let workout = Workout(id: "12345", movements: movements, dateCreated: 1, popularity: 4)
+//        ref.persist(workout)
 //        ref.update(workout)
         
     }

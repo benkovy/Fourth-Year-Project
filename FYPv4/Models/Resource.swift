@@ -23,3 +23,10 @@ extension Resource {
     }
 }
 
+extension Resource where A: Decodable {
+    init(_ request: URLRequest) {
+        self.request = request
+        self.parse = { try? JSONDecoder().decode(A.self, from: $0) }
+    }
+}
+

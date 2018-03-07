@@ -12,11 +12,8 @@ enum LoginViewState {
     case login
     case create
     
-    mutating func changeState() {
-        switch self {
-        case .login: self = .create
-        case .create: self = .login
-        }
+    mutating func changeState(_ state: LoginViewState) {
+        self = state
     }
     
     var authButton: String {

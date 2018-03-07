@@ -15,38 +15,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     var mainViewController: UIViewController {
-        let home = HomeViewController()
-        home.view.backgroundColor = .white
-        home.tabBarItem = TabItem.home.item
-        home.tabBarItem.imageInsets = TabItem.home.insets
+        let webService = WebService()
         
+        let home = HomeViewController(webservice: webService)
+        home.setUpForTabBarController()
         let profile = ProfileViewController()
-        profile.view.backgroundColor = .black
-        profile.tabBarItem = TabItem.profile.item
-        profile.tabBarItem.imageInsets = TabItem.profile.insets
-        
+        profile.setUpForTabBarController()
         let routine = RoutineViewController()
-        routine.view.backgroundColor = .blue
-        routine.tabBarItem = TabItem.workout.item
-        routine.tabBarItem.imageInsets = TabItem.workout.insets
-        
+        routine.setUpForTabBarController()
         let authentication = LoginViewController()
-        authentication.view.backgroundColor = .red
-        authentication.tabBarItem = TabItem.profile.item
-        authentication.tabBarItem.imageInsets = TabItem.profile.insets
+        authentication.setUpForTabBarController()
         
-        var controllers = [UIViewController]()
-        controllers.append(UINavigationController(rootViewController: routine))
-        controllers.append(UINavigationController(rootViewController: home))
+        var controllers = [routine, home]
         
-        if UserDefaultsStore.retrieve(Credentials.self).first == nil {
+        if let user = UserDefaultsStore.retrieve(User.self) {
+            if let _ = user.token { // THERE WAS A USER WITH A TOKEN
+                controllers.append(profile)
+            } else { // THERE WAS A UER BUT NO TOKEN
+                controllers.append(authentication)
+            }
+        } else { // THERE IS NO USER
             controllers.append(authentication)
-        } else {
-            controllers.append(UINavigationController(rootViewController: profile))
         }
         
         let tabBarController = UITabBarController()
-        tabBarController.viewControllers = controllers
+        tabBarController.viewControllers = controllers.map { UINavigationController(rootViewController: $0) }
         
         return tabBarController
     }
@@ -56,6 +49,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         self.window?.rootViewController = mainViewController
         
+       
         return true
     }
 

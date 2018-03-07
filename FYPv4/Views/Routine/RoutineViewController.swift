@@ -1,5 +1,5 @@
 //
-//  ProfileViewController.swift
+//  RoutineViewController.swift
 //  FYPv4
 //
 //  Created by Ben Kovacs on 2018-01-24.
@@ -8,11 +8,12 @@
 
 import UIKit
 
-class ProfileViewController: UIViewController {
+class RoutineViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        print("Hello Routine")
     }
+    
 
 }
