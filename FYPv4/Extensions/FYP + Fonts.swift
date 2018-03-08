@@ -14,16 +14,20 @@ enum FontStyle {
     case subtitle
     case paragraph
     case cellParagraph
+    case name
 }
 
 
 extension UILabel {
     func setFontTo(style: FontStyle) {
         switch style {
+        case .name:
+            self.font = UIFont(name: "HelveticaNeue-Thin", size: 13)
+            self.textColor = UIColor.lightGray
         case .cellParagraph:
             self.font = UIFont(name: "HelveticaNeue-Light", size: 12)
         case .title:
-            self.font = UIFont(name: "HelveticaNeue-Light", size: 20)
+            self.font = UIFont(name: "HelveticaNeue-Thin", size: 24)
             self.textColor = UIColor.lightGray
         case .paragraph:
             self.font = UIFont(name: "HelveticaNeue-UltraLight", size: 20)

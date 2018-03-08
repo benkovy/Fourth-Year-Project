@@ -18,8 +18,4 @@ extension CollectionViewDelegatable where Self: UICollectionViewDataSource & UIC
         collectionView.delegate = self
         collectionView.dataSource = self
     }
-    
-    func layoutCollectionView() {
-        
-    }
 }

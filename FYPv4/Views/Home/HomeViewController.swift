@@ -21,7 +21,7 @@ class HomeViewController: UIViewController, CollectionViewDelegatable {
         self.webservice = webservice
         self.refreshControl = UIRefreshControl()
         super.init(nibName: HomeViewController.nibName, bundle: nil)
-        self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        self.refreshControl.attributedTitle = NSAttributedString(string: "Workouts on their way")
         self.refreshControl.addTarget(self, action: #selector(refresh), for: UIControlEvents.valueChanged)
     }
     
@@ -34,6 +34,8 @@ class HomeViewController: UIViewController, CollectionViewDelegatable {
         configureUI(.homeStyle)
         self.delegateCollectionView()
         collectionView.register(HomeCollectionViewCell.self)
+        let nib = UINib(nibName: "HomeCollectionReusableViewHeader", bundle: nil)
+        collectionView.register(nib, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "header")
         self.collectionView.addSubview(refreshControl)
         requestContent()
     }
@@ -41,7 +43,6 @@ class HomeViewController: UIViewController, CollectionViewDelegatable {
     @objc func refresh(sender: AnyObject) {
         requestContent()
         refreshControl.endRefreshing()
-        
     }
     
     func requestContent() {
@@ -79,4 +80,23 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return collectionView.sizeCell(forImage: #imageLiteral(resourceName: "ImageDefault"))
     }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSize(width: view.frame.size.width, height: 80)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        
+        switch kind {
+        case UICollectionElementKindSectionHeader:
+            let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "header", for: indexPath) as! HomeCollectionReusableViewHeader
+            header.configure()
+            return header
+            
+        default:
+            return UICollectionReusableView()
+        }
+    }
+    
+    
 }

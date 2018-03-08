@@ -11,6 +11,7 @@ import Foundation
 struct Workout: Codable {
     var name: String
     var creator: String
+    var creatorName: String?
     var time: Int
     var description: String?
     var image: Bool

@@ -13,9 +13,7 @@ final class WebService {
     private let session = URLSession(configuration: URLSessionConfiguration.ephemeral)
     
     func load<A>(_ resource: Resource<A>, completion: @escaping (Result<A>?) -> ()) {
-        print("ASKING TO LOAD")
         session.dataTask(with: resource.request) { (data, _, _) in
-            print("LOADING...")
             let result = data.flatMap(resource.parse)
             self.printData(data)
             completion(Result(result, or: "Couldn't Parse data"))

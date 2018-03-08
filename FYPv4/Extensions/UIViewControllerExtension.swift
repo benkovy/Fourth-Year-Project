@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 extension ProfileViewController {
     func setUpForTabBarController() {
@@ -43,5 +44,23 @@ extension LoginViewController {
         self.tabBarItem = TabItem.profile.item
         self.tabBarItem.imageInsets = TabItem.profile.insets
         self.navigationController?.navigationBar.isHidden = true
+    }
+}
+
+
+extension HomeViewController {
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        // Hide the navigation bar on the this view controller
+        self.navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        // Show the navigation bar on other view controllers
+        self.navigationController?.setNavigationBarHidden(false, animated: animated)
     }
 }

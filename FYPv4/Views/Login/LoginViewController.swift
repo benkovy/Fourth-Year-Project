@@ -152,15 +152,11 @@ final class LoginViewController: UIViewController {
             routine.setUpForTabBarController()
             let profile = ProfileViewController()
             profile.setUpForTabBarController()
-            let controllers = [routine, profile].map { UINavigationController(rootViewController: $0) }
             let home = HomeViewController(webservice: webservice)
             home.setUpForTabBarController()
-            var _controllers = controllers as [UIViewController]
-            _controllers.insert(home, at: 2)
-            self.tabBarController?.setViewControllers(_controllers, animated: true)
+            let controllers = [routine, home, profile].map { UINavigationController(rootViewController: $0) }
+            self.tabBarController?.setViewControllers(controllers, animated: true)
         }
-    
-        
     }
     
     func setState() {

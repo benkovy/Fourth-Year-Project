@@ -49,6 +49,12 @@
 		788AAACB204F884C0015BE06 /* FYP + CollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 788AAACA204F884C0015BE06 /* FYP + CollectionView.swift */; };
 		788AAACD204F8A890015BE06 /* ViewControllerStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 788AAACC204F8A890015BE06 /* ViewControllerStyles.swift */; };
 		788AAACF205040B00015BE06 /* FYP + Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 788AAACE205040B00015BE06 /* FYP + Fonts.swift */; };
+		788AAAD2205068920015BE06 /* HomeCollectionReusableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 788AAAD0205068920015BE06 /* HomeCollectionReusableViewHeader.swift */; };
+		788AAAD3205068920015BE06 /* HomeCollectionReusableViewHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 788AAAD1205068920015BE06 /* HomeCollectionReusableViewHeader.xib */; };
+		788AAAD520506B070015BE06 /* FYP + Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 788AAAD420506B070015BE06 /* FYP + Date.swift */; };
+		788AAAD82050AFB10015BE06 /* RoutineTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 788AAAD62050AFB10015BE06 /* RoutineTableViewCell.swift */; };
+		788AAAD92050AFB10015BE06 /* RoutineTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 788AAAD72050AFB10015BE06 /* RoutineTableViewCell.xib */; };
+		788AAADB2050B08B0015BE06 /* TableViewDelegatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 788AAADA2050B08B0015BE06 /* TableViewDelegatable.swift */; };
 		78D85000201BC0B0008FFFB3 /* BoolResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78D84FFF201BC0B0008FFFB3 /* BoolResponse.swift */; };
 		78D85002201BDF78008FFFB3 /* Email.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78D85001201BDF78008FFFB3 /* Email.swift */; };
 		78D85004201BE8F5008FFFB3 /* PeakUITextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78D85003201BE8F4008FFFB3 /* PeakUITextFieldDelegate.swift */; };
@@ -122,6 +128,12 @@
 		788AAACA204F884C0015BE06 /* FYP + CollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FYP + CollectionView.swift"; sourceTree = "<group>"; };
 		788AAACC204F8A890015BE06 /* ViewControllerStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerStyles.swift; sourceTree = "<group>"; };
 		788AAACE205040B00015BE06 /* FYP + Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FYP + Fonts.swift"; sourceTree = "<group>"; };
+		788AAAD0205068920015BE06 /* HomeCollectionReusableViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCollectionReusableViewHeader.swift; sourceTree = "<group>"; };
+		788AAAD1205068920015BE06 /* HomeCollectionReusableViewHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeCollectionReusableViewHeader.xib; sourceTree = "<group>"; };
+		788AAAD420506B070015BE06 /* FYP + Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FYP + Date.swift"; sourceTree = "<group>"; };
+		788AAAD62050AFB10015BE06 /* RoutineTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineTableViewCell.swift; sourceTree = "<group>"; };
+		788AAAD72050AFB10015BE06 /* RoutineTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RoutineTableViewCell.xib; sourceTree = "<group>"; };
+		788AAADA2050B08B0015BE06 /* TableViewDelegatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewDelegatable.swift; sourceTree = "<group>"; };
 		78D84FFF201BC0B0008FFFB3 /* BoolResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoolResponse.swift; sourceTree = "<group>"; };
 		78D85001201BDF78008FFFB3 /* Email.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Email.swift; sourceTree = "<group>"; };
 		78D85003201BE8F4008FFFB3 /* PeakUITextFieldDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeakUITextFieldDelegate.swift; sourceTree = "<group>"; };
@@ -258,6 +270,7 @@
 			children = (
 				78D85003201BE8F4008FFFB3 /* PeakUITextFieldDelegate.swift */,
 				788AAAC8204F36C80015BE06 /* CollectionViewDelegatable.swift */,
+				788AAADA2050B08B0015BE06 /* TableViewDelegatable.swift */,
 				7822F91B2012694000439343 /* NibLoadableView.swift */,
 				7876A726204DF6FB001AEA9D /* ViewConfigurable.swift */,
 				7822F92020126EAC00439343 /* Persistable.swift */,
@@ -272,6 +285,8 @@
 				788AAAC5204F350A0015BE06 /* HomeCollectionViewCell.xib */,
 				7822F90C2010E65E00439343 /* HomeViewController.swift */,
 				7822F90D2010E65E00439343 /* HomeViewController.xib */,
+				788AAAD0205068920015BE06 /* HomeCollectionReusableViewHeader.swift */,
+				788AAAD1205068920015BE06 /* HomeCollectionReusableViewHeader.xib */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -300,6 +315,8 @@
 			children = (
 				7822049A2019478100439343 /* RoutineViewController.swift */,
 				7822049B2019478100439343 /* RoutineViewController.xib */,
+				788AAAD62050AFB10015BE06 /* RoutineTableViewCell.swift */,
+				788AAAD72050AFB10015BE06 /* RoutineTableViewCell.xib */,
 			);
 			path = Routine;
 			sourceTree = "<group>";
@@ -308,6 +325,7 @@
 			isa = PBXGroup;
 			children = (
 				788AAACE205040B00015BE06 /* FYP + Fonts.swift */,
+				788AAAD420506B070015BE06 /* FYP + Date.swift */,
 				788AAACA204F884C0015BE06 /* FYP + CollectionView.swift */,
 				78D9E6872031217000102F73 /* UIViewControllerExtension.swift */,
 				7876A729204DF7A4001AEA9D /* FYP + Constraints.swift */,
@@ -431,10 +449,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				782204952019462900439343 /* ProfileViewController.xib in Resources */,
+				788AAAD3205068920015BE06 /* HomeCollectionReusableViewHeader.xib in Resources */,
 				7822F8DB2006790800439343 /* LaunchScreen.storyboard in Resources */,
 				7822F9162011A39500439343 /* LoginViewController.xib in Resources */,
 				788AAAC7204F350A0015BE06 /* HomeCollectionViewCell.xib in Resources */,
 				7822F90F2010E65E00439343 /* HomeViewController.xib in Resources */,
+				788AAAD92050AFB10015BE06 /* RoutineTableViewCell.xib in Resources */,
 				7822F8D82006790800439343 /* Assets.xcassets in Resources */,
 				7822F8D32006790800439343 /* Main.storyboard in Resources */,
 				7822049D2019478100439343 /* RoutineViewController.xib in Resources */,
@@ -567,6 +587,8 @@
 				7822F91C2012694000439343 /* NibLoadableView.swift in Sources */,
 				7822F9072006821D00439343 /* Database.swift in Sources */,
 				7822F92120126EAC00439343 /* Persistable.swift in Sources */,
+				788AAADB2050B08B0015BE06 /* TableViewDelegatable.swift in Sources */,
+				788AAAD520506B070015BE06 /* FYP + Date.swift in Sources */,
 				7822F8D62006790800439343 /* FYPv4.xcdatamodeld in Sources */,
 				788AAACF205040B00015BE06 /* FYP + Fonts.swift in Sources */,
 				7822F9252013E0EA00439343 /* LoginViewState.swift in Sources */,
@@ -576,6 +598,7 @@
 				7822F91F20126A6500439343 /* Credentials.swift in Sources */,
 				7822F8CE2006790800439343 /* AppDelegate.swift in Sources */,
 				7876A72A204DF7A4001AEA9D /* FYP + Constraints.swift in Sources */,
+				788AAAD2205068920015BE06 /* HomeCollectionReusableViewHeader.swift in Sources */,
 				7822F90B200E40D400439343 /* User.swift in Sources */,
 				7822F90E2010E65E00439343 /* HomeViewController.swift in Sources */,
 				7822048F20193FA800439343 /* Router.swift in Sources */,
@@ -589,6 +612,7 @@
 				78D85004201BE8F5008FFFB3 /* PeakUITextFieldDelegate.swift in Sources */,
 				7822F9122010EBD300439343 /* TabItem.swift in Sources */,
 				7822F9292013EA2C00439343 /* StringExtension.swift in Sources */,
+				788AAAD82050AFB10015BE06 /* RoutineTableViewCell.swift in Sources */,
 				78D85002201BDF78008FFFB3 /* Email.swift in Sources */,
 				7822049C2019478100439343 /* RoutineViewController.swift in Sources */,
 				788AAAC6204F350A0015BE06 /* HomeCollectionViewCell.swift in Sources */,
