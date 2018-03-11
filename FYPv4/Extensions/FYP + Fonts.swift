@@ -30,7 +30,29 @@ extension UILabel {
             self.font = UIFont(name: "HelveticaNeue-Thin", size: 24)
             self.textColor = UIColor.lightGray
         case .paragraph:
+            self.font = UIFont(name: "HelveticaNeue-Thin", size: 15)
+            self.textColor = UIColor.lightGray
+        case .subtitle:
             self.font = UIFont(name: "HelveticaNeue-UltraLight", size: 20)
+        }
+    }
+}
+
+extension UITextView {
+    func setFontTo(style: FontStyle) {
+        switch style {
+        case .name:
+            self.font = UIFont(name: "HelveticaNeue-Thin", size: 13)
+            self.textColor = UIColor.lightGray
+        case .cellParagraph:
+            self.font = UIFont(name: "HelveticaNeue-Thin", size: 12)
+            self.textColor = UIColor.lightGray
+        case .title:
+            self.font = UIFont(name: "HelveticaNeue-Thin", size: 24)
+            self.textColor = UIColor.lightGray
+        case .paragraph:
+            self.font = UIFont(name: "HelveticaNeue-Thin", size: 15)
+            self.textColor = UIColor.lightGray
         case .subtitle:
             self.font = UIFont(name: "HelveticaNeue-UltraLight", size: 20)
         }

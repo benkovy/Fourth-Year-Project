@@ -68,11 +68,21 @@ extension LoginViewController {
                 case .success(let outcome):
                     DispatchQueue.main.async {
                         if outcome.outcome { // Email is not used
-                            self?.emailView.lineColor = .green
-                            self? .emailBool = true
+                            if self?.state == .create {
+                                self?.emailView.lineColor = .green
+                                self?.emailBool = true
+                            } else {
+                                self?.emailView.lineColor = .red
+                                self?.emailBool = false
+                            }
                         } else { // Email is used
-                            self?.emailView.lineColor = .red
-                            self? .emailBool = false
+                            if self?.state == .create {
+                                self?.emailView.lineColor = .red
+                                self?.emailBool = false
+                            } else {
+                                self?.emailView.lineColor = .green
+                                self?.emailBool = true
+                            }
                         }
                     }
                 }
@@ -97,6 +107,12 @@ extension LoginViewController {
                     } else {
                         self?.confirmPasswordView.lineColor = .red
                     }
+                }
+            } else {
+                if !pass.isEmpty {
+                    self?.passBool = true
+                } else {
+                    self?.passBool = false
                 }
             }
             self?.toggleLetsGoButton()
@@ -160,6 +176,10 @@ extension LoginViewController {
             self.confirmPasswordView.lineColor = .red
             self.passConfBool = false
             self.toggleLetsGoButton()
+        } else {
+            if pass.count != 0 {
+                self.passBool = true
+            }
         }
     }
 }

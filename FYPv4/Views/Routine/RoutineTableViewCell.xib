@@ -20,8 +20,11 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <collectionView multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="mZG-ky-4dm">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="160"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="200"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="200" id="qvI-Oc-QRe"/>
+                        </constraints>
                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="cbV-sY-e3p">
                             <size key="itemSize" width="50" height="50"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -34,7 +37,6 @@
                     <constraint firstItem="mZG-ky-4dm" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="AQq-8F-tPN"/>
                     <constraint firstItem="mZG-ky-4dm" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="bQj-NA-dcY"/>
                     <constraint firstAttribute="trailing" secondItem="mZG-ky-4dm" secondAttribute="trailing" id="lrt-Ck-Z0h"/>
-                    <constraint firstAttribute="bottom" secondItem="mZG-ky-4dm" secondAttribute="bottom" id="yE3-V2-bk4"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>

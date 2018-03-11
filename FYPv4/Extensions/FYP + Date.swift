@@ -15,4 +15,12 @@ extension Date {
         formatter.dateFormat = format
         return formatter.string(from: date)
     }
+    
+    static func dayOfTheWeek(plusOffset offset: Int = 0) -> String? {
+        let date = Date()
+        guard let day = Calendar.current.date(byAdding: .day, value: offset, to: date) else { return nil }
+        let formatter = DateFormatter()
+        formatter.dateFormat = "EEEE, MMMM d"
+        return formatter.string(from: day)
+    }
 }

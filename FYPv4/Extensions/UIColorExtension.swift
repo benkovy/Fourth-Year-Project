@@ -18,6 +18,10 @@ extension UIColor {
     static var lightGray: UIColor {
         return UIColor(white: 0, alpha: 0.5)
     }
+    
+    static var fypGray: UIColor {
+        return UIColor(red:0.85, green:0.85, blue:0.85, alpha:1.00)
+    }
 }
 
     

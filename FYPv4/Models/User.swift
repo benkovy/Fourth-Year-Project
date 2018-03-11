@@ -56,6 +56,11 @@ extension User {
         let userResponse = Resource<User>(Router.create(user: user).request)
         return userResponse
     }
+    
+    static func loginAndGetToken(_ username: String, _ password: String) -> Resource<User> {
+        let userResponse = Resource<User>(Router.loginForUser(username: username, password: password).request)
+        return userResponse
+    }
 }
 
 

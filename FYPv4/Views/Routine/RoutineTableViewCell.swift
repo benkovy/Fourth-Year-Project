@@ -12,11 +12,24 @@ class RoutineTableViewCell: UITableViewCell {
 
     @IBOutlet weak var collectionView: UICollectionView!
     
+    var collectionviewOffset: CGFloat {
+        get {
+            return collectionView.contentOffset.x
+        }
+        
+        set {
+            collectionView.contentOffset.x = newValue
+        }
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         collectionView.register(HomeCollectionViewCell.self)
         collectionView.showsHorizontalScrollIndicator = false
         self.layer.masksToBounds = false
+        self.clipsToBounds = false
+        self.collectionView.layer.masksToBounds = false
+        self.collectionView.clipsToBounds = false
         // Initialization code
     }
 

@@ -10,6 +10,7 @@ import Foundation
 
 enum Router {
     case login(username: String, password: String)
+    case loginForUser(username: String, password: String)
     case create(user: User)
     case emailCheck(email: Email)
     case workout(amount: Int)
@@ -19,6 +20,8 @@ enum Router {
         switch self {
         case .login(_, _):
             return /*"http://131.162.212.76:8080/login"*/ "http://192.168.2.11:8080/login"
+        case .loginForUser(_, _):
+            return /*"http://131.162.212.76:8080/login"*/ "http://192.168.2.11:8080/loginForUser"
         case .create(_ ):
             return /*"http://131.162.212.76:8080/users" */ "http://192.168.2.11:8080/users"
         case .emailCheck(_ ):
@@ -41,6 +44,8 @@ enum Router {
         switch self {
         case .login(_, _):
             return "Authorization"
+        case .loginForUser(_, _):
+            return "Authorization"
         case .create(_ ):
             return "Content-Type"
         case .emailCheck(_ ):
@@ -53,6 +58,8 @@ enum Router {
     var method: String {
         switch self {
         case .login(_, _):
+            return "POST"
+        case .loginForUser(_, _):
             return "POST"
         case .create(_ ):
             return "POST"
@@ -72,6 +79,13 @@ enum Router {
                 return "Basic \(_data.base64EncodedString())"
             }
             return ""
+        case .loginForUser(let username, let password):
+            let loginString = "\(username):\(password)"
+            let data = loginString.data(using: .utf8)
+            if let _data = data {
+                return "Basic \(_data.base64EncodedString())"
+            }
+            return ""
         case .create(_ ):
             return "application/json"
         case .emailCheck(_ ):
@@ -85,6 +99,8 @@ enum Router {
     var body: Data {
         switch self {
         case .login(_ , _ ):
+            return Data()
+        case .loginForUser(_ , _ ):
             return Data()
         case .create(let user):
             let data = try? JSONEncoder().encode(user)

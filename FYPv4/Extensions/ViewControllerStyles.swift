@@ -16,6 +16,11 @@ extension UIViewController {
         self.navigationController?.navigationBar.barTintColor = style.tintColor
         self.navigationController?.navigationBar.isOpaque = style.navBarOpaque
         self.tabBarItem.title = ""
+        if style.navBarWhite {
+            self.navigationController?.navigationBar.isTranslucent = false
+            self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+            self.navigationController?.navigationBar.shadowImage = UIImage()
+        }
     }
 }
 
@@ -24,11 +29,15 @@ struct ViewControllerStyle {
     let tintColor: UIColor
     let backgroundColor: UIColor
     let navBarOpaque: Bool
+    let navBarWhite: Bool
 }
 
 extension ViewControllerStyle {
-    
     static var homeStyle: ViewControllerStyle {
-        return ViewControllerStyle(title: "Feed", tintColor: .clear, backgroundColor: .white, navBarOpaque: false)
+        return ViewControllerStyle(title: "Feed", tintColor: .white, backgroundColor: .white, navBarOpaque: true, navBarWhite: true)
+    }
+    
+    static var regularWhite: ViewControllerStyle {
+        return ViewControllerStyle(title: "", tintColor: .white, backgroundColor: .white, navBarOpaque: true, navBarWhite: true)
     }
 }

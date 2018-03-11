@@ -11,13 +11,9 @@ import UIKit
 
 extension ProfileViewController {
     func setUpForTabBarController() {
-        self.view.backgroundColor = .black
+        self.view.backgroundColor = .white
         self.tabBarItem = TabItem.profile.item
         self.tabBarItem.imageInsets = TabItem.profile.insets
-    }
-    
-    func setupNavigationBarStyle() {
-        
     }
 }
 

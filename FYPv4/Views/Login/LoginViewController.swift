@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class LoginViewController: UIViewController {
+final class LoginViewController: UIViewController, CanSwitchTabBarViewControllers {
     
     @IBOutlet weak var signSlider: UIView!
     @IBOutlet weak var signinButton: UIButton!
@@ -58,7 +58,7 @@ final class LoginViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        self.configureUI(.regularWhite)
         // Hide the navigation bar on the this view controller
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
     }
@@ -102,7 +102,10 @@ final class LoginViewController: UIViewController {
             user.email = emailView.textField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
             user.password = passwordView.textField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
         case .login:
-            print("Login")
+            self.loginAndGetUser(
+                emailView.textField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? "",
+                passwordView.textField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+            )
         }
     }
     
@@ -144,18 +147,22 @@ final class LoginViewController: UIViewController {
         }
     }
     
+    func loginAndGetUser(_ username: String, _ password: String) {
+        webservice.load(User.loginAndGetToken(username, password)) { (result) in
+            guard let result = result else { return }
+            switch result {
+            case .error(let error): print("Error: \(error)")
+            case .success(let fullUser):
+                self.user = fullUser
+                self.prepareToLeaveLogin()
+            }
+        }
+    }
+    
     func prepareToLeaveLogin() {
         UserDefaultsStore.store(persistables: user)
         DispatchQueue.main.async {
-            let webservice = WebService()
-            let routine = RoutineViewController()
-            routine.setUpForTabBarController()
-            let profile = ProfileViewController()
-            profile.setUpForTabBarController()
-            let home = HomeViewController(webservice: webservice)
-            home.setUpForTabBarController()
-            let controllers = [routine, home, profile].map { UINavigationController(rootViewController: $0) }
-            self.tabBarController?.setViewControllers(controllers, animated: true)
+            self.switchTo(tabBarState: .user(self.user))
         }
     }
     

@@ -19,8 +19,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let home = HomeViewController(webservice: webService)
         home.setUpForTabBarController()
-        let profile = ProfileViewController()
-        profile.setUpForTabBarController()
         let routine = RoutineViewController()
         routine.setUpForTabBarController()
         let authentication = LoginViewController()
@@ -30,6 +28,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         if let user = UserDefaultsStore.retrieve(User.self) {
             if let _ = user.token { // THERE WAS A USER WITH A TOKEN
+                let profile = ProfileViewController(user: user, webService: WebService())
+                profile.setUpForTabBarController()
                 controllers.append(profile)
             } else { // THERE WAS A UER BUT NO TOKEN
                 controllers.append(authentication)
@@ -41,6 +41,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let tabBarController = UITabBarController()
         tabBarController.viewControllers = controllers.map { UINavigationController(rootViewController: $0) }
         
+        tabBarController.tabBar.isTranslucent = false
+        tabBarController.tabBar.shadowImage = UIImage()
+        tabBarController.tabBar.backgroundImage = UIImage()
+        tabBarController.tabBar.barTintColor = .white
+        
         return tabBarController
     }
 
@@ -48,6 +53,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         
         self.window?.rootViewController = mainViewController
+        self.window?.backgroundColor = .white
         
        
         return true

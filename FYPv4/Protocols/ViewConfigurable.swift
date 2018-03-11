@@ -7,7 +7,12 @@
 //
 
 import Foundation
+import UIKit
 
 protocol ViewConfigurable {
     func configureView()
+}
+
+protocol ViewConfigurableDelegate: class {
+    var view: ViewConfigurable { get set }    
 }

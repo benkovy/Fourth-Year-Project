@@ -35,7 +35,7 @@
 		7822F9152011A39500439343 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7822F9132011A39500439343 /* LoginViewController.swift */; };
 		7822F9162011A39500439343 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7822F9142011A39500439343 /* LoginViewController.xib */; };
 		7822F91C2012694000439343 /* NibLoadableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7822F91B2012694000439343 /* NibLoadableView.swift */; };
-		7822F91F20126A6500439343 /* Credentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7822F91E20126A6500439343 /* Credentials.swift */; };
+		7822F91F20126A6500439343 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7822F91E20126A6500439343 /* Token.swift */; };
 		7822F92120126EAC00439343 /* Persistable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7822F92020126EAC00439343 /* Persistable.swift */; };
 		7822F923201272BB00439343 /* UserDefaultsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7822F922201272BB00439343 /* UserDefaultsStore.swift */; };
 		7822F9252013E0EA00439343 /* LoginViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7822F9242013E0EA00439343 /* LoginViewState.swift */; };
@@ -55,11 +55,25 @@
 		788AAAD82050AFB10015BE06 /* RoutineTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 788AAAD62050AFB10015BE06 /* RoutineTableViewCell.swift */; };
 		788AAAD92050AFB10015BE06 /* RoutineTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 788AAAD72050AFB10015BE06 /* RoutineTableViewCell.xib */; };
 		788AAADB2050B08B0015BE06 /* TableViewDelegatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 788AAADA2050B08B0015BE06 /* TableViewDelegatable.swift */; };
+		788AAADD205166340015BE06 /* Routine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 788AAADC205166340015BE06 /* Routine.swift */; };
+		788AAADF205166FA0015BE06 /* DaysOfTheWeek.swift in Sources */ = {isa = PBXBuildFile; fileRef = 788AAADE205166FA0015BE06 /* DaysOfTheWeek.swift */; };
+		788AAAE1205168570015BE06 /* WorkoutType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 788AAAE0205168570015BE06 /* WorkoutType.swift */; };
+		788AAAE320517B110015BE06 /* UserAuthDelegatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 788AAAE220517B110015BE06 /* UserAuthDelegatable.swift */; };
+		788AAAE52051944C0015BE06 /* NoRoutineUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 788AAAE42051944C0015BE06 /* NoRoutineUIView.swift */; };
+		788AAAE7205199E00015BE06 /* NoRoutineActionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 788AAAE6205199E00015BE06 /* NoRoutineActionDelegate.swift */; };
+		788AAAE92051BCE70015BE06 /* CanSwitchTabBarViewControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 788AAAE82051BCE70015BE06 /* CanSwitchTabBarViewControllers.swift */; };
+		788AAAEC2051D3CB0015BE06 /* RoutineChoiceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 788AAAEA2051D3CB0015BE06 /* RoutineChoiceViewController.swift */; };
+		788AAAED2051D3CB0015BE06 /* RoutineChoiceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 788AAAEB2051D3CB0015BE06 /* RoutineChoiceViewController.xib */; };
+		788AAAF02051D41C0015BE06 /* FYP + UIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 788AAAEF2051D41C0015BE06 /* FYP + UIButton.swift */; };
 		78D85000201BC0B0008FFFB3 /* BoolResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78D84FFF201BC0B0008FFFB3 /* BoolResponse.swift */; };
 		78D85002201BDF78008FFFB3 /* Email.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78D85001201BDF78008FFFB3 /* Email.swift */; };
 		78D85004201BE8F5008FFFB3 /* PeakUITextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78D85003201BE8F4008FFFB3 /* PeakUITextFieldDelegate.swift */; };
 		78D85006201C22B2008FFFB3 /* LoginViewControllerTextViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78D85005201C22B2008FFFB3 /* LoginViewControllerTextViewExtension.swift */; };
 		78D9E6882031217000102F73 /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78D9E6872031217000102F73 /* UIViewControllerExtension.swift */; };
+		78F0B188205387B500918F07 /* RoutineViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F0B187205387B500918F07 /* RoutineViewState.swift */; };
+		78F0B18A20544C3100918F07 /* RoutineTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F0B18920544C3100918F07 /* RoutineTableViewHeader.swift */; };
+		78F0B18C2054C02800918F07 /* DayByDayModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F0B18B2054C02800918F07 /* DayByDayModel.swift */; };
+		78F0B18E2054C25000918F07 /* WorkoutDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F0B18D2054C25000918F07 /* WorkoutDay.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -114,7 +128,7 @@
 		7822F9132011A39500439343 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		7822F9142011A39500439343 /* LoginViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
 		7822F91B2012694000439343 /* NibLoadableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NibLoadableView.swift; sourceTree = "<group>"; };
-		7822F91E20126A6500439343 /* Credentials.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Credentials.swift; sourceTree = "<group>"; };
+		7822F91E20126A6500439343 /* Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
 		7822F92020126EAC00439343 /* Persistable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistable.swift; sourceTree = "<group>"; };
 		7822F922201272BB00439343 /* UserDefaultsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsStore.swift; sourceTree = "<group>"; };
 		7822F9242013E0EA00439343 /* LoginViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewState.swift; sourceTree = "<group>"; };
@@ -134,11 +148,25 @@
 		788AAAD62050AFB10015BE06 /* RoutineTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineTableViewCell.swift; sourceTree = "<group>"; };
 		788AAAD72050AFB10015BE06 /* RoutineTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RoutineTableViewCell.xib; sourceTree = "<group>"; };
 		788AAADA2050B08B0015BE06 /* TableViewDelegatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewDelegatable.swift; sourceTree = "<group>"; };
+		788AAADC205166340015BE06 /* Routine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Routine.swift; sourceTree = "<group>"; };
+		788AAADE205166FA0015BE06 /* DaysOfTheWeek.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaysOfTheWeek.swift; sourceTree = "<group>"; };
+		788AAAE0205168570015BE06 /* WorkoutType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutType.swift; sourceTree = "<group>"; };
+		788AAAE220517B110015BE06 /* UserAuthDelegatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UserAuthDelegatable.swift; path = FYPv4/Protocols/UserAuthDelegatable.swift; sourceTree = SOURCE_ROOT; };
+		788AAAE42051944C0015BE06 /* NoRoutineUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoRoutineUIView.swift; sourceTree = "<group>"; };
+		788AAAE6205199E00015BE06 /* NoRoutineActionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoRoutineActionDelegate.swift; sourceTree = "<group>"; };
+		788AAAE82051BCE70015BE06 /* CanSwitchTabBarViewControllers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanSwitchTabBarViewControllers.swift; sourceTree = "<group>"; };
+		788AAAEA2051D3CB0015BE06 /* RoutineChoiceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineChoiceViewController.swift; sourceTree = "<group>"; };
+		788AAAEB2051D3CB0015BE06 /* RoutineChoiceViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RoutineChoiceViewController.xib; sourceTree = "<group>"; };
+		788AAAEF2051D41C0015BE06 /* FYP + UIButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FYP + UIButton.swift"; sourceTree = "<group>"; };
 		78D84FFF201BC0B0008FFFB3 /* BoolResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoolResponse.swift; sourceTree = "<group>"; };
 		78D85001201BDF78008FFFB3 /* Email.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Email.swift; sourceTree = "<group>"; };
 		78D85003201BE8F4008FFFB3 /* PeakUITextFieldDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeakUITextFieldDelegate.swift; sourceTree = "<group>"; };
 		78D85005201C22B2008FFFB3 /* LoginViewControllerTextViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewControllerTextViewExtension.swift; sourceTree = "<group>"; };
 		78D9E6872031217000102F73 /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
+		78F0B187205387B500918F07 /* RoutineViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineViewState.swift; sourceTree = "<group>"; };
+		78F0B18920544C3100918F07 /* RoutineTableViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineTableViewHeader.swift; sourceTree = "<group>"; };
+		78F0B18B2054C02800918F07 /* DayByDayModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayByDayModel.swift; sourceTree = "<group>"; };
+		78F0B18D2054C25000918F07 /* WorkoutDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutDay.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -234,6 +262,11 @@
 			isa = PBXGroup;
 			children = (
 				7822049E201A53AB00439343 /* PeakUITextField.swift */,
+				788AAADC205166340015BE06 /* Routine.swift */,
+				78F0B18B2054C02800918F07 /* DayByDayModel.swift */,
+				78F0B18D2054C25000918F07 /* WorkoutDay.swift */,
+				788AAAE0205168570015BE06 /* WorkoutType.swift */,
+				788AAADE205166FA0015BE06 /* DaysOfTheWeek.swift */,
 				7822048E20193FA800439343 /* Router.swift */,
 				7822048A20193B3700439343 /* Resource.swift */,
 				78D84FFF201BC0B0008FFFB3 /* BoolResponse.swift */,
@@ -241,7 +274,7 @@
 				7822048C20193CC200439343 /* WebService.swift */,
 				7822F9062006821D00439343 /* Database.swift */,
 				7822F9262013E86100439343 /* Result.swift */,
-				7822F91E20126A6500439343 /* Credentials.swift */,
+				7822F91E20126A6500439343 /* Token.swift */,
 				7822F922201272BB00439343 /* UserDefaultsStore.swift */,
 				7822F90A200E40D400439343 /* User.swift */,
 				7822F9242013E0EA00439343 /* LoginViewState.swift */,
@@ -260,7 +293,6 @@
 				78735D7C20291493007CF3DF /* Login */,
 				78735D7D2029149D007CF3DF /* Profile */,
 				78735D7E202914A4007CF3DF /* Routine */,
-				788AAACC204F8A890015BE06 /* ViewControllerStyles.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -268,12 +300,15 @@
 		7822F91D2012694800439343 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
+				788AAAE220517B110015BE06 /* UserAuthDelegatable.swift */,
 				78D85003201BE8F4008FFFB3 /* PeakUITextFieldDelegate.swift */,
 				788AAAC8204F36C80015BE06 /* CollectionViewDelegatable.swift */,
 				788AAADA2050B08B0015BE06 /* TableViewDelegatable.swift */,
 				7822F91B2012694000439343 /* NibLoadableView.swift */,
 				7876A726204DF6FB001AEA9D /* ViewConfigurable.swift */,
+				788AAAE6205199E00015BE06 /* NoRoutineActionDelegate.swift */,
 				7822F92020126EAC00439343 /* Persistable.swift */,
+				788AAAE82051BCE70015BE06 /* CanSwitchTabBarViewControllers.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -313,10 +348,14 @@
 		78735D7E202914A4007CF3DF /* Routine */ = {
 			isa = PBXGroup;
 			children = (
+				788AAAEE2051D3D40015BE06 /* Creation */,
 				7822049A2019478100439343 /* RoutineViewController.swift */,
 				7822049B2019478100439343 /* RoutineViewController.xib */,
 				788AAAD62050AFB10015BE06 /* RoutineTableViewCell.swift */,
 				788AAAD72050AFB10015BE06 /* RoutineTableViewCell.xib */,
+				788AAAE42051944C0015BE06 /* NoRoutineUIView.swift */,
+				78F0B187205387B500918F07 /* RoutineViewState.swift */,
+				78F0B18920544C3100918F07 /* RoutineTableViewHeader.swift */,
 			);
 			path = Routine;
 			sourceTree = "<group>";
@@ -324,6 +363,8 @@
 		7876A728204DF780001AEA9D /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				788AAACC204F8A890015BE06 /* ViewControllerStyles.swift */,
+				788AAAEF2051D41C0015BE06 /* FYP + UIButton.swift */,
 				788AAACE205040B00015BE06 /* FYP + Fonts.swift */,
 				788AAAD420506B070015BE06 /* FYP + Date.swift */,
 				788AAACA204F884C0015BE06 /* FYP + CollectionView.swift */,
@@ -333,6 +374,15 @@
 				782204A2201A800000439343 /* UIColorExtension.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		788AAAEE2051D3D40015BE06 /* Creation */ = {
+			isa = PBXGroup;
+			children = (
+				788AAAEA2051D3CB0015BE06 /* RoutineChoiceViewController.swift */,
+				788AAAEB2051D3CB0015BE06 /* RoutineChoiceViewController.xib */,
+			);
+			path = Creation;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -456,6 +506,7 @@
 				7822F90F2010E65E00439343 /* HomeViewController.xib in Resources */,
 				788AAAD92050AFB10015BE06 /* RoutineTableViewCell.xib in Resources */,
 				7822F8D82006790800439343 /* Assets.xcassets in Resources */,
+				788AAAED2051D3CB0015BE06 /* RoutineChoiceViewController.xib in Resources */,
 				7822F8D32006790800439343 /* Main.storyboard in Resources */,
 				7822049D2019478100439343 /* RoutineViewController.xib in Resources */,
 			);
@@ -582,29 +633,38 @@
 			buildActionMask = 2147483647;
 			files = (
 				78D85006201C22B2008FFFB3 /* LoginViewControllerTextViewExtension.swift in Sources */,
+				788AAAE1205168570015BE06 /* WorkoutType.swift in Sources */,
 				7822049F201A53AB00439343 /* PeakUITextField.swift in Sources */,
 				78D9E6882031217000102F73 /* UIViewControllerExtension.swift in Sources */,
+				788AAAE92051BCE70015BE06 /* CanSwitchTabBarViewControllers.swift in Sources */,
+				788AAAE7205199E00015BE06 /* NoRoutineActionDelegate.swift in Sources */,
 				7822F91C2012694000439343 /* NibLoadableView.swift in Sources */,
 				7822F9072006821D00439343 /* Database.swift in Sources */,
 				7822F92120126EAC00439343 /* Persistable.swift in Sources */,
 				788AAADB2050B08B0015BE06 /* TableViewDelegatable.swift in Sources */,
 				788AAAD520506B070015BE06 /* FYP + Date.swift in Sources */,
+				788AAADD205166340015BE06 /* Routine.swift in Sources */,
 				7822F8D62006790800439343 /* FYPv4.xcdatamodeld in Sources */,
 				788AAACF205040B00015BE06 /* FYP + Fonts.swift in Sources */,
 				7822F9252013E0EA00439343 /* LoginViewState.swift in Sources */,
 				7822F8D02006790800439343 /* ViewController.swift in Sources */,
 				788AAAC9204F36C80015BE06 /* CollectionViewDelegatable.swift in Sources */,
+				78F0B18A20544C3100918F07 /* RoutineTableViewHeader.swift in Sources */,
 				782204942019462900439343 /* ProfileViewController.swift in Sources */,
-				7822F91F20126A6500439343 /* Credentials.swift in Sources */,
+				788AAADF205166FA0015BE06 /* DaysOfTheWeek.swift in Sources */,
+				78F0B18E2054C25000918F07 /* WorkoutDay.swift in Sources */,
+				7822F91F20126A6500439343 /* Token.swift in Sources */,
 				7822F8CE2006790800439343 /* AppDelegate.swift in Sources */,
 				7876A72A204DF7A4001AEA9D /* FYP + Constraints.swift in Sources */,
 				788AAAD2205068920015BE06 /* HomeCollectionReusableViewHeader.swift in Sources */,
 				7822F90B200E40D400439343 /* User.swift in Sources */,
 				7822F90E2010E65E00439343 /* HomeViewController.swift in Sources */,
 				7822048F20193FA800439343 /* Router.swift in Sources */,
+				78F0B18C2054C02800918F07 /* DayByDayModel.swift in Sources */,
 				788AAACB204F884C0015BE06 /* FYP + CollectionView.swift in Sources */,
 				7822F90220067BE700439343 /* Movement.swift in Sources */,
 				7822F8FF2006797C00439343 /* Workout.swift in Sources */,
+				788AAAE320517B110015BE06 /* UserAuthDelegatable.swift in Sources */,
 				7822048B20193B3700439343 /* Resource.swift in Sources */,
 				78D85000201BC0B0008FFFB3 /* BoolResponse.swift in Sources */,
 				7822F923201272BB00439343 /* UserDefaultsStore.swift in Sources */,
@@ -615,10 +675,14 @@
 				788AAAD82050AFB10015BE06 /* RoutineTableViewCell.swift in Sources */,
 				78D85002201BDF78008FFFB3 /* Email.swift in Sources */,
 				7822049C2019478100439343 /* RoutineViewController.swift in Sources */,
+				78F0B188205387B500918F07 /* RoutineViewState.swift in Sources */,
 				788AAAC6204F350A0015BE06 /* HomeCollectionViewCell.swift in Sources */,
+				788AAAEC2051D3CB0015BE06 /* RoutineChoiceViewController.swift in Sources */,
 				7822F9272013E86100439343 /* Result.swift in Sources */,
 				7822F9092006893600439343 /* Workouts.swift in Sources */,
 				788AAACD204F8A890015BE06 /* ViewControllerStyles.swift in Sources */,
+				788AAAF02051D41C0015BE06 /* FYP + UIButton.swift in Sources */,
+				788AAAE52051944C0015BE06 /* NoRoutineUIView.swift in Sources */,
 				7876A727204DF6FB001AEA9D /* ViewConfigurable.swift in Sources */,
 				7822048D20193CC200439343 /* WebService.swift in Sources */,
 				7822F9152011A39500439343 /* LoginViewController.swift in Sources */,

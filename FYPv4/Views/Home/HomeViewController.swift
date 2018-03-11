@@ -37,7 +37,14 @@ class HomeViewController: UIViewController, CollectionViewDelegatable {
         let nib = UINib(nibName: "HomeCollectionReusableViewHeader", bundle: nil)
         collectionView.register(nib, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "header")
         self.collectionView.addSubview(refreshControl)
+        self.collectionView.alwaysBounceVertical = true
         requestContent()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        if content.isEmpty {
+            requestContent()
+        }
     }
     
     @objc func refresh(sender: AnyObject) {
@@ -97,6 +104,6 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             return UICollectionReusableView()
         }
     }
-    
-    
 }
+
+extension HomeViewController: UserAuthDelegatable { }

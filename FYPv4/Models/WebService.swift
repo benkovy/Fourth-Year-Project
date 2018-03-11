@@ -15,7 +15,7 @@ final class WebService {
     func load<A>(_ resource: Resource<A>, completion: @escaping (Result<A>?) -> ()) {
         session.dataTask(with: resource.request) { (data, _, _) in
             let result = data.flatMap(resource.parse)
-            self.printData(data)
+//            self.printData(data)
             completion(Result(result, or: "Couldn't Parse data"))
         }.resume()
     }
