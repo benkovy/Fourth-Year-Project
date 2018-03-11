@@ -40,9 +40,4 @@ extension HomeCollectionViewCell {
         self.mainContentView.layer.applySketchShadow(color: .black, alpha: 0.15, x: -2, y: 9, blur: 22, spread: 0)
         self.mainContentView.roundCorners(by: 16)
     }
-    
-    func applyGradient() {
-        
-    }
-    
 }
