@@ -161,6 +161,7 @@ final class LoginViewController: UIViewController, CanSwitchTabBarViewController
     
     func prepareToLeaveLogin() {
         UserDefaultsStore.store(persistables: user)
+        UserDefaultsStore.delete(withKey: Routine.self)
         DispatchQueue.main.async {
             self.switchTo(tabBarState: .user(self.user))
         }

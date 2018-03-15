@@ -18,13 +18,9 @@ class RoutineViewController: UIViewController, TableViewDelegatable {
     var storedOffsets = [Int: CGFloat]()
     var routine: Routine?
     
-    init(webservice: WebService, routine: Routine?) {
+    init(webservice: WebService) {
         self.webservice = webservice
-        if routine == nil {
-            self.routine = Routine()
-        } else {
-            self.routine = routine
-        }
+        self.routine = Routine()
         super.init(nibName: RoutineViewController.nibName, bundle: nil)
     }
     
@@ -36,6 +32,7 @@ class RoutineViewController: UIViewController, TableViewDelegatable {
         super.viewDidLoad()
         self.delegateTableView()
         self.tableView.register(RoutineTableViewCell.self)
+        tableView.reloadData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -43,19 +40,28 @@ class RoutineViewController: UIViewController, TableViewDelegatable {
         let add = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(handleNewMovement))
         add.tintColor = .gray
         navigationItem.setRightBarButton(add, animated: true)
+        self.stateRoutine()
     }
     
     func stateRoutine() {
         if let user = UserDefaultsStore.retrieve(User.self) {
             if user.userType() == "ACC" {
-                // Network get routine
-                // on error check store
+                self.getRoutine(user: user) { (result) in
+                    switch result {
+                    case .error(let error):
+                        print("error: \(error)")
+                    case .success(let routine):
+                        self.routine = routine
+                    }
+                }
             } else {
-                // check store
+                if let r = getRoutineFromStore() {
+                    routine = r
+                }
             }
         }
+        tableView.reloadData()
     }
-        
 }
 
 extension RoutineViewController: UserAuthDelegatable { }
@@ -189,8 +195,17 @@ extension RoutineViewController: ModalDelegatable {
         guard var r = self.routine else { return }
         r.initializeDay(number: forCellAt.section, toValue: String(describing: value))
         routine = r
-        UserDefaultsStore.store(persistables: r)
-        tableView.reloadData()
+        if let user = UserDefaultsStore.retrieve(User.self) {
+            self.saveRoutine(user: user) { (result) in
+                switch result {
+                case .error(let error):
+                    print("error: \(error)")
+                case .success(let routine):
+                    self.routine = routine
+                }
+            }
+        }
+        self.tableView.reloadData()
     }
     
     func modalDidCancel(forCellAt: IndexPath) {
@@ -211,11 +226,11 @@ extension RoutineViewController {
     
     @objc func handleOptionTwo() {
         tableView.isHidden = false
-        
     }
     
     @objc func moreButtonPress(_ sender: UIButton) {
-        print(sender.tag)
+        let vc = EditMenuViewController(delegate: self, forDay: sender.tag)
+        navigationController?.present(vc, animated: true, completion: nil)
     }
     
     func getTableViewCellType(indexPath: IndexPath) -> WorkoutDay {
@@ -225,5 +240,63 @@ extension RoutineViewController {
     
     @objc func chooseWorkoutButtonPress(sender: UIButton) {
         
+    }
+    
+    func hasToken(user: User) -> Bool {
+        return user.userHasToken()
+    }
+    
+    func saveRoutine(user: User, callback: @escaping (Result<Routine>) -> ()) {
+        if self.hasToken(user: user) {
+            guard let token = user.token, var r = self.routine, let id = user.id else { return }
+            r.setUserId(id: id)
+            User.saveUserRoutine(webservice: webservice, token: token, routine: r, callback: { result in
+                guard let res = result else { callback(Result(nil,or: "")); return }
+                callback(res)
+            })
+        } else {
+            guard let r = self.routine else {return}
+            UserDefaultsStore.store(persistables: r)
+            tableView.reloadData()
+        }
+        self.tableView.reloadData()
+    }
+    
+    func getRoutineFromStore() -> Routine? {
+        return UserDefaultsStore.retrieve(Routine.self)
+    }
+    
+    func getRoutine(user: User, callback: @escaping (Result<Routine>) -> ()) {
+        if self.hasToken(user: user) {
+            guard let user = UserDefaultsStore.retrieve(User.self), let token = user.token else { return }
+            User.userRoutine(webservice: webservice, token: token, callback: { result in
+                guard let res = result else { callback(Result(nil,or: "")); return}
+                callback(res)
+            })
+        } else {
+            callback(Result(self.getRoutineFromStore(), or: ""))
+        }
+    }
+}
+
+extension RoutineViewController: EditMenuDelegatable {
+    func menuDidRequestClear(forDay: Int) {
+        guard var r = self.routine else { return }
+        r.emptyDay(number: forDay)
+        routine = r
+        if let user = UserDefaultsStore.retrieve(User.self) {
+            self.saveRoutine(user: user) { (result) in
+                switch result {
+                case .error(let error):
+                    print("error: \(error)")
+                case .success(let routine):
+                    self.routine = routine
+                }
+            }
+        }
+    }
+    
+    func menuDidRequestAdd(value: [String : Any], forDay: Int) {
+        // add type
     }
 }

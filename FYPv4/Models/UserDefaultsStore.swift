@@ -13,7 +13,6 @@ final class UserDefaultsStore {
     static func store<T: Codable>(persistables: T) {
         guard let data = try? JSONEncoder().encode(persistables) else { return }
         guard let dictionary =  try? JSONSerialization.jsonObject(with: data, options: []) else { return }
-        print(String(describing: T.self))
         UserDefaults.standard.set(dictionary, forKey: String(describing: T.self))
      }
     

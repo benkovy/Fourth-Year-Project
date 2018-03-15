@@ -33,7 +33,6 @@ extension UICollectionView {
             ratio = itemWidth / iWidth
         }
         
-        let height = (iHeight * ratio) + 80
         return CGSize(width: itemWidth, height: 170)
     }
 }

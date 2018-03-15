@@ -16,6 +16,7 @@ enum Router {
     case workout(amount: Int)
     case tokenAuth(token: Token)
     case tokenRoutine(token: Token)
+    case saveRoutine(token: Token, routine: Routine)
     
     // Library / Home / Carnagee
     private var urlPath: String {
@@ -34,6 +35,8 @@ enum Router {
             return /*"http://131.162.212.76:8080/tokenUser" */ "http://192.168.2.11:8080/tokenUser"
         case .tokenRoutine(_):
             return /*"http://131.162.212.76:8080/routineForToken" */ "http://192.168.2.11:8080/routineForToken"
+        case .saveRoutine(_,_):
+            return /*"http://131.162.212.76:8080/routine" */ "http://192.168.2.11:8080/routine"
         }
     }
     
@@ -62,11 +65,15 @@ enum Router {
             return "Content-Type"
         case .workout(_ ):
             return "Content-Type"
+        case .saveRoutine(_,_):
+            return "Content-Type"
         }
     }
     
     var method: String {
         switch self {
+        case .saveRoutine(_,_):
+            return "POST"
         case .tokenAuth(_):
             return "POST"
         case .tokenRoutine(_):
@@ -86,6 +93,8 @@ enum Router {
     
     var contentType: String {
         switch self {
+        case .saveRoutine(_,_):
+            return "application/json"
         case .tokenRoutine(let token):
             let tokenString = token.token
             let data = "Bearer \(tokenString)"
@@ -118,6 +127,9 @@ enum Router {
     
     var body: Data {
         switch self {
+        case .saveRoutine(_,let routine):
+            let data = try? JSONEncoder().encode(routine)
+            return data ?? Data()
         case .tokenAuth(_):
             return Data()
         case .tokenRoutine(_):

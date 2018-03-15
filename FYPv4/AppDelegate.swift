@@ -17,13 +17,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var mainViewController: UIViewController {
         let webService = WebService()
         let setup = appSetup()
-        let routine = setup.routine
         let user = setup.user
         
         let home = HomeViewController(webservice: webService)
         home.setUpForTabBarController()
         
-        let routineView = RoutineViewController(webservice: webService, routine: routine)
+        let routineView = RoutineViewController(webservice: webService)
         routineView.setUpForTabBarController()
         
         let authentication = LoginViewController()
@@ -153,14 +152,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 
                 if let rout = UserDefaultsStore.retrieve(Routine.self) {
                     print("That user had a routine")
-                    let updateRoutine = User.userRoutine(webservice: webservice, token: token)
-                    switch updateRoutine {
-                    case .error(let error):
-                        routine = rout
-                        print(error)
-                    case .success(let newroutine):
-                        routine = newroutine
-                        UserDefaultsStore.store(persistables: newroutine)
+                    User.userRoutine(webservice: webservice, token: token) { (result) in
+                        guard let updateRoutine = result else { return }
+                        switch updateRoutine {
+                        case .error(let error):
+                            routine = rout
+                            print(error)
+                        case .success(let newroutine):
+                            routine = newroutine
+                            UserDefaultsStore.store(persistables: newroutine)
+                        }
                     }
                 } else {
                     print("That user did not have a routine")

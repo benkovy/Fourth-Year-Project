@@ -56,6 +56,14 @@ extension User {
         return self.type
     }
     
+    func userHasToken() -> Bool {
+        if self.token == nil {
+            return false
+        } else {
+            return true
+        }
+    }
+    
     static func createUserRequest(_ user: User) -> Resource<User> {
         let userResponse = Resource<User>(Router.create(user: user).request)
         return userResponse
@@ -76,6 +84,11 @@ extension User {
         return userResponse
     }
     
+    static func saveRoutine(token: Token, routine: Routine) -> Resource<Routine> {
+        let userResponse = Resource<Routine>(Router.saveRoutine(token: token, routine: routine).request)
+        return userResponse
+    }
+    
     
     static func updateUserOnAppLoad(webservice: WebService, token: Token) -> Result<User> {
         var u: User?
@@ -92,19 +105,28 @@ extension User {
         return Result(u, or: e)
     }
     
-    static func userRoutine(webservice: WebService, token: Token) -> Result<Routine> {
-        var r: Routine?
-        var e = ""
+    static func userRoutine(webservice: WebService, token: Token, callback: @escaping (Result<Routine>?) -> ()) {
         webservice.load(User.userRoutineWithToken(token: token)) { (result) in
-            guard let result = result else { return }
-            switch result {
+            guard let res = result else { callback(Result(nil, or: "Webservice failure")); return}
+            switch res {
             case .error(let error):
-                e = error.localizedDescription
+                callback(Result(nil, or: error.localizedDescription))
             case .success(let routine):
-                r = routine
+                callback(Result(routine, or: ""))
             }
         }
-        return Result(r, or: e)
+    }
+    
+    static func saveUserRoutine(webservice: WebService, token: Token, routine: Routine, callback: @escaping (Result<Routine>?) -> ()) {
+        webservice.load(User.saveRoutine(token: token, routine: routine)) { (result) in
+            guard let result = result else { callback(Result(nil, or: "Webservice failure")); return}
+            switch result {
+            case .error(let error):
+                callback(Result(nil, or: error.localizedDescription))
+            case .success(let routine):
+                callback(Result(routine, or: ""))
+            }
+        }
     }
 }
 

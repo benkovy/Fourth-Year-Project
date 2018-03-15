@@ -14,7 +14,7 @@ class ModalWorkoutTypeViewController: UIViewController, UIPickerViewDelegate, UI
     @IBOutlet weak var modalView: UIView!
     @IBOutlet weak var doneButton: UIButton!
     let pickerItems = WorkoutType.allTypes
-    var delegate: ModalDelegatable
+    weak var delegate: ModalDelegatable?
     var day: String
     let indexPath: IndexPath
     
@@ -46,12 +46,12 @@ class ModalWorkoutTypeViewController: UIViewController, UIPickerViewDelegate, UI
     
     @IBAction func doneButtonPress(_ sender: UIButton) {
         let value = pickerItems[picker.selectedRow(inComponent: 0)]
-        delegate.modalPassingBack(value: value, forCellAt: self.indexPath)
+        delegate?.modalPassingBack(value: value, forCellAt: self.indexPath)
         self.dismiss(animated: true, completion: nil)
     }
     
     @objc func closeModal() {
-        delegate.modalDidCancel(forCellAt: indexPath)
+        delegate?.modalDidCancel(forCellAt: indexPath)
         self.dismiss(animated: true, completion: nil)
     }
     

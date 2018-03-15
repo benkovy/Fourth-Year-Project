@@ -8,7 +8,12 @@
 
 import Foundation
 
-protocol ModalDelegatable {
+protocol ModalDelegatable: class {
     func modalPassingBack(value: WorkoutType, forCellAt: IndexPath)
     func modalDidCancel(forCellAt: IndexPath)
+}
+
+protocol EditMenuDelegatable: class {
+    func menuDidRequestClear(forDay: Int)
+    func menuDidRequestAdd(value: [String:Any], forDay: Int)
 }
