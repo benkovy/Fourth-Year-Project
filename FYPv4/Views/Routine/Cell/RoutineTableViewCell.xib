@@ -12,11 +12,11 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="160" id="KGk-i7-Jjw" customClass="RoutineTableViewCell" customModule="FYPv4" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="160"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="202" id="KGk-i7-Jjw" customClass="RoutineTableViewCell" customModule="FYPv4" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="202"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="159.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="201.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <collectionView multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="mZG-ky-4dm">
@@ -32,17 +32,25 @@
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                     </collectionView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MdH-Zd-Weg">
+                        <rect key="frame" x="137" y="85" width="46" height="30"/>
+                        <state key="normal" title="Button"/>
+                    </button>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="MdH-Zd-Weg" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="52I-k2-jz9"/>
                     <constraint firstItem="mZG-ky-4dm" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="AQq-8F-tPN"/>
+                    <constraint firstItem="MdH-Zd-Weg" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="KnP-yk-XJw"/>
                     <constraint firstItem="mZG-ky-4dm" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="bQj-NA-dcY"/>
                     <constraint firstAttribute="trailing" secondItem="mZG-ky-4dm" secondAttribute="trailing" id="lrt-Ck-Z0h"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="chooseType" destination="MdH-Zd-Weg" id="7t3-jR-caE"/>
                 <outlet property="collectionView" destination="mZG-ky-4dm" id="v5E-sH-MWb"/>
             </connections>
+            <point key="canvasLocation" x="-141" y="55"/>
         </tableViewCell>
     </objects>
 </document>

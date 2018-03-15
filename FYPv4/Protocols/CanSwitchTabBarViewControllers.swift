@@ -23,7 +23,8 @@ extension CanSwitchTabBarViewControllers where Self: UIViewController {
         switch state {
         case .noUser:
             let webservice = WebService()
-            let routine = RoutineViewController()
+            let r = UserDefaultsStore.retrieve(Routine.self)
+            let routine = RoutineViewController(webservice: webservice, routine: r)
             routine.setUpForTabBarController()
             let auth = LoginViewController()
             auth.setUpForTabBarController()
@@ -33,7 +34,8 @@ extension CanSwitchTabBarViewControllers where Self: UIViewController {
             self.tabBarController?.setViewControllers(controllers, animated: true)
         case .user(let user):
             let webservice = WebService()
-            let routine = RoutineViewController()
+            let r = UserDefaultsStore.retrieve(Routine.self)
+            let routine = RoutineViewController(webservice: webservice, routine: r)
             routine.setUpForTabBarController()
             let profile = ProfileViewController(user: user, webService: WebService())
             profile.setUpForTabBarController()

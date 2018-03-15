@@ -13,28 +13,29 @@ import CoreData
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    
     var mainViewController: UIViewController {
         let webService = WebService()
+        let setup = appSetup()
+        let routine = setup.routine
+        let user = setup.user
         
         let home = HomeViewController(webservice: webService)
         home.setUpForTabBarController()
-        let routine = RoutineViewController()
-        routine.setUpForTabBarController()
+        
+        let routineView = RoutineViewController(webservice: webService, routine: routine)
+        routineView.setUpForTabBarController()
+        
         let authentication = LoginViewController()
         authentication.setUpForTabBarController()
         
-        var controllers = [routine, home]
+        var controllers = [routineView, home]
         
-        if let user = UserDefaultsStore.retrieve(User.self) {
-            if let _ = user.token { // THERE WAS A USER WITH A TOKEN
-                let profile = ProfileViewController(user: user, webService: WebService())
-                profile.setUpForTabBarController()
-                controllers.append(profile)
-            } else { // THERE WAS A UER BUT NO TOKEN
-                controllers.append(authentication)
-            }
-        } else { // THERE IS NO USER
+        if user.userType() == "ACC" {
+            let profile = ProfileViewController(user: user, webService: WebService())
+            profile.setUpForTabBarController()
+            controllers.append(profile)
+        } else {
             controllers.append(authentication)
         }
         
@@ -125,6 +126,63 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 let nserror = error as NSError
                 fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
             }
+        }
+    }
+    
+    func appSetup() -> (user: User, routine: Routine?) {
+        let webservice = WebService()
+        var returnUser: User
+        var routine: Routine?
+        
+        // Check for user in user defaults
+        if let user = UserDefaultsStore.retrieve(User.self) {
+            print("There was a user")
+            returnUser = user
+            // If there is a user in user defaults they have used the app before
+            if let token = user.token {
+                print("That user was one with an account")
+                // If they have a token, they are an authenticated user and not a TEMP
+                let update = User.updateUserOnAppLoad(webservice: webservice, token: token)
+                switch update {
+                case .error(let error):
+                    print(error)
+                case .success(let newuser):
+                    returnUser = newuser
+                    UserDefaultsStore.store(persistables: newuser)
+                }
+                
+                if let rout = UserDefaultsStore.retrieve(Routine.self) {
+                    print("That user had a routine")
+                    let updateRoutine = User.userRoutine(webservice: webservice, token: token)
+                    switch updateRoutine {
+                    case .error(let error):
+                        routine = rout
+                        print(error)
+                    case .success(let newroutine):
+                        routine = newroutine
+                        UserDefaultsStore.store(persistables: newroutine)
+                    }
+                } else {
+                    print("That user did not have a routine")
+                    routine = nil
+                }
+                return (returnUser, routine)
+            } else {
+                // These users have used the app but do not have an account
+                print("That user did not have an account on the server")
+                routine = UserDefaultsStore.retrieve(Routine.self)
+                if routine == nil {
+                    print("That user did not have a routine")
+                }
+                return (returnUser, routine)
+            }
+        } else {
+            print("There was no account this is brand new")
+            // these users have not used the app before so they get a TEMP user
+            returnUser = User(firstname: "Temp", lastname: "User", email: "None", password: "None", description: "None", dateofbirth: "None", type: "TEMP", id: nil, token: nil)
+            UserDefaultsStore.store(persistables: returnUser)
+            routine = nil
+            return (returnUser, routine)
         }
     }
 

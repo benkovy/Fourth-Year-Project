@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14101" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14086"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ModalWorkoutTypeViewController" customModule="FYPv4" customModuleProvider="target">
+            <connections>
+                <outlet property="doneButton" destination="bnx-VN-jma" id="qir-c9-TYm"/>
+                <outlet property="modalView" destination="DYJ-MN-ZW1" id="3v9-Ti-N0Y"/>
+                <outlet property="picker" destination="ZLm-SF-y9E" id="dnF-eZ-sLB"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DYJ-MN-ZW1">
+                    <rect key="frame" x="56" y="152" width="262.5" height="233"/>
+                    <subviews>
+                        <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZLm-SF-y9E">
+                            <rect key="frame" x="-29" y="17" width="320" height="216"/>
+                        </pickerView>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="ZLm-SF-y9E" secondAttribute="bottom" id="74m-Mo-1hl"/>
+                        <constraint firstItem="ZLm-SF-y9E" firstAttribute="centerX" secondItem="DYJ-MN-ZW1" secondAttribute="centerX" id="Jhf-yZ-pcH"/>
+                    </constraints>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bnx-VN-jma">
+                    <rect key="frame" x="164" y="405" width="46" height="30"/>
+                    <state key="normal" title="Button"/>
+                    <connections>
+                        <action selector="doneButtonPress:" destination="-1" eventType="touchUpInside" id="ryY-PC-RJl"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="DYJ-MN-ZW1" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.35" id="Nfd-Yd-U81"/>
+                <constraint firstItem="bnx-VN-jma" firstAttribute="top" secondItem="DYJ-MN-ZW1" secondAttribute="bottom" constant="20" id="WmJ-AN-Cyk"/>
+                <constraint firstItem="bnx-VN-jma" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="eIY-zY-eds"/>
+                <constraint firstItem="DYJ-MN-ZW1" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.7" id="g5q-Ka-Txv"/>
+                <constraint firstItem="DYJ-MN-ZW1" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" constant="-65" id="iJ4-PR-oOl"/>
+                <constraint firstItem="DYJ-MN-ZW1" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="qjz-x0-dFg"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <point key="canvasLocation" x="9" y="35"/>
+        </view>
+    </objects>
+</document>

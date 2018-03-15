@@ -14,6 +14,8 @@ enum Router {
     case create(user: User)
     case emailCheck(email: Email)
     case workout(amount: Int)
+    case tokenAuth(token: Token)
+    case tokenRoutine(token: Token)
     
     // Library / Home / Carnagee
     private var urlPath: String {
@@ -28,6 +30,10 @@ enum Router {
             return /*"http://131.162.212.76:8080/email" */ "http://192.168.2.11:8080/email"
         case .workout(_):
             return /*"http://131.162.212.76:8080/workout" */ "http://192.168.2.11:8080/workout"
+        case .tokenAuth(_):
+            return /*"http://131.162.212.76:8080/tokenUser" */ "http://192.168.2.11:8080/tokenUser"
+        case .tokenRoutine(_):
+            return /*"http://131.162.212.76:8080/routineForToken" */ "http://192.168.2.11:8080/routineForToken"
         }
     }
     
@@ -42,6 +48,10 @@ enum Router {
     
     var headerField: String {
         switch self {
+        case .tokenAuth(_):
+            return "Authorization"
+        case .tokenRoutine(_):
+            return "Authorization"
         case .login(_, _):
             return "Authorization"
         case .loginForUser(_, _):
@@ -57,6 +67,10 @@ enum Router {
     
     var method: String {
         switch self {
+        case .tokenAuth(_):
+            return "POST"
+        case .tokenRoutine(_):
+            return "GET"
         case .login(_, _):
             return "POST"
         case .loginForUser(_, _):
@@ -72,12 +86,18 @@ enum Router {
     
     var contentType: String {
         switch self {
+        case .tokenRoutine(let token):
+            let tokenString = token.token
+            let data = "Bearer \(tokenString)"
+            return data
+        case .tokenAuth(let token):
+            let tokenString = token.token
+            let data = "Bearer \(tokenString)"
+            return data
         case .login(let username, let password):
             let loginString = "\(username):\(password)"
             let data = loginString.data(using: .utf8)
-            if let _data = data {
-                return "Basic \(_data.base64EncodedString())"
-            }
+            if let _data = data { return "Basic \(_data.base64EncodedString())" }
             return ""
         case .loginForUser(let username, let password):
             let loginString = "\(username):\(password)"
@@ -98,6 +118,10 @@ enum Router {
     
     var body: Data {
         switch self {
+        case .tokenAuth(_):
+            return Data()
+        case .tokenRoutine(_):
+            return Data()
         case .login(_ , _ ):
             return Data()
         case .loginForUser(_ , _ ):

@@ -108,4 +108,8 @@ extension WorkoutType {
         case random
         case other
     }
+    
+    static var allTypes: [WorkoutType] {
+        return [chest, back, shoulder, arm, leg, push, pull, hiit, athletic, functional, crossfit, stretch, random]
+    }
 }

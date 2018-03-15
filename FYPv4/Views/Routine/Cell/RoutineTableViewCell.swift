@@ -11,6 +11,14 @@ import UIKit
 class RoutineTableViewCell: UITableViewCell {
 
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var chooseType: UIButton!
+    
+    
+    var sideView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
     
     var collectionviewOffset: CGFloat {
         get {
@@ -24,13 +32,14 @@ class RoutineTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        self.contentView.addSubview(sideView)
         collectionView.register(HomeCollectionViewCell.self)
         collectionView.showsHorizontalScrollIndicator = false
         self.layer.masksToBounds = false
         self.clipsToBounds = false
         self.collectionView.layer.masksToBounds = false
         self.collectionView.clipsToBounds = false
-        // Initialization code
+        self.configureSideLine()
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -42,6 +51,11 @@ class RoutineTableViewCell: UITableViewCell {
 }
 
 extension RoutineTableViewCell {
+    
+    func configureSideLine() {
+        chooseType.styleButtonFYP(withTitle: "Choose workout type")
+        chooseType.isUserInteractionEnabled = false
+    }
     
     func setCollectionViewDataSourceDelegate<D: UICollectionViewDataSource & UICollectionViewDelegate>(dataSourceDelegate: D, forRow row: Int) {
         collectionView.delegate = dataSourceDelegate

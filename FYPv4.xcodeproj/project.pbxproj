@@ -62,8 +62,6 @@
 		788AAAE52051944C0015BE06 /* NoRoutineUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 788AAAE42051944C0015BE06 /* NoRoutineUIView.swift */; };
 		788AAAE7205199E00015BE06 /* NoRoutineActionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 788AAAE6205199E00015BE06 /* NoRoutineActionDelegate.swift */; };
 		788AAAE92051BCE70015BE06 /* CanSwitchTabBarViewControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 788AAAE82051BCE70015BE06 /* CanSwitchTabBarViewControllers.swift */; };
-		788AAAEC2051D3CB0015BE06 /* RoutineChoiceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 788AAAEA2051D3CB0015BE06 /* RoutineChoiceViewController.swift */; };
-		788AAAED2051D3CB0015BE06 /* RoutineChoiceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 788AAAEB2051D3CB0015BE06 /* RoutineChoiceViewController.xib */; };
 		788AAAF02051D41C0015BE06 /* FYP + UIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 788AAAEF2051D41C0015BE06 /* FYP + UIButton.swift */; };
 		78D85000201BC0B0008FFFB3 /* BoolResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78D84FFF201BC0B0008FFFB3 /* BoolResponse.swift */; };
 		78D85002201BDF78008FFFB3 /* Email.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78D85001201BDF78008FFFB3 /* Email.swift */; };
@@ -74,6 +72,11 @@
 		78F0B18A20544C3100918F07 /* RoutineTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F0B18920544C3100918F07 /* RoutineTableViewHeader.swift */; };
 		78F0B18C2054C02800918F07 /* DayByDayModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F0B18B2054C02800918F07 /* DayByDayModel.swift */; };
 		78F0B18E2054C25000918F07 /* WorkoutDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F0B18D2054C25000918F07 /* WorkoutDay.swift */; };
+		78F0B1982055A83200918F07 /* RoutineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F0B1972055A83200918F07 /* RoutineViewModel.swift */; };
+		78F0B19A2055A8BE00918F07 /* RoutineType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F0B1992055A8BE00918F07 /* RoutineType.swift */; };
+		78F0B19D205718E500918F07 /* ModalWorkoutTypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F0B19B205718E500918F07 /* ModalWorkoutTypeViewController.swift */; };
+		78F0B19E205718E500918F07 /* ModalWorkoutTypeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 78F0B19C205718E500918F07 /* ModalWorkoutTypeViewController.xib */; };
+		78F0B1A02057191900918F07 /* ModalDelegatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F0B19F2057191900918F07 /* ModalDelegatable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -155,8 +158,6 @@
 		788AAAE42051944C0015BE06 /* NoRoutineUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoRoutineUIView.swift; sourceTree = "<group>"; };
 		788AAAE6205199E00015BE06 /* NoRoutineActionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoRoutineActionDelegate.swift; sourceTree = "<group>"; };
 		788AAAE82051BCE70015BE06 /* CanSwitchTabBarViewControllers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanSwitchTabBarViewControllers.swift; sourceTree = "<group>"; };
-		788AAAEA2051D3CB0015BE06 /* RoutineChoiceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineChoiceViewController.swift; sourceTree = "<group>"; };
-		788AAAEB2051D3CB0015BE06 /* RoutineChoiceViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RoutineChoiceViewController.xib; sourceTree = "<group>"; };
 		788AAAEF2051D41C0015BE06 /* FYP + UIButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FYP + UIButton.swift"; sourceTree = "<group>"; };
 		78D84FFF201BC0B0008FFFB3 /* BoolResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoolResponse.swift; sourceTree = "<group>"; };
 		78D85001201BDF78008FFFB3 /* Email.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Email.swift; sourceTree = "<group>"; };
@@ -167,6 +168,11 @@
 		78F0B18920544C3100918F07 /* RoutineTableViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineTableViewHeader.swift; sourceTree = "<group>"; };
 		78F0B18B2054C02800918F07 /* DayByDayModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayByDayModel.swift; sourceTree = "<group>"; };
 		78F0B18D2054C25000918F07 /* WorkoutDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutDay.swift; sourceTree = "<group>"; };
+		78F0B1972055A83200918F07 /* RoutineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineViewModel.swift; sourceTree = "<group>"; };
+		78F0B1992055A8BE00918F07 /* RoutineType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineType.swift; sourceTree = "<group>"; };
+		78F0B19B205718E500918F07 /* ModalWorkoutTypeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalWorkoutTypeViewController.swift; sourceTree = "<group>"; };
+		78F0B19C205718E500918F07 /* ModalWorkoutTypeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ModalWorkoutTypeViewController.xib; sourceTree = "<group>"; };
+		78F0B19F2057191900918F07 /* ModalDelegatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalDelegatable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -261,6 +267,8 @@
 		7822F9002006798500439343 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				78F0B1972055A83200918F07 /* RoutineViewModel.swift */,
+				78F0B1992055A8BE00918F07 /* RoutineType.swift */,
 				7822049E201A53AB00439343 /* PeakUITextField.swift */,
 				788AAADC205166340015BE06 /* Routine.swift */,
 				78F0B18B2054C02800918F07 /* DayByDayModel.swift */,
@@ -300,6 +308,7 @@
 		7822F91D2012694800439343 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
+				78F0B19F2057191900918F07 /* ModalDelegatable.swift */,
 				788AAAE220517B110015BE06 /* UserAuthDelegatable.swift */,
 				78D85003201BE8F4008FFFB3 /* PeakUITextFieldDelegate.swift */,
 				788AAAC8204F36C80015BE06 /* CollectionViewDelegatable.swift */,
@@ -311,6 +320,25 @@
 				788AAAE82051BCE70015BE06 /* CanSwitchTabBarViewControllers.swift */,
 			);
 			path = Protocols;
+			sourceTree = "<group>";
+		};
+		782828BA205A92E800E1D80C /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				7822049A2019478100439343 /* RoutineViewController.swift */,
+				7822049B2019478100439343 /* RoutineViewController.xib */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		782828BB205A92F800E1D80C /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				78F0B18920544C3100918F07 /* RoutineTableViewHeader.swift */,
+				788AAAD62050AFB10015BE06 /* RoutineTableViewCell.swift */,
+				788AAAD72050AFB10015BE06 /* RoutineTableViewCell.xib */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 		78735D7B2029148A007CF3DF /* Home */ = {
@@ -348,14 +376,11 @@
 		78735D7E202914A4007CF3DF /* Routine */ = {
 			isa = PBXGroup;
 			children = (
-				788AAAEE2051D3D40015BE06 /* Creation */,
-				7822049A2019478100439343 /* RoutineViewController.swift */,
-				7822049B2019478100439343 /* RoutineViewController.xib */,
-				788AAAD62050AFB10015BE06 /* RoutineTableViewCell.swift */,
-				788AAAD72050AFB10015BE06 /* RoutineTableViewCell.xib */,
+				788AAAEE2051D3D40015BE06 /* Modal & Menu */,
+				782828BA205A92E800E1D80C /* Controller */,
+				782828BB205A92F800E1D80C /* Cell */,
 				788AAAE42051944C0015BE06 /* NoRoutineUIView.swift */,
 				78F0B187205387B500918F07 /* RoutineViewState.swift */,
-				78F0B18920544C3100918F07 /* RoutineTableViewHeader.swift */,
 			);
 			path = Routine;
 			sourceTree = "<group>";
@@ -376,13 +401,13 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		788AAAEE2051D3D40015BE06 /* Creation */ = {
+		788AAAEE2051D3D40015BE06 /* Modal & Menu */ = {
 			isa = PBXGroup;
 			children = (
-				788AAAEA2051D3CB0015BE06 /* RoutineChoiceViewController.swift */,
-				788AAAEB2051D3CB0015BE06 /* RoutineChoiceViewController.xib */,
+				78F0B19B205718E500918F07 /* ModalWorkoutTypeViewController.swift */,
+				78F0B19C205718E500918F07 /* ModalWorkoutTypeViewController.xib */,
 			);
-			path = Creation;
+			path = "Modal & Menu";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -498,6 +523,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				78F0B19E205718E500918F07 /* ModalWorkoutTypeViewController.xib in Resources */,
 				782204952019462900439343 /* ProfileViewController.xib in Resources */,
 				788AAAD3205068920015BE06 /* HomeCollectionReusableViewHeader.xib in Resources */,
 				7822F8DB2006790800439343 /* LaunchScreen.storyboard in Resources */,
@@ -506,7 +532,6 @@
 				7822F90F2010E65E00439343 /* HomeViewController.xib in Resources */,
 				788AAAD92050AFB10015BE06 /* RoutineTableViewCell.xib in Resources */,
 				7822F8D82006790800439343 /* Assets.xcassets in Resources */,
-				788AAAED2051D3CB0015BE06 /* RoutineChoiceViewController.xib in Resources */,
 				7822F8D32006790800439343 /* Main.storyboard in Resources */,
 				7822049D2019478100439343 /* RoutineViewController.xib in Resources */,
 			);
@@ -632,9 +657,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				78F0B19A2055A8BE00918F07 /* RoutineType.swift in Sources */,
 				78D85006201C22B2008FFFB3 /* LoginViewControllerTextViewExtension.swift in Sources */,
 				788AAAE1205168570015BE06 /* WorkoutType.swift in Sources */,
 				7822049F201A53AB00439343 /* PeakUITextField.swift in Sources */,
+				78F0B1982055A83200918F07 /* RoutineViewModel.swift in Sources */,
 				78D9E6882031217000102F73 /* UIViewControllerExtension.swift in Sources */,
 				788AAAE92051BCE70015BE06 /* CanSwitchTabBarViewControllers.swift in Sources */,
 				788AAAE7205199E00015BE06 /* NoRoutineActionDelegate.swift in Sources */,
@@ -664,6 +691,7 @@
 				788AAACB204F884C0015BE06 /* FYP + CollectionView.swift in Sources */,
 				7822F90220067BE700439343 /* Movement.swift in Sources */,
 				7822F8FF2006797C00439343 /* Workout.swift in Sources */,
+				78F0B1A02057191900918F07 /* ModalDelegatable.swift in Sources */,
 				788AAAE320517B110015BE06 /* UserAuthDelegatable.swift in Sources */,
 				7822048B20193B3700439343 /* Resource.swift in Sources */,
 				78D85000201BC0B0008FFFB3 /* BoolResponse.swift in Sources */,
@@ -677,7 +705,7 @@
 				7822049C2019478100439343 /* RoutineViewController.swift in Sources */,
 				78F0B188205387B500918F07 /* RoutineViewState.swift in Sources */,
 				788AAAC6204F350A0015BE06 /* HomeCollectionViewCell.swift in Sources */,
-				788AAAEC2051D3CB0015BE06 /* RoutineChoiceViewController.swift in Sources */,
+				78F0B19D205718E500918F07 /* ModalWorkoutTypeViewController.swift in Sources */,
 				7822F9272013E86100439343 /* Result.swift in Sources */,
 				7822F9092006893600439343 /* Workouts.swift in Sources */,
 				788AAACD204F8A890015BE06 /* ViewControllerStyles.swift in Sources */,

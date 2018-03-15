@@ -11,65 +11,51 @@ import UIKit
 class RoutineViewController: UIViewController, TableViewDelegatable {
 
     @IBOutlet weak var tableView: UITableView!
+    
     var viewState: RoutineViewState = .noroutine
     
-    var noRoutineView: NoRoutineUIView = {
-        let view = NoRoutineUIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
+    let webservice: WebService
     var storedOffsets = [Int: CGFloat]()
+    var routine: Routine?
+    
+    init(webservice: WebService, routine: Routine?) {
+        self.webservice = webservice
+        if routine == nil {
+            self.routine = Routine()
+        } else {
+            self.routine = routine
+        }
+        super.init(nibName: RoutineViewController.nibName, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.addSubview(noRoutineView)
-        noRoutineView.delegate = self
         self.delegateTableView()
-        tableView.separatorStyle = .none
         self.tableView.register(RoutineTableViewCell.self)
-        self.tableView.backgroundColor = .white
-        self.handleViewState()
-        self.configureViewConstraints()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         self.configureUI(.regularWhite)
-        self.title = "Routine"
         let add = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(handleNewMovement))
         add.tintColor = .gray
         navigationItem.setRightBarButton(add, animated: true)
-        self.handleViewState()
     }
     
-    func handleViewState() {
-        if self.userIsAuthenticated() {
-            if let routine = UserDefaultsStore.retrieve(Routine.self) {
-                // display users routine
-                noRoutineView.isHidden = true
-                tableView.isHidden = false
-                
-                if routine.isDaybyDay {
-                    self.viewState = .daybyday
-                } else if routine.isCustom {
-                    self.viewState = .custom
-                }
-            
+    func stateRoutine() {
+        if let user = UserDefaultsStore.retrieve(User.self) {
+            if user.userType() == "ACC" {
+                // Network get routine
+                // on error check store
             } else {
-                // display create routine view
-                tableView.isHidden = true
-                noRoutineView.isHidden = false
-                self.viewState = .noroutine
+                // check store
             }
-            
-        } else {
-            // display create routine view
-            tableView.isHidden = true
-            noRoutineView.isHidden = false
-            self.viewState = .noroutine
         }
-        self.tableView.reloadData()
     }
+        
 }
 
 extension RoutineViewController: UserAuthDelegatable { }
@@ -81,9 +67,11 @@ extension RoutineViewController: UICollectionViewDelegate, UICollectionViewDataS
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
         let cell: HomeCollectionViewCell = collectionView.dequeueReusableCell(forIndexPath: indexPath)
         cell.configureCell(workout: Workout(name: "THIS WORKOUT", creator: "Ben Kovacs", creatorName: "Ben Kovacs", time: 32, description: "BLAH", image: true, rating: 324, id: "asdasdasd"))
         return cell
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -100,21 +88,28 @@ extension RoutineViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        switch self.viewState {
-        case .custom:
-            print("custom")
-            return 2
-        case .daybyday:
-            return 7
-        case .noroutine:
-            return 1
-        }
+        guard let num = self.routine?.days.count else { return 7 }
+        return num
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = RoutineTableViewHeader()
         if let weekday = Date.dayOfTheWeek(plusOffset: section) {
             headerView.headerMainLabel.text = weekday
+        }
+        
+        headerView.moreButton.tag = section
+        headerView.moreButton.addTarget(self, action: #selector(moreButtonPress), for: .touchUpInside)
+        
+        switch getTableViewCellType(indexPath: IndexPath(row: 0, section: section)) {
+        case .empty:
+            headerView.headerWorkoutType.text = "No workout type specified"
+        case .finalized:
+            guard let r = self.routine else { return headerView }
+            headerView.headerWorkoutType.text = r.days[section].initialized?.capitalized ?? "No workout type specified"
+        case .initialized:
+            guard let r = self.routine else { return headerView }
+            headerView.headerWorkoutType.text = r.days[section].initialized?.capitalized ?? "No workout type specified"
         }
         return headerView
     }
@@ -128,7 +123,7 @@ extension RoutineViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 50
+        return 55
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -138,12 +133,43 @@ extension RoutineViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell: RoutineTableViewCell = tableView.dequeueReusableCell(forIndexPath: indexPath)
-        cell.layer.masksToBounds = false
+        
+        switch getTableViewCellType(indexPath: indexPath) {
+        case .empty:
+            cell.collectionView.isHidden = true
+            cell.chooseType.isHidden = false
+            cell.selectionStyle = .gray
+        case .finalized:
+            cell.collectionView.isHidden = false
+            cell.chooseType.isHidden = true
+            cell.selectionStyle = .none
+        case .initialized:
+            cell.collectionView.isHidden = false
+            cell.chooseType.isHidden = true
+            cell.selectionStyle = .none
+        }
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 220
+        switch getTableViewCellType(indexPath: indexPath) {
+        case .empty:
+            return 100
+        case .finalized:
+            return 220
+        case .initialized:
+            return 220
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        guard let cell = tableView.cellForRow(at: indexPath) as? RoutineTableViewCell else { return }
+        cell.chooseType.isHidden = true
+        if let weekday = Date.dayOfTheWeek(plusOffset: indexPath.section) {
+            let vc = ModalWorkoutTypeViewController(delegate: self, day: weekday, indexPath: indexPath)
+            navigationController?.present(vc, animated: true, completion: nil)
+        }
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
@@ -155,10 +181,25 @@ extension RoutineViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 0
     }
-    
 }
 
-extension RoutineViewController: NoRoutineActionDelegate {
+extension RoutineViewController: ModalDelegatable {
+    
+    func modalPassingBack(value: WorkoutType, forCellAt: IndexPath) {
+        guard var r = self.routine else { return }
+        r.initializeDay(number: forCellAt.section, toValue: String(describing: value))
+        routine = r
+        UserDefaultsStore.store(persistables: r)
+        tableView.reloadData()
+    }
+    
+    func modalDidCancel(forCellAt: IndexPath) {
+        guard let cell = tableView.cellForRow(at: forCellAt) as? RoutineTableViewCell else { return }
+        cell.chooseType.isHidden = false
+    }
+}
+
+extension RoutineViewController {
     
     @objc func handleNewMovement() {
         print("Add")
@@ -169,32 +210,20 @@ extension RoutineViewController: NoRoutineActionDelegate {
     }
     
     @objc func handleOptionTwo() {
-        let vc = RoutineChoiceViewController()
-        navigationController?.pushViewController(vc, animated: true)
+        tableView.isHidden = false
+        
     }
     
-    func configureViewConstraints() {
-        noRoutineView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-        noRoutineView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-        noRoutineView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        noRoutineView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        noRoutineView.titleMessage.centerXAnchor.constraint(equalTo: noRoutineView.centerXAnchor).isActive = true
-        noRoutineView.titleMessage.centerYAnchor.constraint(equalTo: noRoutineView.centerYAnchor, constant: -100).isActive = true
-        noRoutineView.titleMessage.text = "No Routines"
-        if !self.userIsAuthenticated() {
-            noRoutineView.optionOne.topAnchor.constraint(equalTo: noRoutineView.titleMessage.bottomAnchor, constant: 20).isActive = true
-            noRoutineView.optionOne.centerXAnchor.constraint(equalTo: noRoutineView.centerXAnchor).isActive = true
-            noRoutineView.or.centerXAnchor.constraint(equalTo: noRoutineView.centerXAnchor).isActive = true
-            noRoutineView.or.topAnchor.constraint(equalTo: noRoutineView.optionOne.bottomAnchor, constant: 20).isActive = true
-            noRoutineView.or.text = "Or"
-            noRoutineView.optionTwo.topAnchor.constraint(equalTo: noRoutineView.or.bottomAnchor, constant: 20).isActive = true
-            noRoutineView.optionTwo.centerXAnchor.constraint(equalTo: noRoutineView.centerXAnchor).isActive = true
-        } else {
-            noRoutineView.optionOne.isHidden = true
-            noRoutineView.optionTwo.topAnchor.constraint(equalTo: noRoutineView.titleMessage.bottomAnchor, constant: 20).isActive = true
-            noRoutineView.optionTwo.centerXAnchor.constraint(equalTo: noRoutineView.centerXAnchor).isActive = true
-        }
-        noRoutineView.optionOne.addTarget(self, action: #selector(handleOptionOne), for: .touchUpInside)
-        noRoutineView.optionTwo.addTarget(self, action: #selector(handleOptionTwo), for: .touchUpInside)
+    @objc func moreButtonPress(_ sender: UIButton) {
+        print(sender.tag)
+    }
+    
+    func getTableViewCellType(indexPath: IndexPath) -> WorkoutDay {
+        guard let r = self.routine else { return .empty }
+        return r.dayType(forDay: indexPath.section)
+    }
+    
+    @objc func chooseWorkoutButtonPress(sender: UIButton) {
+        
     }
 }
