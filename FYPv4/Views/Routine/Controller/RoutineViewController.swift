@@ -37,7 +37,7 @@ class RoutineViewController: UIViewController, TableViewDelegatable {
     
     override func viewWillAppear(_ animated: Bool) {
         self.configureUI(.regularWhite)
-        let add = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(handleNewMovement))
+        let add = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(handleNewWorkout))
         add.tintColor = .gray
         navigationItem.setRightBarButton(add, animated: true)
         self.stateRoutine()
@@ -216,8 +216,9 @@ extension RoutineViewController: ModalDelegatable {
 
 extension RoutineViewController {
     
-    @objc func handleNewMovement() {
-        print("Add")
+    @objc func handleNewWorkout() {
+        let vc = CreateWorkoutViewController()
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     @objc func handleOptionOne() {
@@ -250,6 +251,7 @@ extension RoutineViewController {
         if self.hasToken(user: user) {
             guard let token = user.token, var r = self.routine, let id = user.id else { return }
             r.setUserId(id: id)
+            UserDefaultsStore.store(persistables: r)
             User.saveUserRoutine(webservice: webservice, token: token, routine: r, callback: { result in
                 guard let res = result else { callback(Result(nil,or: "")); return }
                 callback(res)

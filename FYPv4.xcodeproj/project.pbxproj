@@ -70,6 +70,8 @@
 		78D85004201BE8F5008FFFB3 /* PeakUITextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78D85003201BE8F4008FFFB3 /* PeakUITextFieldDelegate.swift */; };
 		78D85006201C22B2008FFFB3 /* LoginViewControllerTextViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78D85005201C22B2008FFFB3 /* LoginViewControllerTextViewExtension.swift */; };
 		78D9E6882031217000102F73 /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78D9E6872031217000102F73 /* UIViewControllerExtension.swift */; };
+		78E5A500206189A300F9903F /* CreateWorkoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78E5A4FE206189A300F9903F /* CreateWorkoutViewController.swift */; };
+		78E5A501206189A300F9903F /* CreateWorkoutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 78E5A4FF206189A300F9903F /* CreateWorkoutViewController.xib */; };
 		78F0B188205387B500918F07 /* RoutineViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F0B187205387B500918F07 /* RoutineViewState.swift */; };
 		78F0B18A20544C3100918F07 /* RoutineTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F0B18920544C3100918F07 /* RoutineTableViewHeader.swift */; };
 		78F0B18C2054C02800918F07 /* DayByDayModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F0B18B2054C02800918F07 /* DayByDayModel.swift */; };
@@ -168,6 +170,8 @@
 		78D85003201BE8F4008FFFB3 /* PeakUITextFieldDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeakUITextFieldDelegate.swift; sourceTree = "<group>"; };
 		78D85005201C22B2008FFFB3 /* LoginViewControllerTextViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewControllerTextViewExtension.swift; sourceTree = "<group>"; };
 		78D9E6872031217000102F73 /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
+		78E5A4FE206189A300F9903F /* CreateWorkoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateWorkoutViewController.swift; sourceTree = "<group>"; };
+		78E5A4FF206189A300F9903F /* CreateWorkoutViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CreateWorkoutViewController.xib; sourceTree = "<group>"; };
 		78F0B187205387B500918F07 /* RoutineViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineViewState.swift; sourceTree = "<group>"; };
 		78F0B18920544C3100918F07 /* RoutineTableViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineTableViewHeader.swift; sourceTree = "<group>"; };
 		78F0B18B2054C02800918F07 /* DayByDayModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayByDayModel.swift; sourceTree = "<group>"; };
@@ -304,6 +308,7 @@
 				78735D7B2029148A007CF3DF /* Home */,
 				78735D7C20291493007CF3DF /* Login */,
 				78735D7D2029149D007CF3DF /* Profile */,
+				78E5A502206189B000F9903F /* Workout */,
 				78735D7E202914A4007CF3DF /* Routine */,
 			);
 			path = Views;
@@ -414,6 +419,15 @@
 				782828BD205A93AD00E1D80C /* EditMenuViewController.xib */,
 			);
 			path = "Modal & Menu";
+			sourceTree = "<group>";
+		};
+		78E5A502206189B000F9903F /* Workout */ = {
+			isa = PBXGroup;
+			children = (
+				78E5A4FE206189A300F9903F /* CreateWorkoutViewController.swift */,
+				78E5A4FF206189A300F9903F /* CreateWorkoutViewController.xib */,
+			);
+			path = Workout;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -536,6 +550,7 @@
 				7822F9162011A39500439343 /* LoginViewController.xib in Resources */,
 				788AAAC7204F350A0015BE06 /* HomeCollectionViewCell.xib in Resources */,
 				7822F90F2010E65E00439343 /* HomeViewController.xib in Resources */,
+				78E5A501206189A300F9903F /* CreateWorkoutViewController.xib in Resources */,
 				788AAAD92050AFB10015BE06 /* RoutineTableViewCell.xib in Resources */,
 				7822F8D82006790800439343 /* Assets.xcassets in Resources */,
 				782828BF205A93AD00E1D80C /* EditMenuViewController.xib in Resources */,
@@ -719,6 +734,7 @@
 				788AAACD204F8A890015BE06 /* ViewControllerStyles.swift in Sources */,
 				788AAAF02051D41C0015BE06 /* FYP + UIButton.swift in Sources */,
 				788AAAE52051944C0015BE06 /* NoRoutineUIView.swift in Sources */,
+				78E5A500206189A300F9903F /* CreateWorkoutViewController.swift in Sources */,
 				7876A727204DF6FB001AEA9D /* ViewConfigurable.swift in Sources */,
 				7822048D20193CC200439343 /* WebService.swift in Sources */,
 				7822F9152011A39500439343 /* LoginViewController.swift in Sources */,
