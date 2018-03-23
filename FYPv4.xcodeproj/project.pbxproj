@@ -72,6 +72,10 @@
 		78D9E6882031217000102F73 /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78D9E6872031217000102F73 /* UIViewControllerExtension.swift */; };
 		78E5A500206189A300F9903F /* CreateWorkoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78E5A4FE206189A300F9903F /* CreateWorkoutViewController.swift */; };
 		78E5A501206189A300F9903F /* CreateWorkoutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 78E5A4FF206189A300F9903F /* CreateWorkoutViewController.xib */; };
+		78E5A5F72062C7A300F9903F /* MovementTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78E5A5F52062C7A300F9903F /* MovementTableViewCell.swift */; };
+		78E5A5F82062C7A300F9903F /* MovementTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 78E5A5F62062C7A300F9903F /* MovementTableViewCell.xib */; };
+		78E5A5FF2062DC4000F9903F /* MovementDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78E5A5FD2062DC4000F9903F /* MovementDetailView.swift */; };
+		78E5A6002062DC4000F9903F /* MovementDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 78E5A5FE2062DC4000F9903F /* MovementDetailView.xib */; };
 		78F0B188205387B500918F07 /* RoutineViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F0B187205387B500918F07 /* RoutineViewState.swift */; };
 		78F0B18A20544C3100918F07 /* RoutineTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F0B18920544C3100918F07 /* RoutineTableViewHeader.swift */; };
 		78F0B18C2054C02800918F07 /* DayByDayModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F0B18B2054C02800918F07 /* DayByDayModel.swift */; };
@@ -172,6 +176,10 @@
 		78D9E6872031217000102F73 /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
 		78E5A4FE206189A300F9903F /* CreateWorkoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateWorkoutViewController.swift; sourceTree = "<group>"; };
 		78E5A4FF206189A300F9903F /* CreateWorkoutViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CreateWorkoutViewController.xib; sourceTree = "<group>"; };
+		78E5A5F52062C7A300F9903F /* MovementTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovementTableViewCell.swift; sourceTree = "<group>"; };
+		78E5A5F62062C7A300F9903F /* MovementTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MovementTableViewCell.xib; sourceTree = "<group>"; };
+		78E5A5FD2062DC4000F9903F /* MovementDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovementDetailView.swift; sourceTree = "<group>"; };
+		78E5A5FE2062DC4000F9903F /* MovementDetailView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MovementDetailView.xib; sourceTree = "<group>"; };
 		78F0B187205387B500918F07 /* RoutineViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineViewState.swift; sourceTree = "<group>"; };
 		78F0B18920544C3100918F07 /* RoutineTableViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineTableViewHeader.swift; sourceTree = "<group>"; };
 		78F0B18B2054C02800918F07 /* DayByDayModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayByDayModel.swift; sourceTree = "<group>"; };
@@ -424,8 +432,12 @@
 		78E5A502206189B000F9903F /* Workout */ = {
 			isa = PBXGroup;
 			children = (
+				78E5A5FD2062DC4000F9903F /* MovementDetailView.swift */,
+				78E5A5FE2062DC4000F9903F /* MovementDetailView.xib */,
 				78E5A4FE206189A300F9903F /* CreateWorkoutViewController.swift */,
 				78E5A4FF206189A300F9903F /* CreateWorkoutViewController.xib */,
+				78E5A5F52062C7A300F9903F /* MovementTableViewCell.swift */,
+				78E5A5F62062C7A300F9903F /* MovementTableViewCell.xib */,
 			);
 			path = Workout;
 			sourceTree = "<group>";
@@ -525,6 +537,7 @@
 			knownRegions = (
 				en,
 				Base,
+				he,
 			);
 			mainGroup = 7822F8C12006790800439343;
 			productRefGroup = 7822F8CB2006790800439343 /* Products */;
@@ -547,6 +560,7 @@
 				782204952019462900439343 /* ProfileViewController.xib in Resources */,
 				788AAAD3205068920015BE06 /* HomeCollectionReusableViewHeader.xib in Resources */,
 				7822F8DB2006790800439343 /* LaunchScreen.storyboard in Resources */,
+				78E5A6002062DC4000F9903F /* MovementDetailView.xib in Resources */,
 				7822F9162011A39500439343 /* LoginViewController.xib in Resources */,
 				788AAAC7204F350A0015BE06 /* HomeCollectionViewCell.xib in Resources */,
 				7822F90F2010E65E00439343 /* HomeViewController.xib in Resources */,
@@ -555,6 +569,7 @@
 				7822F8D82006790800439343 /* Assets.xcassets in Resources */,
 				782828BF205A93AD00E1D80C /* EditMenuViewController.xib in Resources */,
 				7822F8D32006790800439343 /* Main.storyboard in Resources */,
+				78E5A5F82062C7A300F9903F /* MovementTableViewCell.xib in Resources */,
 				7822049D2019478100439343 /* RoutineViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -699,6 +714,7 @@
 				7822F8D02006790800439343 /* ViewController.swift in Sources */,
 				788AAAC9204F36C80015BE06 /* CollectionViewDelegatable.swift in Sources */,
 				78F0B18A20544C3100918F07 /* RoutineTableViewHeader.swift in Sources */,
+				78E5A5F72062C7A300F9903F /* MovementTableViewCell.swift in Sources */,
 				782204942019462900439343 /* ProfileViewController.swift in Sources */,
 				788AAADF205166FA0015BE06 /* DaysOfTheWeek.swift in Sources */,
 				78F0B18E2054C25000918F07 /* WorkoutDay.swift in Sources */,
@@ -713,6 +729,7 @@
 				78F0B18C2054C02800918F07 /* DayByDayModel.swift in Sources */,
 				788AAACB204F884C0015BE06 /* FYP + CollectionView.swift in Sources */,
 				7822F90220067BE700439343 /* Movement.swift in Sources */,
+				78E5A5FF2062DC4000F9903F /* MovementDetailView.swift in Sources */,
 				7822F8FF2006797C00439343 /* Workout.swift in Sources */,
 				78F0B1A02057191900918F07 /* ModalDelegatable.swift in Sources */,
 				788AAAE320517B110015BE06 /* UserAuthDelegatable.swift in Sources */,
