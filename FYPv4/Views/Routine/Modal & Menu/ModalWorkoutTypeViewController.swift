@@ -66,4 +66,5 @@ class ModalWorkoutTypeViewController: UIViewController, UIPickerViewDelegate, UI
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return String(describing: pickerItems[row])
     }
+    
 }

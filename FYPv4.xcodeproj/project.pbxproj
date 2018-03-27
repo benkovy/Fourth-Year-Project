@@ -45,6 +45,10 @@
 		782828BF205A93AD00E1D80C /* EditMenuViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 782828BD205A93AD00E1D80C /* EditMenuViewController.xib */; };
 		7876A727204DF6FB001AEA9D /* ViewConfigurable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7876A726204DF6FB001AEA9D /* ViewConfigurable.swift */; };
 		7876A72A204DF7A4001AEA9D /* FYP + Constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7876A729204DF7A4001AEA9D /* FYP + Constraints.swift */; };
+		7885954820659B8200BA2371 /* InputTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7885954620659B8200BA2371 /* InputTableViewCell.swift */; };
+		7885954920659B8200BA2371 /* InputTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7885954720659B8200BA2371 /* InputTableViewCell.xib */; };
+		7885954C206808AA00BA2371 /* PickerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7885954A206808AA00BA2371 /* PickerTableViewCell.swift */; };
+		7885954D206808AA00BA2371 /* PickerTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7885954B206808AA00BA2371 /* PickerTableViewCell.xib */; };
 		788AAAC6204F350A0015BE06 /* HomeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 788AAAC4204F350A0015BE06 /* HomeCollectionViewCell.swift */; };
 		788AAAC7204F350A0015BE06 /* HomeCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 788AAAC5204F350A0015BE06 /* HomeCollectionViewCell.xib */; };
 		788AAAC9204F36C80015BE06 /* CollectionViewDelegatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 788AAAC8204F36C80015BE06 /* CollectionViewDelegatable.swift */; };
@@ -72,8 +76,6 @@
 		78D9E6882031217000102F73 /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78D9E6872031217000102F73 /* UIViewControllerExtension.swift */; };
 		78E5A500206189A300F9903F /* CreateWorkoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78E5A4FE206189A300F9903F /* CreateWorkoutViewController.swift */; };
 		78E5A501206189A300F9903F /* CreateWorkoutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 78E5A4FF206189A300F9903F /* CreateWorkoutViewController.xib */; };
-		78E5A5F72062C7A300F9903F /* MovementTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78E5A5F52062C7A300F9903F /* MovementTableViewCell.swift */; };
-		78E5A5F82062C7A300F9903F /* MovementTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 78E5A5F62062C7A300F9903F /* MovementTableViewCell.xib */; };
 		78E5A5FF2062DC4000F9903F /* MovementDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78E5A5FD2062DC4000F9903F /* MovementDetailView.swift */; };
 		78E5A6002062DC4000F9903F /* MovementDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 78E5A5FE2062DC4000F9903F /* MovementDetailView.xib */; };
 		78F0B188205387B500918F07 /* RoutineViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F0B187205387B500918F07 /* RoutineViewState.swift */; };
@@ -149,6 +151,10 @@
 		782828BD205A93AD00E1D80C /* EditMenuViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EditMenuViewController.xib; sourceTree = "<group>"; };
 		7876A726204DF6FB001AEA9D /* ViewConfigurable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewConfigurable.swift; sourceTree = "<group>"; };
 		7876A729204DF7A4001AEA9D /* FYP + Constraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FYP + Constraints.swift"; sourceTree = "<group>"; };
+		7885954620659B8200BA2371 /* InputTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputTableViewCell.swift; sourceTree = "<group>"; };
+		7885954720659B8200BA2371 /* InputTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InputTableViewCell.xib; sourceTree = "<group>"; };
+		7885954A206808AA00BA2371 /* PickerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerTableViewCell.swift; sourceTree = "<group>"; };
+		7885954B206808AA00BA2371 /* PickerTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PickerTableViewCell.xib; sourceTree = "<group>"; };
 		788AAAC4204F350A0015BE06 /* HomeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCollectionViewCell.swift; sourceTree = "<group>"; };
 		788AAAC5204F350A0015BE06 /* HomeCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeCollectionViewCell.xib; sourceTree = "<group>"; };
 		788AAAC8204F36C80015BE06 /* CollectionViewDelegatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewDelegatable.swift; sourceTree = "<group>"; };
@@ -176,8 +182,6 @@
 		78D9E6872031217000102F73 /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
 		78E5A4FE206189A300F9903F /* CreateWorkoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateWorkoutViewController.swift; sourceTree = "<group>"; };
 		78E5A4FF206189A300F9903F /* CreateWorkoutViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CreateWorkoutViewController.xib; sourceTree = "<group>"; };
-		78E5A5F52062C7A300F9903F /* MovementTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovementTableViewCell.swift; sourceTree = "<group>"; };
-		78E5A5F62062C7A300F9903F /* MovementTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MovementTableViewCell.xib; sourceTree = "<group>"; };
 		78E5A5FD2062DC4000F9903F /* MovementDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovementDetailView.swift; sourceTree = "<group>"; };
 		78E5A5FE2062DC4000F9903F /* MovementDetailView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MovementDetailView.xib; sourceTree = "<group>"; };
 		78F0B187205387B500918F07 /* RoutineViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineViewState.swift; sourceTree = "<group>"; };
@@ -418,6 +422,17 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		7885954E206808C300BA2371 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				7885954A206808AA00BA2371 /* PickerTableViewCell.swift */,
+				7885954B206808AA00BA2371 /* PickerTableViewCell.xib */,
+				7885954620659B8200BA2371 /* InputTableViewCell.swift */,
+				7885954720659B8200BA2371 /* InputTableViewCell.xib */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
 		788AAAEE2051D3D40015BE06 /* Modal & Menu */ = {
 			isa = PBXGroup;
 			children = (
@@ -436,8 +451,7 @@
 				78E5A5FE2062DC4000F9903F /* MovementDetailView.xib */,
 				78E5A4FE206189A300F9903F /* CreateWorkoutViewController.swift */,
 				78E5A4FF206189A300F9903F /* CreateWorkoutViewController.xib */,
-				78E5A5F52062C7A300F9903F /* MovementTableViewCell.swift */,
-				78E5A5F62062C7A300F9903F /* MovementTableViewCell.xib */,
+				7885954E206808C300BA2371 /* Cells */,
 			);
 			path = Workout;
 			sourceTree = "<group>";
@@ -565,11 +579,12 @@
 				788AAAC7204F350A0015BE06 /* HomeCollectionViewCell.xib in Resources */,
 				7822F90F2010E65E00439343 /* HomeViewController.xib in Resources */,
 				78E5A501206189A300F9903F /* CreateWorkoutViewController.xib in Resources */,
+				7885954D206808AA00BA2371 /* PickerTableViewCell.xib in Resources */,
 				788AAAD92050AFB10015BE06 /* RoutineTableViewCell.xib in Resources */,
+				7885954920659B8200BA2371 /* InputTableViewCell.xib in Resources */,
 				7822F8D82006790800439343 /* Assets.xcassets in Resources */,
 				782828BF205A93AD00E1D80C /* EditMenuViewController.xib in Resources */,
 				7822F8D32006790800439343 /* Main.storyboard in Resources */,
-				78E5A5F82062C7A300F9903F /* MovementTableViewCell.xib in Resources */,
 				7822049D2019478100439343 /* RoutineViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -713,8 +728,8 @@
 				7822F9252013E0EA00439343 /* LoginViewState.swift in Sources */,
 				7822F8D02006790800439343 /* ViewController.swift in Sources */,
 				788AAAC9204F36C80015BE06 /* CollectionViewDelegatable.swift in Sources */,
+				7885954820659B8200BA2371 /* InputTableViewCell.swift in Sources */,
 				78F0B18A20544C3100918F07 /* RoutineTableViewHeader.swift in Sources */,
-				78E5A5F72062C7A300F9903F /* MovementTableViewCell.swift in Sources */,
 				782204942019462900439343 /* ProfileViewController.swift in Sources */,
 				788AAADF205166FA0015BE06 /* DaysOfTheWeek.swift in Sources */,
 				78F0B18E2054C25000918F07 /* WorkoutDay.swift in Sources */,
@@ -751,6 +766,7 @@
 				788AAACD204F8A890015BE06 /* ViewControllerStyles.swift in Sources */,
 				788AAAF02051D41C0015BE06 /* FYP + UIButton.swift in Sources */,
 				788AAAE52051944C0015BE06 /* NoRoutineUIView.swift in Sources */,
+				7885954C206808AA00BA2371 /* PickerTableViewCell.swift in Sources */,
 				78E5A500206189A300F9903F /* CreateWorkoutViewController.swift in Sources */,
 				7876A727204DF6FB001AEA9D /* ViewConfigurable.swift in Sources */,
 				7822048D20193CC200439343 /* WebService.swift in Sources */,

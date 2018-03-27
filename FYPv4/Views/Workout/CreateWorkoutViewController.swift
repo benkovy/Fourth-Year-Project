@@ -8,14 +8,14 @@
 
 import UIKit
 
-class CreateWorkoutViewController: UIViewController, TableViewDelegatable {
-
+class CreateWorkoutViewController: UIViewController, TableViewDelegatable, MovementDelegate {
+    
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var movementsLabel: UILabel!
     @IBOutlet weak var descriptionInput: UITextView!
     @IBOutlet weak var nameInput: UITextField!
     
-    var movements: [Int] = []
+    var movements: [Movement?] = []
     let maxMovements = 15
     var num = 0
     
@@ -23,7 +23,6 @@ class CreateWorkoutViewController: UIViewController, TableViewDelegatable {
         super.viewDidLoad()
         self.title = "Workout"
         self.delegateTableView()
-        tableView.register(MovementTableViewCell.self)
         self.configureViews()
         descriptionInput.delegate = self
         descriptionInput.text = "Tell us about this workout..."
@@ -37,44 +36,37 @@ class CreateWorkoutViewController: UIViewController, TableViewDelegatable {
     }
     
     @IBAction func addMovement(_ sender: UIButton) {
-        movements.append(num)
-        num = num + 1
+        movements.insert(nil, at: 0)
+        tableView.reloadData()
+    }
+    
+    func didFinishEditingMovement(movement: Movement, forIndex index: Int) {
+        movements.remove(at: index)
+        movements.insert(movement, at: index)
         tableView.reloadData()
     }
 }
 
 extension CreateWorkoutViewController: UITableViewDelegate, UITableViewDataSource {
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return movements.count
-    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return movements.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: MovementTableViewCell = tableView.dequeueReusableCell(forIndexPath: indexPath)
-        let reversedMovements: [Int] = movements.reversed()
-        cell.movementName.text = "\(reversedMovements[indexPath.section])"
-        cell.configureCell()
-        cell.selectionStyle = .none
+        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: nil)
+        guard let move = movements[indexPath.row] else {
+            cell.textLabel?.text = "New Movement"
+            return cell
+        }
+        cell.textLabel?.text = move.name
         return cell
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 102
-    }
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let cell = tableView.cellForRow(at: indexPath) as? MovementTableViewCell else { return }
-        UIView.animate(withDuration: 0.15, animations: {
-            cell.mainCellView.alpha = 0.7
-        }, completion: { _ in
-            UIView.animate(withDuration: 0.15, animations: {
-                cell.mainCellView.alpha = 1.0
-                let vc = MovementDetailView()
-                self.navigationController?.pushViewController(vc, animated: true)
-            })
-        })
+        let vc = MovementDetailView(movementIndex: indexPath.row)
+        vc.delegate = self
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
 

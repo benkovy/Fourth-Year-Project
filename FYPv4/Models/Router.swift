@@ -18,25 +18,25 @@ enum Router {
     case tokenRoutine(token: Token)
     case saveRoutine(token: Token, routine: Routine)
     
-    // Library / Home / Carnagee
+    // Library http://131.162.212.76:8080/ / Home / http://192.168.2.11:8080/
     private var urlPath: String {
         switch self {
         case .login(_, _):
-            return /*"http://131.162.212.76:8080/login"*/ "http://192.168.2.11:8080/login"
+            return "http://192.168.2.11:8080/login"
         case .loginForUser(_, _):
-            return /*"http://131.162.212.76:8080/login"*/ "http://192.168.2.11:8080/loginForUser"
+            return "http://192.168.2.11:8080/loginForUser"
         case .create(_ ):
-            return /*"http://131.162.212.76:8080/users" */ "http://192.168.2.11:8080/users"
+            return "http://192.168.2.11:8080/users"
         case .emailCheck(_ ):
-            return /*"http://131.162.212.76:8080/email" */ "http://192.168.2.11:8080/email"
+            return "http://192.168.2.11:8080/email"
         case .workout(_):
-            return /*"http://131.162.212.76:8080/workout" */ "http://192.168.2.11:8080/workout"
+            return "http://192.168.2.11:8080/workout"
         case .tokenAuth(_):
-            return /*"http://131.162.212.76:8080/tokenUser" */ "http://192.168.2.11:8080/tokenUser"
+            return "http://192.168.2.11:8080/tokenUser"
         case .tokenRoutine(_):
-            return /*"http://131.162.212.76:8080/routineForToken" */ "http://192.168.2.11:8080/routineForToken"
+            return "http://192.168.2.11:8080/routineForToken"
         case .saveRoutine(_,_):
-            return /*"http://131.162.212.76:8080/routine" */ "http://192.168.2.11:8080/routine"
+            return "http://192.168.2.11:8080/routine"
         }
     }
     

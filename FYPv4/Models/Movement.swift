@@ -10,18 +10,31 @@ import Foundation
 
 struct Movement: Codable {
     let name: String
-    let bodyPart: BodyPart
+    let description: String
+//    let bodyPart: BodyPart
     let sets: Int
     let reps: Int
     let restTime: Int
+    let tags: [String]
     
-    enum BodyPart: String, Codable {
-        case shoulder
-        case chest
-        case leg
-        case core
-        case bicep
-        case tricep
-        case back
+//    enum BodyPart: String, Codable {
+//        case shoulder
+//        case chest
+//        case leg
+//        case core
+//        case bicep
+//        case tricep
+//        case back
+//    }
+}
+
+extension Movement {
+    init() {
+        self.name = "New Movement"
+        self.description = ""
+        self.sets = 0
+        self.reps = 0
+        self.restTime = 0
+        self.tags = []
     }
 }

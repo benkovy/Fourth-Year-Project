@@ -20,7 +20,6 @@ struct Workout: Codable {
 }
 
 extension Workout {
-    
     static func createWorkoutRequest() -> Resource<[Workout]> {
         let workoutRequest = Resource<[Workout]>(Router.workout(amount: 0).request)
         return workoutRequest
