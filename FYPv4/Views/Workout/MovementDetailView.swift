@@ -17,6 +17,7 @@ class MovementDetailView: UIViewController, TableViewDelegatable {
     @IBOutlet weak var tableView: UITableView!
     var tags: [String] = []
     var delegate: MovementDelegate?
+    var movement: Movement?
     var movementIndex: Int
     var nameCheck = false
     var name = ""
@@ -35,9 +36,7 @@ class MovementDetailView: UIViewController, TableViewDelegatable {
     
     init(movementIndex: Int, movement: Movement?) {
         self.movementIndex = movementIndex
-        if movement != nil { // set up for a movement that has already been created
-            
-        }
+        self.movement = movement
         super.init(nibName: MovementDetailView.nibName, bundle: nil)
     }
     
@@ -50,6 +49,10 @@ class MovementDetailView: UIViewController, TableViewDelegatable {
         delegateTableView()
         tableView.register(InputTableViewCell.self)
         tableView.register(PickerTableViewCell.self)
+        if let m = self.movement {
+            nameCheck = true; descCheck = true; repsCheck = true; setsCheck = true; timeCheck = true; tagsCheck = true
+            name = m.name; descrip = m.description; reps = m.reps; sets = m.sets; time = m.restTime; tags = m.tags
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -155,6 +158,10 @@ extension MovementDetailView: UITableViewDelegate, UITableViewDataSource {
             cell.didRequestPlaceholder = { return self.cellLabel(forIndexPath: indexPath) }
             cell.textView.textContainer.maximumNumberOfLines = numberOfLines(forIndexPath: indexPath)
             cell.textView.textContainer.lineBreakMode = .byTruncatingTail
+            if let m = self.movement {
+                cell.textView.text = self.fillForMovement(movement: m, path: indexPath)
+                cell.textView.textColor = .black
+            }
             return cell
         case (1,1), (1,3):
             let cell: PickerTableViewCell = tableView.dequeueReusableCell(forIndexPath: indexPath)
@@ -185,6 +192,7 @@ extension MovementDetailView: UITableViewDelegate, UITableViewDataSource {
         default:
             let cell = UITableViewCell(style: .value2, reuseIdentifier: nil)
             cell.textLabel?.text = cellLabel(forIndexPath: indexPath)
+            if let m = self.movement { cell.detailTextLabel?.text = self.fillForMovement(movement: m, path: indexPath) }
             return cell
         }
     }
@@ -213,6 +221,7 @@ extension MovementDetailView: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.view.endEditing(true)
         switch (indexPath.section, indexPath.row) {
         case (1,0), (1,2), (2,0), (1,4):
             
@@ -227,6 +236,21 @@ extension MovementDetailView: UITableViewDelegate, UITableViewDataSource {
                 self.tableView.endUpdates()
             })
         default: return
+        }
+    }
+}
+
+
+extension MovementDetailView {
+    func fillForMovement(movement: Movement, path: IndexPath) -> String {
+        switch (path.section, path.row) {
+        case (0,0): return movement.name
+        case (0,1): return movement.description
+        case (1,0): return String(movement.sets)
+        case (1,2): return String(movement.reps)
+        case (1,4): return getTime(row: movement.restTime)
+        case (2,0): return movement.tags.joined(separator: " | ")
+        default: return ""
         }
     }
 }

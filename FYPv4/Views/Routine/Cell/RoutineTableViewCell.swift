@@ -39,6 +39,11 @@ class RoutineTableViewCell: UITableViewCell {
         self.clipsToBounds = false
         self.collectionView.layer.masksToBounds = false
         self.collectionView.clipsToBounds = false
+        let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.minimumLineSpacing = 0
+        layout.minimumInteritemSpacing = 0
+        collectionView.collectionViewLayout = layout
         self.configureSideLine()
     }
 
