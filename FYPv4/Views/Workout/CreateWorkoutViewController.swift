@@ -12,6 +12,7 @@ class CreateWorkoutViewController: UIViewController, TableViewDelegatable, Movem
     
     @IBOutlet weak var tableView: UITableView!
     
+    let webservice = WebService()
     var movements: [Movement?] = []
     let maxMovements = 15
     var num = 0
@@ -155,8 +156,25 @@ extension CreateWorkoutViewController {
         self.view.endEditing(true)
         let actualMovements = movements.compactMap { $0 }
         if actualMovements.count == 0 { print("EMPTY") } // show error message "No movements"
-//        if name != nil { print(name)}
-//        if desc != nil { print(desc)}
+        guard let wName = name else { print("No name"); return} // show error message "No name"
+        guard let wDesc = desc else { print("No desc"); return } // show error message "No description"
         
+        guard let user = UserDefaultsStore.retrieve(User.self) else { print("No user"); return } // show error message "Please sign in"
+        
+        guard let userId = user.id, let userToken = user.token else { print("Not an authenticated user"); return }
+        
+        
+        let work = Workout(name: wName, creator: userId, creatorName: nil, time: 0, description: wDesc, image: false, rating: 0, id: nil)
+        
+        let webWorkout = WebWorkout(workout: work, movements: actualMovements)
+        
+        WebWorkout.saveWorkout(webservice: webservice, token: userToken, workout: webWorkout, callback: { res in
+            switch res {
+            case .error(let error):
+                print("THAT WAS A FAIL: \(error.localizedDescription)")
+            case .success(let workout):
+                print("THAT WAS A SUCCESS: \(workout)")
+            }
+        })
     }
 }

@@ -49,7 +49,5 @@ extension WebWorkout {
                 callback(Result(w, or: ""))
             }
         })
-        
-        
     }
 }
