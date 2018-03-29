@@ -155,8 +155,8 @@ extension CreateWorkoutViewController {
         self.view.endEditing(true)
         let actualMovements = movements.compactMap { $0 }
         if actualMovements.count == 0 { print("EMPTY") } // show error message "No movements"
-        if name != nil { print(name)}
-        if desc != nil { print(desc)}
+//        if name != nil { print(name)}
+//        if desc != nil { print(desc)}
         
     }
 }

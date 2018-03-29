@@ -90,19 +90,16 @@ extension User {
     }
     
     
-    static func updateUserOnAppLoad(webservice: WebService, token: Token) -> Result<User> {
-        var u: User?
-        var e = ""
+    static func updateUserOnAppLoad(webservice: WebService, token: Token, callback: @escaping (Result<User>) -> ()) {
         webservice.load(User.tokenAuth(token: token)) { (result) in
             guard let result = result else { return }
             switch result {
             case .error(let error):
-                e = error.localizedDescription
+                callback(Result(nil, or: error.localizedDescription))
             case .success(let newUser):
-                u = newUser
+                callback(Result(newUser, or: ""))
             }
         }
-        return Result(u, or: e)
     }
     
     static func userRoutine(webservice: WebService, token: Token, callback: @escaping (Result<Routine>?) -> ()) {

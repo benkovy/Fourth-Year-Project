@@ -28,8 +28,8 @@ extension HomeViewController {
 extension RoutineViewController {
     func setUpForTabBarController() {
         self.view.backgroundColor = .white
-        self.tabBarItem = TabItem.workout.item
-        self.tabBarItem.imageInsets = TabItem.workout.insets
+        self.tabBarItem = TabItem.benchpress.item
+        self.tabBarItem.imageInsets = TabItem.benchpress.insets
         
     }
 }

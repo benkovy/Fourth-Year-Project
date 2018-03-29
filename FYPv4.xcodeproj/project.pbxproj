@@ -41,6 +41,7 @@
 		7822F9252013E0EA00439343 /* LoginViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7822F9242013E0EA00439343 /* LoginViewState.swift */; };
 		7822F9272013E86100439343 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7822F9262013E86100439343 /* Result.swift */; };
 		7822F9292013EA2C00439343 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7822F9282013EA2C00439343 /* StringExtension.swift */; };
+		7823716A206C358D00C3B2AB /* WebWorkout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78237169206C358D00C3B2AB /* WebWorkout.swift */; };
 		782828BE205A93AD00E1D80C /* EditMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782828BC205A93AD00E1D80C /* EditMenuViewController.swift */; };
 		782828BF205A93AD00E1D80C /* EditMenuViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 782828BD205A93AD00E1D80C /* EditMenuViewController.xib */; };
 		7876A727204DF6FB001AEA9D /* ViewConfigurable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7876A726204DF6FB001AEA9D /* ViewConfigurable.swift */; };
@@ -147,6 +148,7 @@
 		7822F9242013E0EA00439343 /* LoginViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewState.swift; sourceTree = "<group>"; };
 		7822F9262013E86100439343 /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		7822F9282013EA2C00439343 /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
+		78237169206C358D00C3B2AB /* WebWorkout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebWorkout.swift; sourceTree = "<group>"; };
 		782828BC205A93AD00E1D80C /* EditMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMenuViewController.swift; sourceTree = "<group>"; };
 		782828BD205A93AD00E1D80C /* EditMenuViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EditMenuViewController.xib; sourceTree = "<group>"; };
 		7876A726204DF6FB001AEA9D /* ViewConfigurable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewConfigurable.swift; sourceTree = "<group>"; };
@@ -296,6 +298,7 @@
 				788AAAE0205168570015BE06 /* WorkoutType.swift */,
 				788AAADE205166FA0015BE06 /* DaysOfTheWeek.swift */,
 				7822048E20193FA800439343 /* Router.swift */,
+				78237169206C358D00C3B2AB /* WebWorkout.swift */,
 				7822048A20193B3700439343 /* Resource.swift */,
 				78D84FFF201BC0B0008FFFB3 /* BoolResponse.swift */,
 				78D85001201BDF78008FFFB3 /* Email.swift */,
@@ -730,6 +733,7 @@
 				788AAAC9204F36C80015BE06 /* CollectionViewDelegatable.swift in Sources */,
 				7885954820659B8200BA2371 /* InputTableViewCell.swift in Sources */,
 				78F0B18A20544C3100918F07 /* RoutineTableViewHeader.swift in Sources */,
+				7823716A206C358D00C3B2AB /* WebWorkout.swift in Sources */,
 				782204942019462900439343 /* ProfileViewController.swift in Sources */,
 				788AAADF205166FA0015BE06 /* DaysOfTheWeek.swift in Sources */,
 				78F0B18E2054C25000918F07 /* WorkoutDay.swift in Sources */,

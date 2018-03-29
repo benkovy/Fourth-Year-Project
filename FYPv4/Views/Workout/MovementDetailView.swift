@@ -124,7 +124,7 @@ class MovementDetailView: UIViewController, TableViewDelegatable {
         self.view.endEditing(true)
         // Check to see if all inputs are filled
         if checkAll {
-            let movement = Movement(name: name, description: descrip, sets: sets, reps: reps, restTime: time, tags: tags)
+            let movement = Movement(name: name, description: descrip, sets: sets, reps: reps, restTime: time, tags: tags, image: false)
             print(movement)
             if delegate != nil {
                 delegate?.didFinishEditingMovement(movement: movement, forIndex: movementIndex)

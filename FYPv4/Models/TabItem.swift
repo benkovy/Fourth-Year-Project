@@ -12,7 +12,7 @@ import UIKit
 enum TabItem: String {
     case home
     case profile
-    case workout
+    case benchpress
     
     var item: UITabBarItem {
         let item = UITabBarItem(title: nil, image: UIImage(named: self.rawValue), tag: tag)
@@ -23,14 +23,14 @@ enum TabItem: String {
         switch self {
         case .home: return 1
         case .profile: return 2
-        case .workout: return 3
+        case .benchpress: return 3
         }
     }
     
     var insets: UIEdgeInsets {
         switch self {
         case .home: return UIEdgeInsets(top: 5, left: 0, bottom: -5, right: 0)
-        case .workout: return UIEdgeInsets(top: 5, left: 0, bottom: -5, right: 0)
+        case .benchpress: return UIEdgeInsets(top: 5, left: 0, bottom: -5, right: 0)
         case .profile: return UIEdgeInsets(top: 5, left: 0, bottom: -5, right: 0)
         }
     }

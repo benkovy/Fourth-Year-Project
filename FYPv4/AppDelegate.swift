@@ -16,8 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var mainViewController: UIViewController {
         let webService = WebService()
-        let setup = appSetup()
-        let user = setup.user
+        let user = appSetup()
         
         let home = HomeViewController(webservice: webService)
         home.setUpForTabBarController()
@@ -128,10 +127,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
-    func appSetup() -> (user: User, routine: Routine?) {
+    func appSetup() -> User {
         let webservice = WebService()
         var returnUser: User
-        var routine: Routine?
         
         // Check for user in user defaults
         if let user = UserDefaultsStore.retrieve(User.self) {
@@ -141,49 +139,56 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             if let token = user.token {
                 print("That user was one with an account")
                 // If they have a token, they are an authenticated user and not a TEMP
-                let update = User.updateUserOnAppLoad(webservice: webservice, token: token)
-                switch update {
-                case .error(let error):
-                    print(error)
-                case .success(let newuser):
-                    returnUser = newuser
-                    UserDefaultsStore.store(persistables: newuser)
-                }
+                User.updateUserOnAppLoad(webservice: webservice, token: token, callback: { res in
+                    switch res {
+                    case .error(let error):
+                        print(error.localizedDescription)
+                    case .success(let newUser):
+                        UserDefaultsStore.store(persistables: newUser)
+                    }
+                })
                 
-                if let rout = UserDefaultsStore.retrieve(Routine.self) {
+                // If they have an account try and fetch routine if found
+                if let _ = UserDefaultsStore.retrieve(Routine.self) {
                     print("That user had a routine")
+                    // Try to update the routine
                     User.userRoutine(webservice: webservice, token: token) { (result) in
                         guard let updateRoutine = result else { return }
                         switch updateRoutine {
                         case .error(let error):
-                            routine = rout
-                            print(error)
-                        case .success(let newroutine):
-                            routine = newroutine
-                            UserDefaultsStore.store(persistables: newroutine)
+                            print(error.localizedDescription)
+                        case .success(let updatedroutine):
+                            UserDefaultsStore.store(persistables: updatedroutine)
                         }
                     }
                 } else {
                     print("That user did not have a routine")
-                    routine = nil
                 }
-                return (returnUser, routine)
+                guard let u = UserDefaultsStore.retrieve(User.self) else {
+                    fatalError("User was saved but not found")
+                    
+                }
+                return u
             } else {
                 // These users have used the app but do not have an account
                 print("That user did not have an account on the server")
-                routine = UserDefaultsStore.retrieve(Routine.self)
-                if routine == nil {
+                if UserDefaultsStore.retrieve(Routine.self) == nil {
                     print("That user did not have a routine")
+                } else {
+                    print("That user did have a routine saved on device")
                 }
-                return (returnUser, routine)
+                guard let u = UserDefaultsStore.retrieve(User.self) else {
+                    fatalError("User was saved but not found")
+                }
+                return u
             }
         } else {
-            print("There was no account this is brand new")
+            print("There was no account this is brand a new user")
             // these users have not used the app before so they get a TEMP user
             returnUser = User(firstname: "Temp", lastname: "User", email: "None", password: "None", description: "None", dateofbirth: "None", type: "TEMP", id: nil, token: nil)
             UserDefaultsStore.store(persistables: returnUser)
-            routine = nil
-            return (returnUser, routine)
+            
+            return returnUser
         }
     }
 

@@ -16,6 +16,7 @@ struct Movement: Codable {
     let reps: Int
     let restTime: Int
     let tags: [String]
+    let image: Bool
     
 //    enum BodyPart: String, Codable {
 //        case shoulder
@@ -36,5 +37,6 @@ extension Movement {
         self.reps = 0
         self.restTime = 0
         self.tags = []
+        self.image = false
     }
 }
