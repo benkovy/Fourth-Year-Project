@@ -15,7 +15,7 @@ class HomeViewController: UIViewController, CollectionViewDelegatable {
     let webservice: WebService
     var refreshControl: UIRefreshControl
     
-    var content: [Workout] = []
+    var content: [WebWorkout] = []
     
     init(webservice: WebService) {
         self.webservice = webservice
@@ -53,7 +53,7 @@ class HomeViewController: UIViewController, CollectionViewDelegatable {
     }
     
     func requestContent() {
-        webservice.load(Workout.createWorkoutRequest()) { (result) in
+        webservice.load(Workout.workoutWithMovementsRequest()) { (result) in
             guard let result = result else { return }
             switch result {
             case .error(let error):
@@ -65,6 +65,7 @@ class HomeViewController: UIViewController, CollectionViewDelegatable {
                 }
             }
         }
+        
     }
     
     func updateContent() {
@@ -80,7 +81,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell: HomeCollectionViewCell = collectionView.dequeueReusableCell(forIndexPath: indexPath)
-        cell.configureCell(workout: content[indexPath.row])
+        cell.configureCellWithMovements(workout: content[indexPath.row])
         return cell
     }
     

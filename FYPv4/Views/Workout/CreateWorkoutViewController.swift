@@ -8,12 +8,14 @@
 
 import UIKit
 
-class CreateWorkoutViewController: UIViewController, TableViewDelegatable, MovementDelegate {
+class CreateWorkoutViewController: UIViewController, TableViewDelegatable, MovementDelegate, ErrorViewDelegate {
+    var errorView: ErrorView?
     
     @IBOutlet weak var tableView: UITableView!
     
     let webservice = WebService()
     var movements: [Movement?] = []
+    var tags: [String] = []
     let maxMovements = 15
     var num = 0
     var name: String?
@@ -24,6 +26,9 @@ class CreateWorkoutViewController: UIViewController, TableViewDelegatable, Movem
         self.title = "Workout"
         self.delegateTableView()
         tableView.register(InputTableViewCell.self)
+        tableView.register(PickerTableViewCell.self)
+        errorView = ErrorView(frame: CGRect(x: 0, y: -40, width: self.view.frame.width, height: 40))
+        setupErrorView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -33,13 +38,17 @@ class CreateWorkoutViewController: UIViewController, TableViewDelegatable, Movem
     
     @objc func addMovement(_ sender: UIButton) {
         movements.insert(nil, at: 0)
-        tableView.reloadData()
+        tableView.beginUpdates()
+        tableView.insertRows(at: [IndexPath(row: 0, section: 1)], with: .automatic)
+        tableView.endUpdates()
     }
     
     func didFinishEditingMovement(movement: Movement, forIndex index: Int) {
         movements.remove(at: index)
         movements.insert(movement, at: index)
-        tableView.reloadData()
+        tableView.beginUpdates()
+        tableView.reloadRows(at: [IndexPath(row: index, section: 1)], with: .automatic)
+        tableView.endUpdates()
     }
     
     func cellLabel(forIndexPath indexPath: IndexPath) -> String {
@@ -47,6 +56,7 @@ class CreateWorkoutViewController: UIViewController, TableViewDelegatable, Movem
         case (0,0): return "Name"
         case (0,1): return "Description"
         case (0,2): return "Image"
+        case (0,3): return "Tags"
         default: return ""
         }
     }
@@ -60,7 +70,7 @@ extension CreateWorkoutViewController: UITableViewDelegate, UITableViewDataSourc
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
-        case 0: return 3
+        case 0: return 5
         case 1: return movements.count
         default: return 0
         }
@@ -79,7 +89,16 @@ extension CreateWorkoutViewController: UITableViewDelegate, UITableViewDataSourc
         } else {
             if indexPath.row == 0 || indexPath.row == 1 {
                 let cell: InputTableViewCell = tableView.dequeueReusableCell(forIndexPath: indexPath)
-                cell.textView.text = cellLabel(forIndexPath: indexPath)
+                
+                // If there has already been something entered... re enter
+                if indexPath.row == 1 && desc != nil {
+                    cell.textView.text = self.desc
+                } else if indexPath.row == 0 && name != nil {
+                    cell.textView.text = self.name
+                } else {
+                    cell.textView.text = cellLabel(forIndexPath: indexPath)
+                }
+                
                 cell.didRequestPlaceholder = { return self.cellLabel(forIndexPath: indexPath) }
                 cell.didFinishEditing = { text in
                     if !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
@@ -90,10 +109,39 @@ extension CreateWorkoutViewController: UITableViewDelegate, UITableViewDataSourc
                     }
                 }
                 return cell
+            } else if indexPath.row == 4 {
+                let cell: PickerTableViewCell = tableView.dequeueReusableCell(forIndexPath: indexPath)
+                cell.selectionStyle = .none
+                cell.pickerView.tag = indexPath.row + indexPath.section
+                cell.pickerView.selectRow(4, inComponent: 0, animated: true)
+                cell.didRequestComponents = { return 1 }
+                cell.didRequestRows = { return WorkoutType.allTypes.count }
+                cell.didRequestTitles = { row in return String(describing: WorkoutType.allTypes[row]) }
+                cell.didAddRow = { row in
+                    let index =  IndexPath(row: 3, section: 0)
+                    if !self.tags.contains(String(describing: WorkoutType.allTypes[row])) {
+                        self.tags.append(String(describing: WorkoutType.allTypes[row]))
+                        self.tableView.beginUpdates()
+                        self.tableView.reloadRows(at: [index], with: .none)
+                        self.tableView.endUpdates()
+                    }
+                }
+                cell.didRemoveRow = { row in
+                    let path =  IndexPath(row: 3, section: 0)
+                    if let index = self.tags.index(of: String(describing: WorkoutType.allTypes[row])) {
+                        self.tags.remove(at: index)
+                        self.tableView.reloadRows(at: [path], with: .none)
+                    }
+                }
+                return cell
             } else {
                 let cell = UITableViewCell(style: .value1, reuseIdentifier: nil)
                 cell.textLabel?.text = cellLabel(forIndexPath: indexPath)
-                cell.detailTextLabel?.text = "Choose"
+                if indexPath.row == 3 {
+                    cell.detailTextLabel?.text = tags.joined(separator: " | ")
+                } else {
+                    cell.detailTextLabel?.text = "Choose"
+                }
                 return cell
             }
         }
@@ -102,6 +150,9 @@ extension CreateWorkoutViewController: UITableViewDelegate, UITableViewDataSourc
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch (indexPath.section, indexPath.row) {
         case (0,1): return 116
+        case (0,4):
+            guard let cell = tableView.cellForRow(at: indexPath) as? PickerTableViewCell else { return 0 }
+            return cell.pickerView.isHidden ? 0 : 150
         default: return 44
         }
     }
@@ -145,6 +196,18 @@ extension CreateWorkoutViewController: UITableViewDelegate, UITableViewDataSourc
         } else if indexPath.row == 2 && indexPath.section == 0 {
             // choose image
             print("Image")
+        } else if indexPath.row == 3 && indexPath.section == 0 {
+            let newIP = IndexPath(row: indexPath.row + 1, section: indexPath.section)
+            guard let cell = tableView.cellForRow(at: newIP) as? PickerTableViewCell else { return }
+            cell.pickerView.isHidden = !cell.pickerView.isHidden
+            cell.addButton.isHidden = !cell.addButton.isHidden
+            cell.removeButton.isHidden = !cell.removeButton.isHidden
+            UIView.animate(withDuration: 0.3, animations: { () -> Void in
+                self.tableView.beginUpdates()
+                self.tableView.deselectRow(at: indexPath, animated: true)
+                self.tableView.endUpdates()
+            })
+            return
         }
         tableView.deselectRow(at: indexPath, animated: true)
     }
@@ -154,26 +217,64 @@ extension CreateWorkoutViewController {
     
     @objc func handleSubmit() {
         self.view.endEditing(true)
+        navigationItem.rightBarButtonItem?.isEnabled = false
+        
         let actualMovements = movements.compactMap { $0 }
-        if actualMovements.count == 0 { print("EMPTY") } // show error message "No movements"
-        guard let wName = name else { print("No name"); return} // show error message "No name"
-        guard let wDesc = desc else { print("No desc"); return } // show error message "No description"
         
-        guard let user = UserDefaultsStore.retrieve(User.self) else { print("No user"); return } // show error message "Please sign in"
+        if actualMovements.count == 0 {
+            errorView?.callError(withTitle: "You don't have any complete movements. Add some", andColor: .red)
+            navigationItem.rightBarButtonItem?.isEnabled = true
+            return
+        }
+        guard let wName = name else {
+            errorView?.callError(withTitle: "Please add a name", andColor: .red)
+            navigationItem.rightBarButtonItem?.isEnabled = true
+            return
+        }
+        guard let wDesc = desc else {
+            errorView?.callError(withTitle: "Please add a description", andColor: .red)
+            navigationItem.rightBarButtonItem?.isEnabled = true
+            return
+        }
         
-        guard let userId = user.id, let userToken = user.token else { print("Not an authenticated user"); return }
+        guard let user = UserDefaultsStore.retrieve(User.self) else {
+            errorView?.callError(withTitle: "Please sign in to create workouts", andColor: .red)
+            navigationItem.rightBarButtonItem?.isEnabled = true
+            return
+        }
         
+        guard let userId = user.id, let userToken = user.token else {
+            errorView?.callError(withTitle: "Please sign in to create workouts", andColor: .red)
+            navigationItem.rightBarButtonItem?.isEnabled = true
+            return
+        }
         
-        let work = Workout(name: wName, creator: userId, creatorName: nil, time: 0, description: wDesc, image: false, rating: 0, id: nil)
+        if tags.count == 0 {
+            errorView?.callError(withTitle: "Please add at least one tag", andColor: .red)
+            navigationItem.rightBarButtonItem?.isEnabled = true
+            return
+        }
+        
+        let work = Workout(name: wName, creator: userId, creatorName: nil, time: 0, description: wDesc, image: false, rating: 0, id: nil, tags: tags)
+        
         
         let webWorkout = WebWorkout(workout: work, movements: actualMovements)
+        print(webWorkout)
         
         WebWorkout.saveWorkout(webservice: webservice, token: userToken, workout: webWorkout, callback: { res in
             switch res {
-            case .error(let error):
-                print("THAT WAS A FAIL: \(error.localizedDescription)")
-            case .success(let workout):
-                print("THAT WAS A SUCCESS: \(workout)")
+            case .error(_):
+                DispatchQueue.main.async {
+                    self.errorView?.callError(withTitle: "Network Error", andColor: .red)
+                    self.navigationItem.rightBarButtonItem?.isEnabled = true
+                }
+                return
+            case .success(_):
+                DispatchQueue.main.async {
+                    self.errorView?.callError(withTitle: "Added", andColor: .green)
+                    self.navigationItem.rightBarButtonItem?.isEnabled = true
+                }
+                return
             }
         })
     }

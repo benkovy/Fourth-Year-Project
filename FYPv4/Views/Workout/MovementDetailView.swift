@@ -12,10 +12,11 @@ protocol MovementDelegate {
     func didFinishEditingMovement(movement: Movement, forIndex index: Int)
 }
 
-class MovementDetailView: UIViewController, TableViewDelegatable {
-
+class MovementDetailView: UIViewController, TableViewDelegatable, ErrorViewDelegate {
+    
+    var errorView: ErrorView?
+    
     @IBOutlet weak var tableView: UITableView!
-    var tags: [String] = []
     var delegate: MovementDelegate?
     var movement: Movement?
     var movementIndex: Int
@@ -29,9 +30,8 @@ class MovementDetailView: UIViewController, TableViewDelegatable {
     var sets = 0
     var timeCheck = false
     var time = 0
-    var tagsCheck = false
     var checkAll: Bool {
-        return nameCheck && descCheck && repsCheck && setsCheck && timeCheck && tagsCheck
+        return nameCheck && descCheck && repsCheck && setsCheck && timeCheck
     }
     
     init(movementIndex: Int, movement: Movement?) {
@@ -50,9 +50,11 @@ class MovementDetailView: UIViewController, TableViewDelegatable {
         tableView.register(InputTableViewCell.self)
         tableView.register(PickerTableViewCell.self)
         if let m = self.movement {
-            nameCheck = true; descCheck = true; repsCheck = true; setsCheck = true; timeCheck = true; tagsCheck = true
-            name = m.name; descrip = m.description; reps = m.reps; sets = m.sets; time = m.restTime; tags = m.tags
+            nameCheck = true; descCheck = true; repsCheck = true; setsCheck = true; timeCheck = true;
+            name = m.name; descrip = m.description; reps = m.reps; sets = m.sets; time = m.restTime;
         }
+        self.errorView = ErrorView(frame: CGRect(x: 0, y: -40, width: self.view.frame.width, height: 40))
+        setupErrorView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -69,7 +71,6 @@ class MovementDetailView: UIViewController, TableViewDelegatable {
         case (1,2): return "Reps"
         case (1,3): return ""
         case (1,4): return "Rest Time"
-        case (2,0): return "Tags"
         default: return ""
         }
     }
@@ -84,13 +85,7 @@ class MovementDetailView: UIViewController, TableViewDelegatable {
     func pickerSelectedRow(sender: Int, row: Int, component: Int? = nil, indexPath: IndexPath) {
         let newIP = IndexPath(row: indexPath.row - 1, section: indexPath.section)
         guard let cell = tableView.cellForRow(at: newIP) else { return }
-        if sender == 3 {
-            let newTag = String(describing: WorkoutType.allTypes[row])
-            if !tags.contains(newTag) && (tags.count < 5) { self.tags.append(newTag) }
-            cell.detailTextLabel?.text = tags.joined(separator: " | ")
-            self.tagsCheck = tags.isEmpty ? false : true
-            return
-        } else if sender == 6 {
+        if sender == 6 {
             cell.detailTextLabel?.text = getTime(row: row)
             guard let text = cell.detailTextLabel?.text?.trimmingCharacters(in: .whitespacesAndNewlines) else { return }
             timeCheck = text.isEmpty ? false : true
@@ -124,14 +119,14 @@ class MovementDetailView: UIViewController, TableViewDelegatable {
         self.view.endEditing(true)
         // Check to see if all inputs are filled
         if checkAll {
-            let movement = Movement(name: name, description: descrip, sets: sets, reps: reps, restTime: time, tags: tags, image: false)
+            let movement = Movement(name: name, description: descrip, sets: sets, reps: reps, restTime: time, image: false)
             print(movement)
             if delegate != nil {
                 delegate?.didFinishEditingMovement(movement: movement, forIndex: movementIndex)
                 navigationController?.popViewController(animated: true)
             }
         } else {
-            print("Please complete movement")
+            errorView?.callError(withTitle: "Please fill entire movement", andColor: .red)
         }
     }
 }
@@ -180,15 +175,6 @@ extension MovementDetailView: UITableViewDelegate, UITableViewDataSource {
             cell.didRequestTitles = { row in return String(row) }
             cell.didSelectRow = {row, tag, com in self.pickerSelectedRow(sender: tag, row: row, component: com, indexPath: indexPath)}
             return cell
-        case (2,1):
-            let cell: PickerTableViewCell = tableView.dequeueReusableCell(forIndexPath: indexPath)
-            cell.pickerView.tag = indexPath.row + indexPath.section
-            cell.pickerView.selectRow(4, inComponent: 0, animated: true)
-            cell.didRequestComponents = { return 1 }
-            cell.didRequestRows = { return WorkoutType.allTypes.count }
-            cell.didRequestTitles = { row in return String(describing: WorkoutType.allTypes[row]) }
-            cell.didSelectRow = { row, tag, com in self.pickerSelectedRow(sender: tag, row: row, indexPath: indexPath)}
-            return cell
         default:
             let cell = UITableViewCell(style: .value2, reuseIdentifier: nil)
             cell.textLabel?.text = cellLabel(forIndexPath: indexPath)
@@ -205,7 +191,6 @@ extension MovementDetailView: UITableViewDelegate, UITableViewDataSource {
         switch section {
         case 0: return 2
         case 1: return 6
-        case 2: return 2
         default: return 0
         }
     }
@@ -213,7 +198,7 @@ extension MovementDetailView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch (indexPath.section, indexPath.row) {
         case (0,1): return 116
-        case (1,1), (1,3), (2,1), (1,5):
+        case (1,1), (1,3), (1,5):
             guard let cell = tableView.cellForRow(at: indexPath) as? PickerTableViewCell else { return 0 }
             return cell.pickerView.isHidden ? 0 : 150
         default: return 44
@@ -223,7 +208,7 @@ extension MovementDetailView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.view.endEditing(true)
         switch (indexPath.section, indexPath.row) {
-        case (1,0), (1,2), (2,0), (1,4):
+        case (1,0), (1,2), (1,4):
             
             let newIP = IndexPath(row: indexPath.row + 1, section: indexPath.section)
             guard let cell = tableView.cellForRow(at: newIP) as? PickerTableViewCell else { return }
@@ -249,7 +234,6 @@ extension MovementDetailView {
         case (1,0): return String(movement.sets)
         case (1,2): return String(movement.reps)
         case (1,4): return getTime(row: movement.restTime)
-        case (2,0): return movement.tags.joined(separator: " | ")
         default: return ""
         }
     }

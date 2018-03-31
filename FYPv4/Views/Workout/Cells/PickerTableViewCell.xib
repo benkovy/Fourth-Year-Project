@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14101" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14105" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -20,19 +21,39 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ECY-b0-zhT">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="162.5"/>
+                        <rect key="frame" x="72" y="0.0" width="176" height="162.5"/>
                     </pickerView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZYP-eB-lmw">
+                        <rect key="frame" x="274" y="8" width="30" height="30"/>
+                        <state key="normal" title="Add"/>
+                        <connections>
+                            <action selector="addTag:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Em8-X5-oBz"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CiI-RQ-fQW">
+                        <rect key="frame" x="16" y="8" width="55" height="30"/>
+                        <state key="normal" title="Remove"/>
+                        <connections>
+                            <action selector="removeTag:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="7Sm-S5-8en"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="CiI-RQ-fQW" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="0L8-z1-Led"/>
+                    <constraint firstAttribute="trailing" secondItem="ZYP-eB-lmw" secondAttribute="trailing" constant="16" id="6ov-4Q-tP0"/>
                     <constraint firstItem="ECY-b0-zhT" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="86Y-co-TyG"/>
+                    <constraint firstItem="ZYP-eB-lmw" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="Fd2-XA-Loa"/>
                     <constraint firstItem="ECY-b0-zhT" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="UiT-4L-B9e"/>
                     <constraint firstItem="ECY-b0-zhT" firstAttribute="height" secondItem="H2p-sc-9uM" secondAttribute="height" id="ZGm-rB-Q8e"/>
-                    <constraint firstItem="ECY-b0-zhT" firstAttribute="width" secondItem="H2p-sc-9uM" secondAttribute="width" id="tdG-Bm-Gh2"/>
+                    <constraint firstItem="ECY-b0-zhT" firstAttribute="width" secondItem="H2p-sc-9uM" secondAttribute="width" multiplier="0.55" id="tdG-Bm-Gh2"/>
+                    <constraint firstItem="CiI-RQ-fQW" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="x8B-1F-WnD"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="addButton" destination="ZYP-eB-lmw" id="2Rs-Ol-zNF"/>
                 <outlet property="pickerView" destination="ECY-b0-zhT" id="Vm8-Vs-rsT"/>
+                <outlet property="removeButton" destination="CiI-RQ-fQW" id="JnP-0S-cUP"/>
             </connections>
             <point key="canvasLocation" x="34" y="6.5"/>
         </tableViewCell>

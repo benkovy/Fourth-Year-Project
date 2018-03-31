@@ -18,6 +18,7 @@ enum FontStyle {
     case inputLabel
     case movementCell
     case header
+    case errorLabel
 }
 
 
@@ -46,6 +47,9 @@ extension UILabel {
         case .header:
             self.font = UIFont(name: "HelveticaNeue-Light", size: 15)
             self.textColor = UIColor.gray
+        case .errorLabel:
+            self.font = UIFont(name: "HelveticaNeue-Light", size: 15)
+            self.textColor = UIColor.white
         }
     }
 }
@@ -76,6 +80,9 @@ extension UITextView {
         case .header:
             self.font = UIFont(name: "HelveticaNeue-Light", size: 20)
             self.textColor = UIColor.gray
+        case .errorLabel:
+            self.font = UIFont(name: "HelveticaNeue-Light", size: 15)
+            self.textColor = UIColor.white
         }
     }
 }

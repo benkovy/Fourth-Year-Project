@@ -17,11 +17,17 @@ struct Workout: Codable {
     var image: Bool
     var rating: Int
     var id: String?
+    var tags: [String]
 }
 
 extension Workout {
     static func createWorkoutRequest() -> Resource<[Workout]> {
         let workoutRequest = Resource<[Workout]>(Router.workout(amount: 0).request)
         return workoutRequest
+    }
+    
+    static func workoutWithMovementsRequest() -> Resource<[WebWorkout]> {
+        let request = Resource<[WebWorkout]>(Router.workoutMovements(amount: 50).request)
+        return request
     }
 }

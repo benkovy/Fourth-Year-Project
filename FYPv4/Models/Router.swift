@@ -18,6 +18,7 @@ enum Router {
     case tokenRoutine(token: Token)
     case saveRoutine(token: Token, routine: Routine)
     case postWorkout(workout: WebWorkout)
+    case workoutMovements(amount: Int)
     
     // Library http://131.162.212.76:8080/ / Home / http://192.168.2.11:8080/
     private var urlPath: String {
@@ -40,6 +41,8 @@ enum Router {
             return "http://192.168.2.11:8080/routineForToken"
         case .saveRoutine(_,_):
             return "http://192.168.2.11:8080/routine"
+        case .workoutMovements(let amount):
+            return "http://192.168.2.11:8080/workoutAndMovements/\(amount)"
         }
     }
     
@@ -54,6 +57,8 @@ enum Router {
     
     var headerField: String {
         switch self {
+        case .workoutMovements(_):
+            return "Content-Type"
         case .postWorkout(_):
             return "Content-Type"
         case .tokenAuth(_):
@@ -77,6 +82,8 @@ enum Router {
     
     var method: String {
         switch self {
+        case .workoutMovements(_):
+            return "GET"
         case .postWorkout(_):
             return "POST"
         case .saveRoutine(_,_):
@@ -100,6 +107,8 @@ enum Router {
     
     var contentType: String {
         switch self {
+        case .workoutMovements(_):
+            return "application/json"
         case .postWorkout(_):
             return "application/json"
         case .saveRoutine(_,_):
@@ -136,6 +145,8 @@ enum Router {
     
     var body: Data {
         switch self {
+        case .workoutMovements(_):
+            return Data()
         case .postWorkout(let workout):
             let data = try? JSONEncoder().encode(workout)
             return data ?? Data()

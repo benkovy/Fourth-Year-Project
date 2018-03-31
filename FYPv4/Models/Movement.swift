@@ -15,7 +15,6 @@ struct Movement: Codable {
     let sets: Int
     let reps: Int
     let restTime: Int
-    let tags: [String]
     let image: Bool
     
 //    enum BodyPart: String, Codable {
@@ -36,7 +35,6 @@ extension Movement {
         self.sets = 0
         self.reps = 0
         self.restTime = 0
-        self.tags = []
         self.image = false
     }
 }

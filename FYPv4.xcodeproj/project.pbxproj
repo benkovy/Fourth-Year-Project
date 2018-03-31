@@ -42,6 +42,8 @@
 		7822F9272013E86100439343 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7822F9262013E86100439343 /* Result.swift */; };
 		7822F9292013EA2C00439343 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7822F9282013EA2C00439343 /* StringExtension.swift */; };
 		7823716A206C358D00C3B2AB /* WebWorkout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78237169206C358D00C3B2AB /* WebWorkout.swift */; };
+		7823716C206D272300C3B2AB /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7823716B206D272300C3B2AB /* ErrorView.swift */; };
+		7823716E206D288A00C3B2AB /* ErrorViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7823716D206D288A00C3B2AB /* ErrorViewDelegate.swift */; };
 		782828BE205A93AD00E1D80C /* EditMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782828BC205A93AD00E1D80C /* EditMenuViewController.swift */; };
 		782828BF205A93AD00E1D80C /* EditMenuViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 782828BD205A93AD00E1D80C /* EditMenuViewController.xib */; };
 		7876A727204DF6FB001AEA9D /* ViewConfigurable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7876A726204DF6FB001AEA9D /* ViewConfigurable.swift */; };
@@ -149,6 +151,8 @@
 		7822F9262013E86100439343 /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		7822F9282013EA2C00439343 /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		78237169206C358D00C3B2AB /* WebWorkout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebWorkout.swift; sourceTree = "<group>"; };
+		7823716B206D272300C3B2AB /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
+		7823716D206D288A00C3B2AB /* ErrorViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorViewDelegate.swift; sourceTree = "<group>"; };
 		782828BC205A93AD00E1D80C /* EditMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMenuViewController.swift; sourceTree = "<group>"; };
 		782828BD205A93AD00E1D80C /* EditMenuViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EditMenuViewController.xib; sourceTree = "<group>"; };
 		7876A726204DF6FB001AEA9D /* ViewConfigurable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewConfigurable.swift; sourceTree = "<group>"; };
@@ -289,6 +293,7 @@
 		7822F9002006798500439343 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				7823716B206D272300C3B2AB /* ErrorView.swift */,
 				78F0B1972055A83200918F07 /* RoutineViewModel.swift */,
 				78F0B1992055A8BE00918F07 /* RoutineType.swift */,
 				7822049E201A53AB00439343 /* PeakUITextField.swift */,
@@ -332,6 +337,7 @@
 		7822F91D2012694800439343 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
+				7823716D206D288A00C3B2AB /* ErrorViewDelegate.swift */,
 				78F0B19F2057191900918F07 /* ModalDelegatable.swift */,
 				788AAAE220517B110015BE06 /* UserAuthDelegatable.swift */,
 				78D85003201BE8F4008FFFB3 /* PeakUITextFieldDelegate.swift */,
@@ -727,6 +733,7 @@
 				788AAAD520506B070015BE06 /* FYP + Date.swift in Sources */,
 				788AAADD205166340015BE06 /* Routine.swift in Sources */,
 				7822F8D62006790800439343 /* FYPv4.xcdatamodeld in Sources */,
+				7823716C206D272300C3B2AB /* ErrorView.swift in Sources */,
 				788AAACF205040B00015BE06 /* FYP + Fonts.swift in Sources */,
 				7822F9252013E0EA00439343 /* LoginViewState.swift in Sources */,
 				7822F8D02006790800439343 /* ViewController.swift in Sources */,
@@ -745,6 +752,7 @@
 				7822F90B200E40D400439343 /* User.swift in Sources */,
 				7822F90E2010E65E00439343 /* HomeViewController.swift in Sources */,
 				7822048F20193FA800439343 /* Router.swift in Sources */,
+				7823716E206D288A00C3B2AB /* ErrorViewDelegate.swift in Sources */,
 				78F0B18C2054C02800918F07 /* DayByDayModel.swift in Sources */,
 				788AAACB204F884C0015BE06 /* FYP + CollectionView.swift in Sources */,
 				7822F90220067BE700439343 /* Movement.swift in Sources */,

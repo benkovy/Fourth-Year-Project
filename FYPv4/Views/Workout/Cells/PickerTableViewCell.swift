@@ -10,21 +10,39 @@ import UIKit
 
 class PickerTableViewCell: UITableViewCell {
     
+    @IBOutlet weak var removeButton: UIButton!
+    @IBOutlet weak var addButton: UIButton!
     @IBOutlet weak var pickerView: UIPickerView!
     var didRequestComponents: (() -> (Int))?
     var didRequestRows: (() -> (Int))?
     var didRequestTitles: ((Int) -> (String))?
     var didSelectRow: ((Int, Int, Int) -> ())?
+    var didRemoveRow: ((Int) -> ())?
+    var didAddRow: ((Int) -> ())?
 
     override func awakeFromNib() {
         super.awakeFromNib()
         pickerView.delegate = self
         pickerView.dataSource = self
         pickerView.isHidden = true
+        addButton.isHidden = true
+        removeButton.isHidden = true
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
+    }
+    
+    @IBAction func removeTag(_ sender: UIButton) {
+        let index = pickerView.selectedRow(inComponent: 0)
+        print("Remove \(index)")
+        didRemoveRow?(index)
+    }
+    
+    @IBAction func addTag(_ sender: UIButton) {
+        let index = pickerView.selectedRow(inComponent: 0)
+        print("Add \(index)")
+        didAddRow?(index)
     }
 }
 

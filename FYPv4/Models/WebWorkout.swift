@@ -17,7 +17,8 @@ struct WebWorkout: Codable {
     var image: Bool
     var rating: Int
     var id: String?
-    let movements: [Movement]?
+    var movements: [Movement]?
+    var tags: [String]
 }
 
 extension WebWorkout {
@@ -31,6 +32,7 @@ extension WebWorkout {
         self.rating = workout.rating
         self.id = workout.id
         self.movements = movements
+        self.tags = workout.tags
     }
     
     static func postWorkout(token: Token, workout: WebWorkout) -> Resource<Workout> {
