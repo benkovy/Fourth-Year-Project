@@ -259,7 +259,6 @@ extension CreateWorkoutViewController {
         
         
         let webWorkout = WebWorkout(workout: work, movements: actualMovements)
-        print(webWorkout)
         
         WebWorkout.saveWorkout(webservice: webservice, token: userToken, workout: webWorkout, callback: { res in
             switch res {
@@ -269,13 +268,78 @@ extension CreateWorkoutViewController {
                     self.navigationItem.rightBarButtonItem?.isEnabled = true
                 }
                 return
-            case .success(_):
+            case .success(let wor):
                 DispatchQueue.main.async {
-                    self.errorView?.callError(withTitle: "Added", andColor: .green)
                     self.navigationItem.rightBarButtonItem?.isEnabled = true
+                    let webW = WebWorkout(workout: wor, movements: actualMovements)
+                    self.finishWorkout(workout: webW)
                 }
                 return
             }
+        })
+    }
+    
+    func finishWorkout(workout: WebWorkout) {
+        guard let _ = workout.id else {
+            errorView?.callError(withTitle: "Something went wrong on our side", andColor: .red)
+            return
+        }
+        let tags = workout.tags
+        let alert = UIAlertController(title: "Add to day", message: nil, preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: NSLocalizedString("Just add to my workouts", comment: "Default action"), style: .cancel, handler: { _ in
+            
+        }))
+        alert.addAction(UIAlertAction(title: NSLocalizedString("Sunday", comment: "Sunday"), style: .default, handler: { _ in
+            self.addDayToRoutine(workout, forDay: 0, andTags: tags)
+        }))
+        alert.addAction(UIAlertAction(title: NSLocalizedString("Monday", comment: "Monday"), style: .default, handler: { _ in
+            self.addDayToRoutine(workout, forDay: 1, andTags: tags)
+        }))
+        alert.addAction(UIAlertAction(title: NSLocalizedString("Tuesday", comment: "Tuesday"), style: .default, handler: { _ in
+            self.addDayToRoutine(workout, forDay: 2, andTags: tags)
+        }))
+        alert.addAction(UIAlertAction(title: NSLocalizedString("Wednesday", comment: "Wednesday"), style: .default, handler: { _ in
+            self.addDayToRoutine(workout, forDay: 3, andTags: tags)
+        }))
+        alert.addAction(UIAlertAction(title: NSLocalizedString("Thursday", comment: "Thursday"), style: .default, handler: { _ in
+            self.addDayToRoutine(workout, forDay: 4, andTags: tags)
+        }))
+        alert.addAction(UIAlertAction(title: NSLocalizedString("Friday", comment: "Friday"), style: .default, handler: { _ in
+            self.addDayToRoutine(workout, forDay: 5, andTags: tags)
+        }))
+        alert.addAction(UIAlertAction(title: NSLocalizedString("Saturday", comment: "Saturday"), style: .default, handler: { _ in
+            self.addDayToRoutine(workout, forDay: 6, andTags: tags)
+        }))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    func addDayToRoutine(_ workout: WebWorkout, forDay day: Int, andTags: [String]) {
+        guard var routine = UserDefaultsStore.retrieve(Routine.self) else {
+            errorView?.callError(withTitle: "You dont have a routine", andColor: .red)
+            return
+        }
+        routine.finalizeDay(number: day, toWorkout: workout, withTags: andTags)
+        UserDefaultsStore.store(persistables: routine)
+        
+        guard let user = UserDefaultsStore.retrieve(User.self), let token = user.token else {
+            errorView?.callError(withTitle: "Please login to an account", andColor: .red)
+            return
+        }
+        
+        User.saveUserRoutine(webservice: webservice, token: token, routine: routine, callback: { res in
+            guard let result = res else {return}
+            switch result {
+            case .error(let error):
+                DispatchQueue.main.async {
+                    self.errorView?.callError(withTitle: error.localizedDescription, andColor: .red)
+                }
+            case .success(_):
+                DispatchQueue.main.async {
+                    self.errorView?.callError(withTitle: "Added to routine", andColor: .green)
+                    self.navigationController?.popViewController(animated: true)
+                }
+            }
+            
         })
     }
 }

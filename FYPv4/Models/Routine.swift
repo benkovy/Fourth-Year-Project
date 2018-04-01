@@ -35,10 +35,24 @@ extension Routine {
         self.user_id = id
     }
     
-    mutating func initializeDay(number: Int, toValue: String) {
+    mutating func finalizeDay(number: Int, toWorkout: WebWorkout, withTags: [String]) {
+        var ordered = self.days.sorted(by: {$0.day < $1.day})
+        ordered[number] = Day(
+            initialized: withTags,
+            workoutId: toWorkout.id,
+            finalized: toWorkout,
+            empty: false,
+            id: ordered[number].id,
+            day: ordered[number].day,
+            routine_id: ordered[number].routine_id)
+        self.days = ordered
+    }
+    
+    mutating func initializeDay(number: Int, toValue: [String]) {
         var ordered = self.days.sorted(by: {$0.day < $1.day})
         ordered[number] = Day(
             initialized: toValue,
+            workoutId: nil,
             finalized: nil,
             empty: false,
             id: ordered[number].id,
@@ -51,6 +65,7 @@ extension Routine {
         var ordered = self.days.sorted(by: {$0.day < $1.day})
         ordered[number] = Day(
             initialized: nil,
+            workoutId: nil,
             finalized: nil,
             empty: true,
             id: ordered[number].id,
@@ -76,8 +91,9 @@ extension Routine {
 
 
 struct Day: Codable {
-    let initialized: String?
-    let finalized: String?
+    let initialized: [String]?
+    let workoutId: String?
+    let finalized: WebWorkout?
     let empty: Bool
     let id: String?
     let day: Int
@@ -87,6 +103,7 @@ struct Day: Codable {
 extension Day {
     init(day: Int) {
         self.id = nil
+        self.workoutId = nil
         self.initialized = nil
         self.empty = true
         self.finalized = nil
@@ -97,6 +114,7 @@ extension Day {
     enum CodingError: Error { case decoding(String) }
     enum CodingKeys: String, CodingKey {
         case initialized
+        case workoutId
         case finalized
         case empty
         case id
@@ -107,11 +125,11 @@ extension Day {
     init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         
-        if let initialized = try? values.decode(String.self, forKey: Day.CodingKeys.initialized) {
+        if let initialized = try? values.decode([String].self, forKey: Day.CodingKeys.initialized) {
             self.initialized = initialized
         } else {self.initialized = nil}
         
-        if let finalized = try? values.decode(String.self, forKey: Day.CodingKeys.finalized) {
+        if let finalized = try? values.decode(WebWorkout.self, forKey: Day.CodingKeys.finalized) {
             self.finalized = finalized
         } else { self.finalized = nil}
         
@@ -122,6 +140,10 @@ extension Day {
         if let id = try? values.decode(String.self, forKey: Day.CodingKeys.id) {
             self.id = id
         } else { self.id = "INVALID ID"}
+        
+        if let workoutId = try? values.decode(String.self, forKey: Day.CodingKeys.workoutId) {
+            self.workoutId = workoutId
+        } else { self.workoutId = nil}
         
         if let day = try? values.decode(Int.self, forKey: Day.CodingKeys.day) {
             self.day = day

@@ -8,8 +8,9 @@
 
 import UIKit
 
-class RoutineViewController: UIViewController, TableViewDelegatable {
-
+class RoutineViewController: UIViewController, TableViewDelegatable, ErrorViewDelegate {
+    var errorView: ErrorView?
+    
     @IBOutlet weak var tableView: UITableView!
     
     var viewState: RoutineViewState = .noroutine
@@ -33,6 +34,8 @@ class RoutineViewController: UIViewController, TableViewDelegatable {
         self.delegateTableView()
         self.tableView.register(RoutineTableViewCell.self)
         tableView.reloadData()
+        errorView = ErrorView(frame: CGRect(x: 0, y: -40, width: self.view.frame.width, height: 40))
+        setupErrorView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -46,12 +49,19 @@ class RoutineViewController: UIViewController, TableViewDelegatable {
     func stateRoutine() {
         if let user = UserDefaultsStore.retrieve(User.self) {
             if user.userType() == "ACC" {
+                errorView?.callError(withTitle: "Retrieving routine", andColor: UIColor.peakBlue)
                 self.getRoutine(user: user) { (result) in
                     switch result {
-                    case .error(let error):
-                        print("error: \(error)")
+                    case .error(_):
+                        DispatchQueue.main.async {
+                            self.errorView?.callError(withTitle: "Routine couldn't be retrieved", andColor: .red)
+                        }
                     case .success(let routine):
                         self.routine = routine
+                        print(routine)
+                        DispatchQueue.main.async {
+                            self.errorView?.callError(withTitle: "Routine is up to date", andColor: UIColor.peakBlue)
+                        }
                     }
                 }
             } else {
@@ -69,13 +79,31 @@ extension RoutineViewController: UserAuthDelegatable { }
 extension RoutineViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        switch getTableViewCellType(indexPath: collectionView.tag) {
+        case .empty:
+            return 0
+        case .finalized:
+            return 1
+        case .initialized:
+            return 20
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
         let cell: HomeCollectionViewCell = collectionView.dequeueReusableCell(forIndexPath: indexPath)
-        cell.configureCell(workout: Workout(name: "THIS WORKOUT", creator: "Ben Kovacs", creatorName: "Ben Kovacs", time: 32, description: "BLAH", image: true, rating: 324, id: "asdasdasd", tags: ["dadada"]))
+        switch getTableViewCellType(indexPath: collectionView.tag) {
+        case .empty:
+            cell.configureCell(workout: Workout(name: "THIS WORKOUT", creator: "Ben Kovacs", creatorName: "Ben Kovacs", time: 32, description: "BLAH", image: true, rating: 324, id: "asdasdasd", tags: ["dadada"]))
+        case .finalized:
+            if let workout = self.routine?.days[collectionView.tag].finalized {
+                cell.configureCellWithMovements(workout: workout)
+            } else {
+                cell.configureCell(workout: Workout(name: "", creator: " ", creatorName: " ", time: 32, description: "", image: true, rating: 0, id: "", tags: ["dadada"]))
+            }
+        case .initialized:
+            cell.configureCell(workout: Workout(name: "THIS WORKOUT", creator: "Ben Kovacs", creatorName: "Ben Kovacs", time: 32, description: "BLAH", image: true, rating: 324, id: "asdasdasd", tags: ["dadada"]))
+        }
+        
         return cell
         
     }
@@ -112,10 +140,10 @@ extension RoutineViewController: UITableViewDataSource, UITableViewDelegate {
             headerView.headerWorkoutType.text = "No workout type specified"
         case .finalized:
             guard let r = self.routine else { return headerView }
-            headerView.headerWorkoutType.text = r.days[section].initialized?.capitalized ?? "No workout type specified"
+            headerView.headerWorkoutType.text = r.days[section].initialized?.joined(separator: " | ").capitalized ?? "No workout type specified"
         case .initialized:
             guard let r = self.routine else { return headerView }
-            headerView.headerWorkoutType.text = r.days[section].initialized?.capitalized ?? "No workout type specified"
+            headerView.headerWorkoutType.text = r.days[section].initialized?.joined(separator: " | ").capitalized ?? "No workout type specified"
         }
         return headerView
     }
@@ -193,7 +221,7 @@ extension RoutineViewController: ModalDelegatable {
     
     func modalPassingBack(value: WorkoutType, forCellAt: IndexPath) {
         guard var r = self.routine else { return }
-        r.initializeDay(number: forCellAt.section, toValue: String(describing: value))
+        r.initializeDay(number: forCellAt.section, toValue: [String(describing: value)])
         routine = r
         if let user = UserDefaultsStore.retrieve(User.self) {
             self.saveRoutine(user: user) { (result) in
@@ -201,6 +229,9 @@ extension RoutineViewController: ModalDelegatable {
                 case .error(let error):
                     print("error: \(error)")
                 case .success(let routine):
+                    DispatchQueue.main.async {
+                        self.errorView?.callError(withTitle: "Routine updated", andColor: UIColor.peakBlue)
+                    }
                     self.routine = routine
                 }
             }
@@ -237,6 +268,11 @@ extension RoutineViewController {
     func getTableViewCellType(indexPath: IndexPath) -> WorkoutDay {
         guard let r = self.routine else { return .empty }
         return r.dayType(forDay: indexPath.section)
+    }
+    
+    func getTableViewCellType(indexPath: Int) -> WorkoutDay {
+        guard let r = self.routine else { return .empty }
+        return r.dayType(forDay: indexPath)
     }
     
     @objc func chooseWorkoutButtonPress(sender: UIButton) {
@@ -293,6 +329,9 @@ extension RoutineViewController: EditMenuDelegatable {
                     print("error: \(error)")
                 case .success(let routine):
                     self.routine = routine
+                    DispatchQueue.main.async {
+                        self.errorView?.callError(withTitle: "Routine updated", andColor: UIColor.peakBlue)
+                    }
                 }
             }
         }
