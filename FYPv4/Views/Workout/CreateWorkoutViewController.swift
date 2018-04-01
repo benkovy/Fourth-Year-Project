@@ -64,6 +64,13 @@ class CreateWorkoutViewController: UIViewController, TableViewDelegatable, Movem
 
 extension CreateWorkoutViewController: UITableViewDelegate, UITableViewDataSource {
     
+    func numberOfLines(forIndexPath indexPath: IndexPath) -> Int {
+        switch (indexPath.section, indexPath.row) {
+        case (0,1): return 4
+        default: return 1
+        }
+    }
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
@@ -108,6 +115,8 @@ extension CreateWorkoutViewController: UITableViewDelegate, UITableViewDataSourc
                         if indexPath.row == 0 { self.name = text }
                     }
                 }
+                cell.textView.textContainer.maximumNumberOfLines = numberOfLines(forIndexPath: indexPath)
+                cell.textView.textContainer.lineBreakMode = .byTruncatingTail
                 return cell
             } else if indexPath.row == 4 {
                 let cell: PickerTableViewCell = tableView.dequeueReusableCell(forIndexPath: indexPath)
@@ -149,7 +158,7 @@ extension CreateWorkoutViewController: UITableViewDelegate, UITableViewDataSourc
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch (indexPath.section, indexPath.row) {
-        case (0,1): return 116
+        case (0,1): return 100
         case (0,4):
             guard let cell = tableView.cellForRow(at: indexPath) as? PickerTableViewCell else { return 0 }
             return cell.pickerView.isHidden ? 0 : 150

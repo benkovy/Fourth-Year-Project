@@ -77,7 +77,7 @@ class MovementDetailView: UIViewController, TableViewDelegatable, ErrorViewDeleg
     
     func numberOfLines(forIndexPath indexPath: IndexPath) -> Int {
         switch (indexPath.section, indexPath.row) {
-        case (0,1): return 5
+        case (0,1): return 4
         default: return 1
         }
     }
@@ -197,7 +197,7 @@ extension MovementDetailView: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch (indexPath.section, indexPath.row) {
-        case (0,1): return 116
+        case (0,1): return 100
         case (1,1), (1,3), (1,5):
             guard let cell = tableView.cellForRow(at: indexPath) as? PickerTableViewCell else { return 0 }
             return cell.pickerView.isHidden ? 0 : 150

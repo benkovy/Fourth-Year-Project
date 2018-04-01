@@ -20,6 +20,7 @@ enum FontStyle {
     case header
     case errorLabel
     case routineHeaderTitle
+    case repsAndSets
 }
 
 
@@ -54,6 +55,9 @@ extension UILabel {
         case .routineHeaderTitle:
             self.font = UIFont(name: "HelveticaNeue-Light", size: 24)
             self.textColor = UIColor.white
+        case .repsAndSets:
+            self.font = UIFont(name: "HelveticaNeue-Light", size: 15)
+            self.textColor = UIColor.peakBlue
         }
     }
 }
@@ -90,6 +94,10 @@ extension UITextView {
         case .routineHeaderTitle:
             self.font = UIFont(name: "HelveticaNeue-Light", size: 24)
             self.textColor = UIColor.white
+        case .repsAndSets:
+            self.font = UIFont(name: "HelveticaNeue-Light", size: 15)
+            self.textColor = UIColor.peakBlue
+        
         }
     }
 }

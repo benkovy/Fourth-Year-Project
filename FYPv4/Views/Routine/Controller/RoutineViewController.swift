@@ -121,6 +121,8 @@ extension RoutineViewController: UICollectionViewDelegate, UICollectionViewDataS
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let r = self.routine, let workout = r.days[collectionView.tag].finalized?[indexPath.row] else { return }
         print(workout)
+        let vc = WorkoutDetailView(workout: workout)
+        navigationController?.present(vc, animated: true, completion: nil)
     }
     
 }

@@ -9,3 +9,14 @@
 import Foundation
 
 extension String: Error {}
+
+extension String {
+    static func getTime(row: Int) -> String {
+        if row < 60 {
+            return "\(row) Seconds"
+        }
+        let seconds = row % 60
+        let minutes = row / 60
+        return "\(minutes)m \(seconds)s"
+    }
+}

@@ -46,6 +46,10 @@
 		7823716E206D288A00C3B2AB /* ErrorViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7823716D206D288A00C3B2AB /* ErrorViewDelegate.swift */; };
 		7823717120715B0000C3B2AB /* WorkoutDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7823716F20715B0000C3B2AB /* WorkoutDetailView.swift */; };
 		7823717220715B0000C3B2AB /* WorkoutDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7823717020715B0000C3B2AB /* WorkoutDetailView.xib */; };
+		782371762071663500C3B2AB /* WorkoutDetailViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782371742071663500C3B2AB /* WorkoutDetailViewTableViewCell.swift */; };
+		782371772071663500C3B2AB /* WorkoutDetailViewTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 782371752071663500C3B2AB /* WorkoutDetailViewTableViewCell.xib */; };
+		7823717A20716CDA00C3B2AB /* MovementDetailViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7823717820716CDA00C3B2AB /* MovementDetailViewTableViewCell.swift */; };
+		7823717B20716CDA00C3B2AB /* MovementDetailViewTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7823717920716CDA00C3B2AB /* MovementDetailViewTableViewCell.xib */; };
 		782828BE205A93AD00E1D80C /* EditMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782828BC205A93AD00E1D80C /* EditMenuViewController.swift */; };
 		782828BF205A93AD00E1D80C /* EditMenuViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 782828BD205A93AD00E1D80C /* EditMenuViewController.xib */; };
 		7876A727204DF6FB001AEA9D /* ViewConfigurable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7876A726204DF6FB001AEA9D /* ViewConfigurable.swift */; };
@@ -157,6 +161,10 @@
 		7823716D206D288A00C3B2AB /* ErrorViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorViewDelegate.swift; sourceTree = "<group>"; };
 		7823716F20715B0000C3B2AB /* WorkoutDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutDetailView.swift; sourceTree = "<group>"; };
 		7823717020715B0000C3B2AB /* WorkoutDetailView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WorkoutDetailView.xib; sourceTree = "<group>"; };
+		782371742071663500C3B2AB /* WorkoutDetailViewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutDetailViewTableViewCell.swift; sourceTree = "<group>"; };
+		782371752071663500C3B2AB /* WorkoutDetailViewTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WorkoutDetailViewTableViewCell.xib; sourceTree = "<group>"; };
+		7823717820716CDA00C3B2AB /* MovementDetailViewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovementDetailViewTableViewCell.swift; sourceTree = "<group>"; };
+		7823717920716CDA00C3B2AB /* MovementDetailViewTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MovementDetailViewTableViewCell.xib; sourceTree = "<group>"; };
 		782828BC205A93AD00E1D80C /* EditMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMenuViewController.swift; sourceTree = "<group>"; };
 		782828BD205A93AD00E1D80C /* EditMenuViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EditMenuViewController.xib; sourceTree = "<group>"; };
 		7876A726204DF6FB001AEA9D /* ViewConfigurable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewConfigurable.swift; sourceTree = "<group>"; };
@@ -361,6 +369,10 @@
 			children = (
 				7823716F20715B0000C3B2AB /* WorkoutDetailView.swift */,
 				7823717020715B0000C3B2AB /* WorkoutDetailView.xib */,
+				782371742071663500C3B2AB /* WorkoutDetailViewTableViewCell.swift */,
+				782371752071663500C3B2AB /* WorkoutDetailViewTableViewCell.xib */,
+				7823717820716CDA00C3B2AB /* MovementDetailViewTableViewCell.swift */,
+				7823717920716CDA00C3B2AB /* MovementDetailViewTableViewCell.xib */,
 			);
 			path = "Detail View";
 			sourceTree = "<group>";
@@ -596,6 +608,7 @@
 				78F0B19E205718E500918F07 /* ModalWorkoutTypeViewController.xib in Resources */,
 				782204952019462900439343 /* ProfileViewController.xib in Resources */,
 				7823717220715B0000C3B2AB /* WorkoutDetailView.xib in Resources */,
+				782371772071663500C3B2AB /* WorkoutDetailViewTableViewCell.xib in Resources */,
 				788AAAD3205068920015BE06 /* HomeCollectionReusableViewHeader.xib in Resources */,
 				7822F8DB2006790800439343 /* LaunchScreen.storyboard in Resources */,
 				78E5A6002062DC4000F9903F /* MovementDetailView.xib in Resources */,
@@ -605,6 +618,7 @@
 				78E5A501206189A300F9903F /* CreateWorkoutViewController.xib in Resources */,
 				7885954D206808AA00BA2371 /* PickerTableViewCell.xib in Resources */,
 				788AAAD92050AFB10015BE06 /* RoutineTableViewCell.xib in Resources */,
+				7823717B20716CDA00C3B2AB /* MovementDetailViewTableViewCell.xib in Resources */,
 				7885954920659B8200BA2371 /* InputTableViewCell.xib in Resources */,
 				7822F8D82006790800439343 /* Assets.xcassets in Resources */,
 				782828BF205A93AD00E1D80C /* EditMenuViewController.xib in Resources */,
@@ -741,6 +755,7 @@
 				78D9E6882031217000102F73 /* UIViewControllerExtension.swift in Sources */,
 				788AAAE92051BCE70015BE06 /* CanSwitchTabBarViewControllers.swift in Sources */,
 				788AAAE7205199E00015BE06 /* NoRoutineActionDelegate.swift in Sources */,
+				7823717A20716CDA00C3B2AB /* MovementDetailViewTableViewCell.swift in Sources */,
 				7822F91C2012694000439343 /* NibLoadableView.swift in Sources */,
 				7822F9072006821D00439343 /* Database.swift in Sources */,
 				7822F92120126EAC00439343 /* Persistable.swift in Sources */,
@@ -780,6 +795,7 @@
 				78D85000201BC0B0008FFFB3 /* BoolResponse.swift in Sources */,
 				7822F923201272BB00439343 /* UserDefaultsStore.swift in Sources */,
 				782204A3201A800000439343 /* UIColorExtension.swift in Sources */,
+				782371762071663500C3B2AB /* WorkoutDetailViewTableViewCell.swift in Sources */,
 				78D85004201BE8F5008FFFB3 /* PeakUITextFieldDelegate.swift in Sources */,
 				7822F9122010EBD300439343 /* TabItem.swift in Sources */,
 				7822F9292013EA2C00439343 /* StringExtension.swift in Sources */,
