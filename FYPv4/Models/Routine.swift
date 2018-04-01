@@ -35,11 +35,11 @@ extension Routine {
         self.user_id = id
     }
     
-    mutating func finalizeDay(number: Int, toWorkout: WebWorkout, withTags: [String]) {
+    mutating func finalizeDay(number: Int, toWorkout: [WebWorkout], withTags: [String]) {
         var ordered = self.days.sorted(by: {$0.day < $1.day})
         ordered[number] = Day(
             initialized: withTags,
-            workoutId: toWorkout.id,
+            workoutId: toWorkout.first?.id,
             finalized: toWorkout,
             empty: false,
             id: ordered[number].id,
@@ -79,7 +79,7 @@ extension Routine {
         let ordered = self.days.sorted(by: {$0.day < $1.day})
         if ordered[forDay].empty {
             return .empty
-        } else if ordered[forDay].finalized != nil {
+        } else if ordered[forDay].workoutId != nil {
             return .finalized
         } else if ordered[forDay].initialized != nil {
             return .initialized
@@ -93,7 +93,7 @@ extension Routine {
 struct Day: Codable {
     let initialized: [String]?
     let workoutId: String?
-    let finalized: WebWorkout?
+    let finalized: [WebWorkout]?
     let empty: Bool
     let id: String?
     let day: Int
@@ -129,7 +129,7 @@ extension Day {
             self.initialized = initialized
         } else {self.initialized = nil}
         
-        if let finalized = try? values.decode(WebWorkout.self, forKey: Day.CodingKeys.finalized) {
+        if let finalized = try? values.decode([WebWorkout].self, forKey: Day.CodingKeys.finalized) {
             self.finalized = finalized
         } else { self.finalized = nil}
         

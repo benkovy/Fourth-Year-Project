@@ -44,6 +44,8 @@
 		7823716A206C358D00C3B2AB /* WebWorkout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78237169206C358D00C3B2AB /* WebWorkout.swift */; };
 		7823716C206D272300C3B2AB /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7823716B206D272300C3B2AB /* ErrorView.swift */; };
 		7823716E206D288A00C3B2AB /* ErrorViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7823716D206D288A00C3B2AB /* ErrorViewDelegate.swift */; };
+		7823717120715B0000C3B2AB /* WorkoutDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7823716F20715B0000C3B2AB /* WorkoutDetailView.swift */; };
+		7823717220715B0000C3B2AB /* WorkoutDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7823717020715B0000C3B2AB /* WorkoutDetailView.xib */; };
 		782828BE205A93AD00E1D80C /* EditMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782828BC205A93AD00E1D80C /* EditMenuViewController.swift */; };
 		782828BF205A93AD00E1D80C /* EditMenuViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 782828BD205A93AD00E1D80C /* EditMenuViewController.xib */; };
 		7876A727204DF6FB001AEA9D /* ViewConfigurable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7876A726204DF6FB001AEA9D /* ViewConfigurable.swift */; };
@@ -153,6 +155,8 @@
 		78237169206C358D00C3B2AB /* WebWorkout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebWorkout.swift; sourceTree = "<group>"; };
 		7823716B206D272300C3B2AB /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		7823716D206D288A00C3B2AB /* ErrorViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorViewDelegate.swift; sourceTree = "<group>"; };
+		7823716F20715B0000C3B2AB /* WorkoutDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutDetailView.swift; sourceTree = "<group>"; };
+		7823717020715B0000C3B2AB /* WorkoutDetailView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WorkoutDetailView.xib; sourceTree = "<group>"; };
 		782828BC205A93AD00E1D80C /* EditMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMenuViewController.swift; sourceTree = "<group>"; };
 		782828BD205A93AD00E1D80C /* EditMenuViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EditMenuViewController.xib; sourceTree = "<group>"; };
 		7876A726204DF6FB001AEA9D /* ViewConfigurable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewConfigurable.swift; sourceTree = "<group>"; };
@@ -352,6 +356,15 @@
 			path = Protocols;
 			sourceTree = "<group>";
 		};
+		7823717320715B0C00C3B2AB /* Detail View */ = {
+			isa = PBXGroup;
+			children = (
+				7823716F20715B0000C3B2AB /* WorkoutDetailView.swift */,
+				7823717020715B0000C3B2AB /* WorkoutDetailView.xib */,
+			);
+			path = "Detail View";
+			sourceTree = "<group>";
+		};
 		782828BA205A92E800E1D80C /* Controller */ = {
 			isa = PBXGroup;
 			children = (
@@ -461,6 +474,7 @@
 				78E5A4FE206189A300F9903F /* CreateWorkoutViewController.swift */,
 				78E5A4FF206189A300F9903F /* CreateWorkoutViewController.xib */,
 				7885954E206808C300BA2371 /* Cells */,
+				7823717320715B0C00C3B2AB /* Detail View */,
 			);
 			path = Workout;
 			sourceTree = "<group>";
@@ -581,6 +595,7 @@
 			files = (
 				78F0B19E205718E500918F07 /* ModalWorkoutTypeViewController.xib in Resources */,
 				782204952019462900439343 /* ProfileViewController.xib in Resources */,
+				7823717220715B0000C3B2AB /* WorkoutDetailView.xib in Resources */,
 				788AAAD3205068920015BE06 /* HomeCollectionReusableViewHeader.xib in Resources */,
 				7822F8DB2006790800439343 /* LaunchScreen.storyboard in Resources */,
 				78E5A6002062DC4000F9903F /* MovementDetailView.xib in Resources */,
@@ -731,6 +746,7 @@
 				7822F92120126EAC00439343 /* Persistable.swift in Sources */,
 				788AAADB2050B08B0015BE06 /* TableViewDelegatable.swift in Sources */,
 				788AAAD520506B070015BE06 /* FYP + Date.swift in Sources */,
+				7823717120715B0000C3B2AB /* WorkoutDetailView.swift in Sources */,
 				788AAADD205166340015BE06 /* Routine.swift in Sources */,
 				7822F8D62006790800439343 /* FYPv4.xcdatamodeld in Sources */,
 				7823716C206D272300C3B2AB /* ErrorView.swift in Sources */,

@@ -58,9 +58,9 @@ class RoutineViewController: UIViewController, TableViewDelegatable, ErrorViewDe
                         }
                     case .success(let routine):
                         self.routine = routine
-                        print(routine)
                         DispatchQueue.main.async {
                             self.errorView?.callError(withTitle: "Routine is up to date", andColor: UIColor.peakBlue)
+                            self.tableView.reloadData()
                         }
                     }
                 }
@@ -69,8 +69,9 @@ class RoutineViewController: UIViewController, TableViewDelegatable, ErrorViewDe
                     routine = r
                 }
             }
+        } else {
+            tableView.reloadData()
         }
-        tableView.reloadData()
     }
 }
 
@@ -85,7 +86,8 @@ extension RoutineViewController: UICollectionViewDelegate, UICollectionViewDataS
         case .finalized:
             return 1
         case .initialized:
-            return 20
+            guard let r = self.routine else { return 0 }
+            return r.days[collectionView.tag].finalized?.count ?? 0
         }
     }
     
@@ -95,13 +97,17 @@ extension RoutineViewController: UICollectionViewDelegate, UICollectionViewDataS
         case .empty:
             cell.configureCell(workout: Workout(name: "THIS WORKOUT", creator: "Ben Kovacs", creatorName: "Ben Kovacs", time: 32, description: "BLAH", image: true, rating: 324, id: "asdasdasd", tags: ["dadada"]))
         case .finalized:
-            if let workout = self.routine?.days[collectionView.tag].finalized {
+            if let workout = self.routine?.days[collectionView.tag].finalized?.first {
                 cell.configureCellWithMovements(workout: workout)
             } else {
                 cell.configureCell(workout: Workout(name: "", creator: " ", creatorName: " ", time: 32, description: "", image: true, rating: 0, id: "", tags: ["dadada"]))
             }
         case .initialized:
-            cell.configureCell(workout: Workout(name: "THIS WORKOUT", creator: "Ben Kovacs", creatorName: "Ben Kovacs", time: 32, description: "BLAH", image: true, rating: 324, id: "asdasdasd", tags: ["dadada"]))
+            guard let r = self.routine, let w = r.days[collectionView.tag].finalized?[indexPath.row] else {
+                cell.configureCell(workout: Workout(name: "", creator: " ", creatorName: " ", time: 32, description: "", image: true, rating: 0, id: "", tags: ["dadada"]))
+                return cell
+            }
+            cell.configureCellWithMovements(workout: w)
         }
         
         return cell
@@ -110,6 +116,11 @@ extension RoutineViewController: UICollectionViewDelegate, UICollectionViewDataS
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: view.frame.size.width, height: 170)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let r = self.routine, let workout = r.days[collectionView.tag].finalized?[indexPath.row] else { return }
+        print(workout)
     }
     
 }
@@ -138,12 +149,21 @@ extension RoutineViewController: UITableViewDataSource, UITableViewDelegate {
         switch getTableViewCellType(indexPath: IndexPath(row: 0, section: section)) {
         case .empty:
             headerView.headerWorkoutType.text = "No workout type specified"
+            headerView.check.isHidden = true
         case .finalized:
             guard let r = self.routine else { return headerView }
             headerView.headerWorkoutType.text = r.days[section].initialized?.joined(separator: " | ").capitalized ?? "No workout type specified"
+            headerView.check.isHidden = false
         case .initialized:
             guard let r = self.routine else { return headerView }
-            headerView.headerWorkoutType.text = r.days[section].initialized?.joined(separator: " | ").capitalized ?? "No workout type specified"
+            let types = r.days[section].initialized?.joined(separator: " | ").capitalized ?? "No workout type specified"
+            if r.days[section].finalized?.count == 0 {
+                headerView.errorLabel.text = "No workouts for: \(types)"
+            } else {
+                headerView.errorLabel.text = ""
+            }
+            headerView.headerWorkoutType.text = types
+            headerView.check.isHidden = true
         }
         return headerView
     }
@@ -192,6 +212,9 @@ extension RoutineViewController: UITableViewDataSource, UITableViewDelegate {
         case .finalized:
             return 220
         case .initialized:
+            guard let r = self.routine, r.days[indexPath.section].finalized?.count != 0 else {
+                return 100
+            }
             return 220
         }
     }
@@ -231,12 +254,15 @@ extension RoutineViewController: ModalDelegatable {
                 case .success(let routine):
                     DispatchQueue.main.async {
                         self.errorView?.callError(withTitle: "Routine updated", andColor: UIColor.peakBlue)
+                        self.routine = routine
+                        self.tableView.reloadData()
                     }
-                    self.routine = routine
                 }
             }
+        } else {
+            self.tableView.reloadData()
         }
-        self.tableView.reloadData()
+        
     }
     
     func modalDidCancel(forCellAt: IndexPath) {

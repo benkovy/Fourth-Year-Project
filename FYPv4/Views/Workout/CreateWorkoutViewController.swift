@@ -254,7 +254,6 @@ extension CreateWorkoutViewController {
             navigationItem.rightBarButtonItem?.isEnabled = true
             return
         }
-        
         let work = Workout(name: wName, creator: userId, creatorName: nil, time: 0, description: wDesc, image: false, rating: 0, id: nil, tags: tags)
         
         
@@ -318,7 +317,8 @@ extension CreateWorkoutViewController {
             errorView?.callError(withTitle: "You dont have a routine", andColor: .red)
             return
         }
-        routine.finalizeDay(number: day, toWorkout: workout, withTags: andTags)
+        
+        routine.finalizeDay(number: day, toWorkout: [workout], withTags: andTags)
         UserDefaultsStore.store(persistables: routine)
         
         guard let user = UserDefaultsStore.retrieve(User.self), let token = user.token else {

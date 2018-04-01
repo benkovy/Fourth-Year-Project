@@ -17,6 +17,20 @@ class RoutineTableViewHeader: UIView {
         return view
     }()
     
+    var errorLabel: UILabel = {
+        let view = UILabel()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.setFontTo(style: .paragraph)
+        view.textColor = .red
+        return view
+    }()
+    
+    let check: UIImageView = {
+        let view = UIImageView(image: #imageLiteral(resourceName: "markCheck"))
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     var titleBackground: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -46,11 +60,13 @@ class RoutineTableViewHeader: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        addSubview(check)
         addSubview(titleBackground)
         addSubview(headerMainLabel)
         addSubview(headerWorkoutType)
         addSubview(sideView)
         addSubview(moreButton)
+        addSubview(errorLabel)
         self.configureHeader()
     }
     
@@ -74,9 +90,20 @@ extension RoutineTableViewHeader {
         titleBackground.heightAnchor.constraint(equalTo: headerMainLabel.heightAnchor, constant: 2).isActive = true
         titleBackground.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
         titleBackground.widthAnchor.constraint(equalTo: headerMainLabel.widthAnchor, constant: 28).isActive = true
+        
+        check.leftAnchor.constraint(equalTo: titleBackground.rightAnchor, constant: 12).isActive = true
+        check.topAnchor.constraint(equalTo: self.topAnchor, constant: 2).isActive = true
+        check.isHidden = true
+        
         headerWorkoutType.topAnchor.constraint(equalTo: self.headerMainLabel.bottomAnchor, constant: 6).isActive = true
         headerWorkoutType.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 20).isActive = true
         headerWorkoutType.text = "Workout type not specified"
+        
+        errorLabel.topAnchor.constraint(equalTo: self.headerMainLabel.bottomAnchor, constant: 6).isActive = true
+        errorLabel.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -12).isActive = true
+        errorLabel.text = ""
+        errorLabel.textAlignment = .right
+        
         moreButton.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -12).isActive = true
         moreButton.topAnchor.constraint(equalTo: self.topAnchor, constant: 6).isActive = true
         titleBackground.roundCorners(by: 4)
