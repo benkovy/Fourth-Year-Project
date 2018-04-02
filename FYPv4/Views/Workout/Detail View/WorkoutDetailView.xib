@@ -12,6 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WorkoutDetailView" customModule="FYPv4" customModuleProvider="target">
             <connections>
+                <outlet property="controlButton" destination="GCp-2K-lBU" id="xKU-9k-GUu"/>
                 <outlet property="tableView" destination="bAl-qC-YcW" id="8GZ-2f-9pY"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -25,15 +26,31 @@
                     <rect key="frame" x="16" y="40" width="343" height="555"/>
                     <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                 </tableView>
+                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="GCp-2K-lBU">
+                    <rect key="frame" x="16" y="607" width="343" height="49"/>
+                    <segments>
+                        <segment title="First"/>
+                        <segment title="Second"/>
+                    </segments>
+                    <connections>
+                        <action selector="controlDidTap:" destination="-1" eventType="valueChanged" id="Jol-ze-Vzi"/>
+                    </connections>
+                </segmentedControl>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="bAl-qC-YcW" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="28f-8Q-3Ui"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="GCp-2K-lBU" secondAttribute="bottom" constant="12" id="3fr-hP-Thp"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="bAl-qC-YcW" secondAttribute="trailing" constant="16" id="76k-8y-sGk"/>
+                <constraint firstItem="GCp-2K-lBU" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="9E5-9j-Nwl"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="bAl-qC-YcW" secondAttribute="bottom" constant="72" id="Azn-aM-32c"/>
+                <constraint firstItem="GCp-2K-lBU" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="Ope-Dn-QlH"/>
                 <constraint firstItem="bAl-qC-YcW" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="20" id="ioc-WF-wdv"/>
+                <constraint firstItem="GCp-2K-lBU" firstAttribute="top" secondItem="bAl-qC-YcW" secondAttribute="bottom" constant="12" id="ufd-dM-c0y"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="GCp-2K-lBU" secondAttribute="trailing" constant="16" id="y06-Uy-eHK"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <point key="canvasLocation" x="25.5" y="51.5"/>
         </view>
     </objects>
 </document>

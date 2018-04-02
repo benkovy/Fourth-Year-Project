@@ -50,6 +50,7 @@
 		782371772071663500C3B2AB /* WorkoutDetailViewTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 782371752071663500C3B2AB /* WorkoutDetailViewTableViewCell.xib */; };
 		7823717A20716CDA00C3B2AB /* MovementDetailViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7823717820716CDA00C3B2AB /* MovementDetailViewTableViewCell.swift */; };
 		7823717B20716CDA00C3B2AB /* MovementDetailViewTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7823717920716CDA00C3B2AB /* MovementDetailViewTableViewCell.xib */; };
+		7823717D2071D46E00C3B2AB /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7823717C2071D46E00C3B2AB /* ActivityIndicator.swift */; };
 		782828BE205A93AD00E1D80C /* EditMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782828BC205A93AD00E1D80C /* EditMenuViewController.swift */; };
 		782828BF205A93AD00E1D80C /* EditMenuViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 782828BD205A93AD00E1D80C /* EditMenuViewController.xib */; };
 		7876A727204DF6FB001AEA9D /* ViewConfigurable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7876A726204DF6FB001AEA9D /* ViewConfigurable.swift */; };
@@ -165,6 +166,7 @@
 		782371752071663500C3B2AB /* WorkoutDetailViewTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WorkoutDetailViewTableViewCell.xib; sourceTree = "<group>"; };
 		7823717820716CDA00C3B2AB /* MovementDetailViewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovementDetailViewTableViewCell.swift; sourceTree = "<group>"; };
 		7823717920716CDA00C3B2AB /* MovementDetailViewTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MovementDetailViewTableViewCell.xib; sourceTree = "<group>"; };
+		7823717C2071D46E00C3B2AB /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
 		782828BC205A93AD00E1D80C /* EditMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMenuViewController.swift; sourceTree = "<group>"; };
 		782828BD205A93AD00E1D80C /* EditMenuViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EditMenuViewController.xib; sourceTree = "<group>"; };
 		7876A726204DF6FB001AEA9D /* ViewConfigurable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewConfigurable.swift; sourceTree = "<group>"; };
@@ -452,6 +454,7 @@
 				7876A729204DF7A4001AEA9D /* FYP + Constraints.swift */,
 				7822F9282013EA2C00439343 /* StringExtension.swift */,
 				782204A2201A800000439343 /* UIColorExtension.swift */,
+				7823717C2071D46E00C3B2AB /* ActivityIndicator.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -805,6 +808,7 @@
 				78F0B188205387B500918F07 /* RoutineViewState.swift in Sources */,
 				788AAAC6204F350A0015BE06 /* HomeCollectionViewCell.swift in Sources */,
 				78F0B19D205718E500918F07 /* ModalWorkoutTypeViewController.swift in Sources */,
+				7823717D2071D46E00C3B2AB /* ActivityIndicator.swift in Sources */,
 				7822F9272013E86100439343 /* Result.swift in Sources */,
 				7822F9092006893600439343 /* Workouts.swift in Sources */,
 				788AAACD204F8A890015BE06 /* ViewControllerStyles.swift in Sources */,

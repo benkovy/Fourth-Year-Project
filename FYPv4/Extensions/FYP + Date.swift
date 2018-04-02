@@ -23,4 +23,19 @@ extension Date {
         formatter.dateFormat = "EEEE, MMMM d"
         return formatter.string(from: day)
     }
+    
+    static func getDayOfWeek() -> Int {
+        let todayDate = Date()
+        let myCalendar = Calendar(identifier: .gregorian)
+        let weekDay = myCalendar.component(.weekday, from: todayDate)
+        return weekDay
+    }
+    
+    static func givenDay(section: Int) -> Int? {
+        let date = Date()
+        guard let day = Calendar.current.date(byAdding: .day, value: section, to: date) else { return nil }
+        let myCalendar = Calendar(identifier: .gregorian)
+        let weekDay = myCalendar.component(.weekday, from: day)
+        return weekDay - 1
+    }
 }

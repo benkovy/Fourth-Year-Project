@@ -17,7 +17,6 @@ class WorkoutDetailViewTableViewCell: UITableViewCell {
     @IBOutlet weak var creator: UILabel!
     @IBOutlet weak var wDescription: UILabel!
     
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         style()

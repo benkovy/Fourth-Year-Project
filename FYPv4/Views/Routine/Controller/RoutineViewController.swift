@@ -15,6 +15,7 @@ class RoutineViewController: UIViewController, TableViewDelegatable, ErrorViewDe
     
     var viewState: RoutineViewState = .noroutine
     
+    let offset = Date.getDayOfWeek()
     let webservice: WebService
     var storedOffsets = [Int: CGFloat]()
     var routine: Routine?
@@ -87,23 +88,29 @@ extension RoutineViewController: UICollectionViewDelegate, UICollectionViewDataS
             return 1
         case .initialized:
             guard let r = self.routine else { return 0 }
-            return r.days[collectionView.tag].finalized?.count ?? 0
+            if let index = Date.givenDay(section: collectionView.tag) {
+                return r.days[index].finalized?.count ?? 0
+            } else {return 0}
+            
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell: HomeCollectionViewCell = collectionView.dequeueReusableCell(forIndexPath: indexPath)
+        
         switch getTableViewCellType(indexPath: collectionView.tag) {
         case .empty:
             cell.configureCell(workout: Workout(name: "THIS WORKOUT", creator: "Ben Kovacs", creatorName: "Ben Kovacs", time: 32, description: "BLAH", image: true, rating: 324, id: "asdasdasd", tags: ["dadada"]))
         case .finalized:
-            if let workout = self.routine?.days[collectionView.tag].finalized?.first {
-                cell.configureCellWithMovements(workout: workout)
-            } else {
-                cell.configureCell(workout: Workout(name: "", creator: " ", creatorName: " ", time: 32, description: "", image: true, rating: 0, id: "", tags: ["dadada"]))
+            if let index = Date.givenDay(section: collectionView.tag) {
+                if let workout = self.routine?.days[index].finalized?.first {
+                    cell.configureCellWithMovements(workout: workout)
+                } else {
+                    cell.configureCell(workout: Workout(name: "", creator: " ", creatorName: " ", time: 32, description: "", image: true, rating: 0, id: "", tags: ["dadada"]))
+                }
             }
         case .initialized:
-            guard let r = self.routine, let w = r.days[collectionView.tag].finalized?[indexPath.row] else {
+            guard let r = self.routine, let index = Date.givenDay(section: collectionView.tag), let w = r.days[index].finalized?[indexPath.row] else {
                 cell.configureCell(workout: Workout(name: "", creator: " ", creatorName: " ", time: 32, description: "", image: true, rating: 0, id: "", tags: ["dadada"]))
                 return cell
             }
@@ -111,7 +118,6 @@ extension RoutineViewController: UICollectionViewDelegate, UICollectionViewDataS
         }
         
         return cell
-        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -119,10 +125,35 @@ extension RoutineViewController: UICollectionViewDelegate, UICollectionViewDataS
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let r = self.routine, let workout = r.days[collectionView.tag].finalized?[indexPath.row] else { return }
-        print(workout)
-        let vc = WorkoutDetailView(workout: workout)
+        guard let day = Date.givenDay(section: collectionView.tag) else { return }
+        guard let r = self.routine, let workout = r.days[day].finalized?[indexPath.row] else { return }
+        var add = true
+        if r.days[day].workoutId != nil {
+            add = false
+        }
+        let vc = WorkoutDetailView(workout: workout, canAdd: add, day: collectionView.tag)
+        vc.userDidSelect = {
+            self.getRoutineWrapper()
+        }
         navigationController?.present(vc, animated: true, completion: nil)
+    }
+    
+    func getRoutineWrapper() {
+        guard let user = UserDefaultsStore.retrieve(User.self) else {return}
+        self.getRoutine(user: user) { (result) in
+            switch result {
+            case .error(_):
+                DispatchQueue.main.async {
+                    self.errorView?.callError(withTitle: "Routine couldn't be retrieved", andColor: .red)
+                }
+            case .success(let routine):
+                self.routine = routine
+                DispatchQueue.main.async {
+                    self.errorView?.callError(withTitle: "Routine is up to date", andColor: UIColor.peakBlue)
+                    self.tableView.reloadData()
+                }
+            }
+        }
     }
     
 }
@@ -148,18 +179,20 @@ extension RoutineViewController: UITableViewDataSource, UITableViewDelegate {
         headerView.moreButton.tag = section
         headerView.moreButton.addTarget(self, action: #selector(moreButtonPress), for: .touchUpInside)
         
+        guard let index = Date.givenDay(section: section) else { return nil }
+        
         switch getTableViewCellType(indexPath: IndexPath(row: 0, section: section)) {
         case .empty:
             headerView.headerWorkoutType.text = "No workout type specified"
             headerView.check.isHidden = true
         case .finalized:
             guard let r = self.routine else { return headerView }
-            headerView.headerWorkoutType.text = r.days[section].initialized?.joined(separator: " | ").capitalized ?? "No workout type specified"
+            headerView.headerWorkoutType.text = r.days[index].initialized?.joined(separator: " | ").capitalized ?? "No workout type specified"
             headerView.check.isHidden = false
         case .initialized:
             guard let r = self.routine else { return headerView }
-            let types = r.days[section].initialized?.joined(separator: " | ").capitalized ?? "No workout type specified"
-            if r.days[section].finalized?.count == 0 {
+            let types = r.days[index].initialized?.joined(separator: " | ").capitalized ?? "No workout type specified"
+            if r.days[index].finalized?.count == 0 {
                 headerView.errorLabel.text = "No workouts for: \(types)"
             } else {
                 headerView.errorLabel.text = ""
@@ -208,13 +241,14 @@ extension RoutineViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        guard let index = Date.givenDay(section: indexPath.section) else { return 0.0 }
         switch getTableViewCellType(indexPath: indexPath) {
         case .empty:
             return 100
         case .finalized:
             return 220
         case .initialized:
-            guard let r = self.routine, r.days[indexPath.section].finalized?.count != 0 else {
+            guard let r = self.routine, r.days[index].finalized?.count != 0 else {
                 return 100
             }
             return 220

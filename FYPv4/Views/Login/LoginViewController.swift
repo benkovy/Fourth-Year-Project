@@ -121,7 +121,11 @@ final class LoginViewController: UIViewController, CanSwitchTabBarViewController
     }
     
     func createUser() {
+        let sv = LoginViewController.displaySpinnerForLogin(onView: self.view)
         webservice.load(User.createUserRequest(user)) { (result) in
+            DispatchQueue.main.async {
+                LoginViewController.removeSpinner(spinner: sv)
+            }
             guard let result = result else { return }
             switch result {
             case .error(let error): print("Error: \(error)")
@@ -129,13 +133,19 @@ final class LoginViewController: UIViewController, CanSwitchTabBarViewController
                 if let _id = user.id {
                     self.user.id = _id
                 }
-                self.login(user.email, self.user.password ?? "")
+                DispatchQueue.main.async {
+                    self.login(user.email, self.user.password ?? "")
+                }
             }
         }
     }
     
     func login(_ username: String, _ password: String) {
+        let sv = LoginViewController.displaySpinnerForLogin(onView: self.view)
         webservice.load(Token.getToken(username, password)) { (result) in
+            DispatchQueue.main.async {
+                LoginViewController.removeSpinner(spinner: sv)
+            }
             guard let result = result else { return }
             switch result {
             case .error(let error): print("Error: \(error)")

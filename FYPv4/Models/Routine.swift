@@ -50,38 +50,41 @@ extension Routine {
     
     mutating func initializeDay(number: Int, toValue: [String]) {
         var ordered = self.days.sorted(by: {$0.day < $1.day})
-        ordered[number] = Day(
+        guard let num = Date.givenDay(section: number) else {return}
+        ordered[num] = Day(
             initialized: toValue,
             workoutId: nil,
             finalized: nil,
             empty: false,
-            id: ordered[number].id,
-            day: ordered[number].day,
-            routine_id: ordered[number].routine_id)
+            id: ordered[num].id,
+            day: ordered[num].day,
+            routine_id: ordered[num].routine_id)
         self.days = ordered
     }
     
     mutating func emptyDay(number: Int) {
         var ordered = self.days.sorted(by: {$0.day < $1.day})
-        ordered[number] = Day(
+        guard let num = Date.givenDay(section: number) else {return}
+        ordered[num] = Day(
             initialized: nil,
             workoutId: nil,
             finalized: nil,
             empty: true,
-            id: ordered[number].id,
-            day: ordered[number].day,
-            routine_id: ordered[number].routine_id)
+            id: ordered[num].id,
+            day: ordered[num].day,
+            routine_id: ordered[num].routine_id)
         self.days = ordered
     }
     
     
     func dayType(forDay: Int) -> WorkoutDay {
+        guard let num = Date.givenDay(section: forDay) else {return .empty}
         let ordered = self.days.sorted(by: {$0.day < $1.day})
-        if ordered[forDay].empty {
+        if ordered[num].empty {
             return .empty
-        } else if ordered[forDay].workoutId != nil {
+        } else if ordered[num].workoutId != nil {
             return .finalized
-        } else if ordered[forDay].initialized != nil {
+        } else if ordered[num].initialized != nil {
             return .initialized
         } else {
             return .empty

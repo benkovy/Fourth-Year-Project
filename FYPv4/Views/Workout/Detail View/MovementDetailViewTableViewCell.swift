@@ -25,7 +25,7 @@ class MovementDetailViewTableViewCell: UITableViewCell {
         name.setFontTo(style: .title)
         repsAndSets.setFontTo(style: .repsAndSets)
         mDescription.setFontTo(style: .header)
-//        mDescription.isHidden = true
+        self.layer.masksToBounds = true
     }
     
     func configure(with movement: Movement) {
