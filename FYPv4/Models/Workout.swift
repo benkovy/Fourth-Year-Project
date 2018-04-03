@@ -14,7 +14,7 @@ struct Workout: Codable {
     var creatorName: String?
     var time: Int
     var description: String?
-    var image: Bool
+    var image: String?
     var rating: Int
     var id: String?
     var tags: [String]

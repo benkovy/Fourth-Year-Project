@@ -18,6 +18,7 @@ struct User: Codable {
     var type: String
     var id: String?
     var token: Token?
+    var image: String?
     
     var fullName: String? {
         return firstname + " " + lastname
@@ -33,6 +34,7 @@ struct User: Codable {
         case type
         case id
         case token
+        case image
     }
 }
 
@@ -47,6 +49,7 @@ extension User {
         self.type = "ACC"
         self.id = nil
         self.token = nil
+        self.image = nil
     }
 }
 
@@ -81,6 +84,11 @@ extension User {
     
     static func userRoutineWithToken(token: Token) -> Resource<Routine> {
         let userResponse = Resource<Routine>(Router.tokenRoutine(token: token).request)
+        return userResponse
+    }
+    
+    static func updateUser(user: User, id: String) -> Resource<User> {
+        let userResponse = Resource<User>(Router.updateUser(user: user, id: id).request)
         return userResponse
     }
     

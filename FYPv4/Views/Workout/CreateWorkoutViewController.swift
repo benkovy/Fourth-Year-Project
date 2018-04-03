@@ -11,11 +11,14 @@ import UIKit
 class CreateWorkoutViewController: UIViewController, TableViewDelegatable, MovementDelegate, ErrorViewDelegate {
     var errorView: ErrorView?
     
+    @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var tableView: UITableView!
+    var imagePicker: UIImagePickerController!
     
     let webservice = WebService()
     var movements: [Movement?] = []
     var tags: [String] = []
+    var image: UIImage?
     let maxMovements = 15
     var num = 0
     var name: String?
@@ -23,6 +26,8 @@ class CreateWorkoutViewController: UIViewController, TableViewDelegatable, Movem
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
         self.title = "Workout"
         self.delegateTableView()
         tableView.register(InputTableViewCell.self)
@@ -203,8 +208,7 @@ extension CreateWorkoutViewController: UITableViewDelegate, UITableViewDataSourc
             vc.delegate = self
             navigationController?.pushViewController(vc, animated: true)
         } else if indexPath.row == 2 && indexPath.section == 0 {
-            // choose image
-            print("Image")
+            handleImagePicker()
         } else if indexPath.row == 3 && indexPath.section == 0 {
             let newIP = IndexPath(row: indexPath.row + 1, section: indexPath.section)
             guard let cell = tableView.cellForRow(at: newIP) as? PickerTableViewCell else { return }
@@ -219,6 +223,26 @@ extension CreateWorkoutViewController: UITableViewDelegate, UITableViewDataSourc
             return
         }
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+}
+
+extension CreateWorkoutViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func handleImagePicker() {
+        imagePicker.sourceType = .photoLibrary
+        present(imagePicker, animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            imageView.contentMode = .scaleAspectFit
+            imageView.image = pickedImage
+        }
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
     }
 }
 
@@ -263,7 +287,13 @@ extension CreateWorkoutViewController {
             navigationItem.rightBarButtonItem?.isEnabled = true
             return
         }
-        let work = Workout(name: wName, creator: userId, creatorName: nil, time: 0, description: wDesc, image: false, rating: 0, id: nil, tags: tags)
+        
+        var img: String?
+        if let i = self.imageView.image {
+            img = UIImageJPEGRepresentation(i, 1)?.base64EncodedString()
+        }
+        
+        let work = Workout(name: wName, creator: userId, creatorName: nil, time: 0, description: wDesc, image: img, rating: 0, id: nil, tags: tags)
         
         
         let webWorkout = WebWorkout(workout: work, movements: actualMovements)
@@ -278,13 +308,22 @@ extension CreateWorkoutViewController {
                 return
             case .success(let wor):
                 DispatchQueue.main.async {
-                    self.navigationItem.rightBarButtonItem?.isEnabled = true
                     let webW = WebWorkout(workout: wor, movements: actualMovements)
-                    self.finishWorkout(workout: webW)
+                    self.saveImage(workout: webW)
                 }
                 return
             }
         })
+    }
+    
+    func saveImage(workout: WebWorkout) {
+        if let img = self.imageView.image, let id = workout.id {
+            webservice.postImage(image: img, forWorkoutID: id, completion: { _ in
+                self.finishWorkout(workout: workout)
+            })
+        } else {
+            self.finishWorkout(workout: workout)
+        }
     }
     
     func finishWorkout(workout: WebWorkout) {
@@ -336,6 +375,7 @@ extension CreateWorkoutViewController {
         }
         
         User.saveUserRoutine(webservice: webservice, token: token, routine: routine, callback: { res in
+            self.navigationItem.rightBarButtonItem?.isEnabled = true
             guard let result = res else {return}
             switch result {
             case .error(let error):
@@ -344,11 +384,9 @@ extension CreateWorkoutViewController {
                 }
             case .success(_):
                 DispatchQueue.main.async {
-                    self.errorView?.callError(withTitle: "Added to routine", andColor: .green)
                     self.navigationController?.popViewController(animated: true)
                 }
             }
-            
         })
     }
 }

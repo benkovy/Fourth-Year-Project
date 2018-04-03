@@ -58,6 +58,7 @@ class RoutineViewController: UIViewController, TableViewDelegatable, ErrorViewDe
                             self.errorView?.callError(withTitle: "Routine couldn't be retrieved", andColor: .red)
                         }
                     case .success(let routine):
+                        print(routine)
                         self.routine = routine
                         DispatchQueue.main.async {
                             self.errorView?.callError(withTitle: "Routine is up to date", andColor: UIColor.peakBlue)
@@ -100,18 +101,18 @@ extension RoutineViewController: UICollectionViewDelegate, UICollectionViewDataS
         
         switch getTableViewCellType(indexPath: collectionView.tag) {
         case .empty:
-            cell.configureCell(workout: Workout(name: "THIS WORKOUT", creator: "Ben Kovacs", creatorName: "Ben Kovacs", time: 32, description: "BLAH", image: true, rating: 324, id: "asdasdasd", tags: ["dadada"]))
+            cell.configureCell(workout: Workout(name: "THIS WORKOUT", creator: "Ben Kovacs", creatorName: "Ben Kovacs", time: 32, description: "BLAH", image: nil, rating: 324, id: "asdasdasd", tags: ["dadada"]))
         case .finalized:
             if let index = Date.givenDay(section: collectionView.tag) {
                 if let workout = self.routine?.days[index].finalized?.first {
                     cell.configureCellWithMovements(workout: workout)
                 } else {
-                    cell.configureCell(workout: Workout(name: "", creator: " ", creatorName: " ", time: 32, description: "", image: true, rating: 0, id: "", tags: ["dadada"]))
+                    cell.configureCell(workout: Workout(name: "", creator: " ", creatorName: " ", time: 32, description: "", image: nil, rating: 0, id: "", tags: ["dadada"]))
                 }
             }
         case .initialized:
             guard let r = self.routine, let index = Date.givenDay(section: collectionView.tag), let w = r.days[index].finalized?[indexPath.row] else {
-                cell.configureCell(workout: Workout(name: "", creator: " ", creatorName: " ", time: 32, description: "", image: true, rating: 0, id: "", tags: ["dadada"]))
+                cell.configureCell(workout: Workout(name: "", creator: " ", creatorName: " ", time: 32, description: "", image: nil, rating: 0, id: "", tags: ["dadada"]))
                 return cell
             }
             cell.configureCellWithMovements(workout: w)

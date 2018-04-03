@@ -37,7 +37,6 @@ class HomeViewController: UIViewController, CollectionViewDelegatable {
         let nib = UINib(nibName: "HomeCollectionReusableViewHeader", bundle: nil)
         collectionView.register(nib, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "header")
         self.collectionView.addSubview(refreshControl)
-        self.collectionView.alwaysBounceVertical = true
         requestContent()
     }
     
@@ -65,7 +64,6 @@ class HomeViewController: UIViewController, CollectionViewDelegatable {
                 }
             }
         }
-        
     }
     
     func updateContent() {
@@ -86,7 +84,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return collectionView.sizeCell(forImage: #imageLiteral(resourceName: "ImageDefault"))
+        return CGSize(width: collectionView.bounds.width, height: 170)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {

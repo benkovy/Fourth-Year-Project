@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 final class WebService {
     
@@ -25,5 +26,63 @@ final class WebService {
             let json = try? JSONSerialization.jsonObject(with: _data, options: [])
             print(json ?? "json conversion didnt work")
         }
+    }
+    
+    func postImage(image: UIImage, forWorkoutID: String, completion: @escaping (Data?) -> ()) {
+        let imageData = UIImageJPEGRepresentation(image, 1.0)
+        guard let url = URL(string: "http://192.168.2.11:8080/image") else {return}
+        let session = URLSession(configuration: .default)
+        var mutableURLRequest = URLRequest(url: url)
+        mutableURLRequest.httpMethod = "POST"
+        
+        let boundaryConstant = "----------------12345";
+        let contentType = "multipart/form-data;boundary=" + boundaryConstant
+        mutableURLRequest.setValue(contentType, forHTTPHeaderField: "Content-Type")
+        
+        // create upload data to send
+        var uploadData = Data()
+        
+        // add image
+        uploadData.append("\r\n--\(boundaryConstant)\r\n".data(using: String.Encoding.utf8)!)
+        uploadData.append("Content-Disposition: form-data; name=\"image\"; filename=\"workoutImage|\(forWorkoutID)\"\r\n".data(using: String.Encoding.utf8)!)
+        uploadData.append("Content-Type: image/png\r\n\r\n".data(using: String.Encoding.utf8)!)
+        uploadData.append(imageData!)
+        uploadData.append("\r\n--\(boundaryConstant)--\r\n".data(using: String.Encoding.utf8)!)
+        
+        mutableURLRequest.httpBody = uploadData
+        
+        let task = session.dataTask(with: mutableURLRequest, completionHandler: { (data, response, error) -> Void in
+            completion(data)
+        })
+        task.resume()
+    }
+    
+    func postProfileImage(image: UIImage, forUserID: String, completion: @escaping (Data?) -> ()) {
+        let imageData = UIImageJPEGRepresentation(image, 1.0)
+        guard let url = URL(string: "http://192.168.2.11:8080/profileImage") else {return}
+        let session = URLSession(configuration: .default)
+        var mutableURLRequest = URLRequest(url: url)
+        mutableURLRequest.httpMethod = "POST"
+        
+        let boundaryConstant = "----------------12345";
+        let contentType = "multipart/form-data;boundary=" + boundaryConstant
+        mutableURLRequest.setValue(contentType, forHTTPHeaderField: "Content-Type")
+        
+        // create upload data to send
+        var uploadData = Data()
+        
+        // add image
+        uploadData.append("\r\n--\(boundaryConstant)\r\n".data(using: String.Encoding.utf8)!)
+        uploadData.append("Content-Disposition: form-data; name=\"image\"; filename=\"profileImage|\(forUserID)\"\r\n".data(using: String.Encoding.utf8)!)
+        uploadData.append("Content-Type: image/png\r\n\r\n".data(using: String.Encoding.utf8)!)
+        uploadData.append(imageData!)
+        uploadData.append("\r\n--\(boundaryConstant)--\r\n".data(using: String.Encoding.utf8)!)
+        
+        mutableURLRequest.httpBody = uploadData
+        
+        let task = session.dataTask(with: mutableURLRequest, completionHandler: { (data, response, error) -> Void in
+            completion(data)
+        })
+        task.resume()
     }
 }

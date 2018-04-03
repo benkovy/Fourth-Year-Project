@@ -22,6 +22,9 @@ class HomeCollectionViewCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        self.imageViewContainer.sizeToFit()
+        self.workoutImage.contentMode = .scaleToFill
+        self.workoutImage.layer.masksToBounds = true
         // Initialization code
     }
 
@@ -32,8 +35,6 @@ extension HomeCollectionViewCell {
         self.layer.masksToBounds = false
         self.imageViewContainer.roundCorners(by: 16)
         self.imageViewContainer.layer.masksToBounds = true
-        self.workoutImage.contentMode = .scaleAspectFit
-        self.workoutImage.backgroundColor = .black
         self.workoutName.setFontTo(style: .title)
         self.creatorName.setFontTo(style: .name)
         self.worked.setFontTo(style: .name)
@@ -45,11 +46,18 @@ extension HomeCollectionViewCell {
     }
     
     func configureCellWithMovements(workout: WebWorkout) {
+        
+        if workout.image == nil {
+            let num = Int.randRange(lower: 1, upper: 4)
+            self.workoutImage.image = UIImage(named: "t\(num)")
+        } else if let image = workout.image {
+            if let data = Data(base64Encoded: image) {
+                self.workoutImage.image = UIImage(data: data)
+            }
+        }
         self.layer.masksToBounds = false
         self.imageViewContainer.roundCorners(by: 16)
         self.imageViewContainer.layer.masksToBounds = true
-        self.workoutImage.contentMode = .scaleAspectFit
-        self.workoutImage.backgroundColor = .black
         self.workoutName.setFontTo(style: .title)
         self.creatorName.setFontTo(style: .name)
         self.worked.setFontTo(style: .name)

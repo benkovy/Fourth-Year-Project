@@ -120,7 +120,6 @@ class MovementDetailView: UIViewController, TableViewDelegatable, ErrorViewDeleg
         // Check to see if all inputs are filled
         if checkAll {
             let movement = Movement(name: name, description: descrip, sets: sets, reps: reps, restTime: time, image: false)
-            print(movement)
             if delegate != nil {
                 delegate?.didFinishEditingMovement(movement: movement, forIndex: movementIndex)
                 navigationController?.popViewController(animated: true)

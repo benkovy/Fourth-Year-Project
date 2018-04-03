@@ -6,6 +6,7 @@
 //  Copyright © 2018 BenKovacs. All rights reserved.
 //
 
+import Foundation
 import UIKit
 
 class HomeCollectionReusableViewHeader: UICollectionReusableView {
@@ -22,7 +23,16 @@ class HomeCollectionReusableViewHeader: UICollectionReusableView {
 
 extension HomeCollectionReusableViewHeader {
     func configure() {
-        self.imageView.backgroundColor = .black
+        if let user = UserDefaultsStore.retrieve(User.self), let imgString = user.image {
+            if let data = Data(base64Encoded: imgString) {
+                imageView.image = UIImage(data: data)
+            }
+        } else {
+            let num = Int.randRange(lower: 1, upper: 4)
+            self.imageView.image = UIImage(named: "t\(num)")
+        }
+        self.imageView.contentMode = .scaleAspectFill
+        self.imageView.layer.masksToBounds = true
         self.imageView.layer.cornerRadius = 32
         self.topLabel.setFontTo(style: .title)
         self.bottomLabel.setFontTo(style: .name)

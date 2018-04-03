@@ -35,13 +35,11 @@ class PickerTableViewCell: UITableViewCell {
     
     @IBAction func removeTag(_ sender: UIButton) {
         let index = pickerView.selectedRow(inComponent: 0)
-        print("Remove \(index)")
         didRemoveRow?(index)
     }
     
     @IBAction func addTag(_ sender: UIButton) {
         let index = pickerView.selectedRow(inComponent: 0)
-        print("Add \(index)")
         didAddRow?(index)
     }
 }

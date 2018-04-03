@@ -185,7 +185,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } else {
             print("There was no account this is brand a new user")
             // these users have not used the app before so they get a TEMP user
-            returnUser = User(firstname: "Temp", lastname: "User", email: "None", password: "None", description: "None", dateofbirth: "None", type: "TEMP", id: nil, token: nil)
+            returnUser = User(firstname: "Temp", lastname: "User", email: "None", password: "None", description: "None", dateofbirth: "None", type: "TEMP", id: nil, token: nil, image: nil)
             UserDefaultsStore.store(persistables: returnUser)
             
             return returnUser

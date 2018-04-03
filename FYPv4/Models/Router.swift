@@ -19,8 +19,34 @@ enum Router {
     case saveRoutine(token: Token, routine: Routine)
     case postWorkout(workout: WebWorkout)
     case workoutMovements(amount: Int)
+    case updateUser(user: User, id: String)
     
     // Library http://131.162.212.76:8080/ / Home / http://192.168.2.11:8080/
+//    private var urlPath: String {
+//        switch self {
+//        case .postWorkout(_):
+//            return "http://127.0.0.1:8080/workout"
+//        case .login(_, _):
+//            return "http://127.0.0.1:8080/login"
+//        case .loginForUser(_, _):
+//            return "http://127.0.0.1:8080/loginForUser"
+//        case .create(_ ):
+//            return "http://127.0.0.1:8080/users"
+//        case .emailCheck(_ ):
+//            return "http://127.0.0.1:8080/email"
+//        case .workout(_):
+//            return "http://127.0.0.1:8080/workout"
+//        case .tokenAuth(_):
+//            return "http://127.0.0.1:8080/tokenUser"
+//        case .tokenRoutine(_):
+//            return "http://127.0.0.1:8080/routineForToken"
+//        case .saveRoutine(_,_):
+//            return "http://127.0.0.1:8080/routine"
+//        case .workoutMovements(let amount):
+//            return "http://127.0.0.1:8080/workoutAndMovements/\(amount)"
+//        }
+//    }
+    
     private var urlPath: String {
         switch self {
         case .postWorkout(_):
@@ -43,6 +69,8 @@ enum Router {
             return "http://192.168.2.11:8080/routine"
         case .workoutMovements(let amount):
             return "http://192.168.2.11:8080/workoutAndMovements/\(amount)"
+        case .updateUser(_, let id):
+            return "http://192.168.2.11:8080/user/\(id)"
         }
     }
     
@@ -57,6 +85,8 @@ enum Router {
     
     var headerField: String {
         switch self {
+        case .updateUser(_):
+            return "Content-Type"
         case .workoutMovements(_):
             return "Content-Type"
         case .postWorkout(_):
@@ -82,6 +112,8 @@ enum Router {
     
     var method: String {
         switch self {
+        case .updateUser(_):
+            return "PATCH"
         case .workoutMovements(_):
             return "GET"
         case .postWorkout(_):
@@ -107,6 +139,8 @@ enum Router {
     
     var contentType: String {
         switch self {
+        case .updateUser(_):
+            return "application/json"
         case .workoutMovements(_):
             return "application/json"
         case .postWorkout(_):
@@ -145,6 +179,9 @@ enum Router {
     
     var body: Data {
         switch self {
+        case .updateUser(let user, _):
+            let data = try? JSONEncoder().encode(user)
+            return data ?? Data()
         case .workoutMovements(_):
             return Data()
         case .postWorkout(let workout):
