@@ -58,7 +58,6 @@ class RoutineViewController: UIViewController, TableViewDelegatable, ErrorViewDe
                             self.errorView?.callError(withTitle: "Routine couldn't be retrieved", andColor: .red)
                         }
                     case .success(let routine):
-                        print(routine)
                         self.routine = routine
                         DispatchQueue.main.async {
                             self.errorView?.callError(withTitle: "Routine is up to date", andColor: UIColor.peakBlue)
@@ -261,7 +260,14 @@ extension RoutineViewController: UITableViewDataSource, UITableViewDelegate {
         guard let cell = tableView.cellForRow(at: indexPath) as? RoutineTableViewCell else { return }
         cell.chooseType.isHidden = true
         if let weekday = Date.dayOfTheWeek(plusOffset: indexPath.section) {
-            let vc = ModalWorkoutTypeViewController(delegate: self, day: weekday, indexPath: indexPath)
+            var tags: [String]?
+            if let r = self.routine, let day = Date.givenDay(section: indexPath.section) {
+                tags = r.days[day].initialized
+            }
+            let vc = ModalWorkoutTypeViewController(delegate: self, day: weekday, indexPath: indexPath, currentTags: tags)
+            vc.pickerWillReturnWithValues = { values in
+                self.modalPassingBack(value: values, forCellAt: indexPath)
+            }
             navigationController?.present(vc, animated: true, completion: nil)
         }
     }
@@ -279,9 +285,13 @@ extension RoutineViewController: UITableViewDataSource, UITableViewDelegate {
 
 extension RoutineViewController: ModalDelegatable {
     
-    func modalPassingBack(value: WorkoutType, forCellAt: IndexPath) {
+    func modalPassingBack(value: [String], forCellAt: IndexPath) {
         guard var r = self.routine else { return }
-        r.initializeDay(number: forCellAt.section, toValue: [String(describing: value)])
+        if value.isEmpty {
+            r.emptyDay(number: forCellAt.section)
+        } else {
+            r.initializeDay(number: forCellAt.section, toValue: value)
+        }
         routine = r
         if let user = UserDefaultsStore.retrieve(User.self) {
             self.saveRoutine(user: user) { (result) in
@@ -401,6 +411,17 @@ extension RoutineViewController: EditMenuDelegatable {
     }
     
     func menuDidRequestAdd(value: [String : Any], forDay: Int) {
-        // add type
+        let indexPath = IndexPath(row: 0, section: forDay)
+        if let weekday = Date.dayOfTheWeek(plusOffset: forDay) {
+            var tags: [String]?
+            if let r = self.routine, let day = Date.givenDay(section: forDay) {
+                tags = r.days[day].initialized
+            }
+            let vc = ModalWorkoutTypeViewController(delegate: self, day: weekday, indexPath: indexPath, currentTags: tags)
+            vc.pickerWillReturnWithValues = { values in
+                self.modalPassingBack(value: values, forCellAt: indexPath)
+            }
+            navigationController?.present(vc, animated: true, completion: nil)
+        }
     }
 }

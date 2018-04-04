@@ -47,12 +47,21 @@ extension UIButton {
         }
     }
     
-    func styleSmallButtonFYP(withTitle: String) {
-        self.backgroundColor = .fypGray
+    func styleButtonFYP(withTitle: String, textColor: UIColor, bg: UIColor) {
+        self.backgroundColor = bg
+        self.layer.cornerRadius = 12
+        self.contentEdgeInsets = UIEdgeInsets(top: 10, left: 8, bottom: 10, right: 8)
+        if let font = UIFont(name: "HelveticaNeue-Light", size: 22) {
+            self.setAttributedTitle(NSAttributedString(string: withTitle, attributes: [.font: font, .foregroundColor: textColor]), for: .normal)
+        }
+    }
+    
+    func styleSmallButtonFYP(withTitle: String, textColor: UIColor, bg: UIColor) {
+        self.backgroundColor = bg
         self.layer.cornerRadius = 4
         self.contentEdgeInsets = UIEdgeInsets(top: 2, left: 2, bottom: 2, right: 2)
         if let font = UIFont(name: "HelveticaNeue-Light", size: 14) {
-            self.setAttributedTitle(NSAttributedString(string: withTitle, attributes: [.font: font, .foregroundColor: UIColor.white]), for: .normal)
+            self.setAttributedTitle(NSAttributedString(string: withTitle, attributes: [.font: font, .foregroundColor: textColor]), for: .normal)
         }
     }
     

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14101" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14105" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -13,7 +13,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ModalWorkoutTypeViewController" customModule="FYPv4" customModuleProvider="target">
             <connections>
-                <outlet property="doneButton" destination="bnx-VN-jma" id="qir-c9-TYm"/>
+                <outlet property="chooseButton" destination="ESP-H5-2CN" id="4a4-FY-kaV"/>
+                <outlet property="currentTags" destination="EEt-uN-yzt" id="WGb-M9-Gaj"/>
                 <outlet property="modalView" destination="DYJ-MN-ZW1" id="3v9-Ti-N0Y"/>
                 <outlet property="picker" destination="ZLm-SF-y9E" id="dnF-eZ-sLB"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -25,31 +26,47 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DYJ-MN-ZW1">
-                    <rect key="frame" x="56" y="152" width="262.5" height="233"/>
+                    <rect key="frame" x="56" y="145" width="262.5" height="247"/>
                     <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EEt-uN-yzt">
+                            <rect key="frame" x="8" y="4" width="246.5" height="20.5"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                         <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZLm-SF-y9E">
-                            <rect key="frame" x="-29" y="17" width="320" height="216"/>
+                            <rect key="frame" x="-29" y="31" width="320" height="216"/>
                         </pickerView>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="bottom" secondItem="ZLm-SF-y9E" secondAttribute="bottom" id="74m-Mo-1hl"/>
                         <constraint firstItem="ZLm-SF-y9E" firstAttribute="centerX" secondItem="DYJ-MN-ZW1" secondAttribute="centerX" id="Jhf-yZ-pcH"/>
+                        <constraint firstItem="EEt-uN-yzt" firstAttribute="top" secondItem="DYJ-MN-ZW1" secondAttribute="top" constant="4" id="Kbk-cY-Fpq"/>
+                        <constraint firstItem="EEt-uN-yzt" firstAttribute="centerX" secondItem="DYJ-MN-ZW1" secondAttribute="centerX" id="afT-Fp-zMI"/>
+                        <constraint firstItem="EEt-uN-yzt" firstAttribute="width" secondItem="DYJ-MN-ZW1" secondAttribute="width" constant="-16" id="cQ6-Ws-MrA"/>
                     </constraints>
                 </view>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bnx-VN-jma">
-                    <rect key="frame" x="164" y="405" width="46" height="30"/>
-                    <state key="normal" title="Button"/>
+                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="ESP-H5-2CN">
+                    <rect key="frame" x="56.5" y="408" width="262.5" height="49"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="48" id="TH5-Qy-uc5"/>
+                    </constraints>
+                    <segments>
+                        <segment title="First"/>
+                        <segment title="Second"/>
+                    </segments>
                     <connections>
-                        <action selector="doneButtonPress:" destination="-1" eventType="touchUpInside" id="ryY-PC-RJl"/>
+                        <action selector="chooseButtonPress:" destination="-1" eventType="valueChanged" id="hYJ-U4-Vz3"/>
                     </connections>
-                </button>
+                </segmentedControl>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="DYJ-MN-ZW1" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.35" id="Nfd-Yd-U81"/>
-                <constraint firstItem="bnx-VN-jma" firstAttribute="top" secondItem="DYJ-MN-ZW1" secondAttribute="bottom" constant="20" id="WmJ-AN-Cyk"/>
-                <constraint firstItem="bnx-VN-jma" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="eIY-zY-eds"/>
+                <constraint firstItem="ESP-H5-2CN" firstAttribute="top" secondItem="DYJ-MN-ZW1" secondAttribute="bottom" constant="16" id="2sO-A3-eMy"/>
+                <constraint firstItem="ESP-H5-2CN" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="HtY-x9-pAx"/>
+                <constraint firstItem="DYJ-MN-ZW1" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.37" id="Nfd-Yd-U81"/>
+                <constraint firstItem="ESP-H5-2CN" firstAttribute="width" secondItem="DYJ-MN-ZW1" secondAttribute="width" id="YHD-qy-BOX"/>
                 <constraint firstItem="DYJ-MN-ZW1" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.7" id="g5q-Ka-Txv"/>
                 <constraint firstItem="DYJ-MN-ZW1" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" constant="-65" id="iJ4-PR-oOl"/>
                 <constraint firstItem="DYJ-MN-ZW1" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="qjz-x0-dFg"/>

@@ -34,7 +34,7 @@ class RoutineTableViewHeader: UIView {
     var titleBackground: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = UIColor.peakBlue
+        view.backgroundColor = UIColor.peakBlue.withAlphaComponent(0.6)
         return view
     }()
     
@@ -54,7 +54,8 @@ class RoutineTableViewHeader: UIView {
     var moreButton: UIButton = {
         let view = UIButton(type: .custom)
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.styleSmallButtonFYP(withTitle: "Edit")
+        let color = UIColor.peakBlue.withAlphaComponent(0.6)
+        view.styleSmallButtonFYP(withTitle: "Edit", textColor: .white, bg: color)
         return view
     }()
     
@@ -64,7 +65,7 @@ class RoutineTableViewHeader: UIView {
         addSubview(titleBackground)
         addSubview(headerMainLabel)
         addSubview(headerWorkoutType)
-        addSubview(sideView)
+//        addSubview(sideView)
         addSubview(moreButton)
         addSubview(errorLabel)
         self.configureHeader()
@@ -79,14 +80,16 @@ class RoutineTableViewHeader: UIView {
 extension RoutineTableViewHeader {
     func configureHeader() {
         backgroundColor = .white
-        sideView.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
-        sideView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
-        sideView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
-        sideView.widthAnchor.constraint(equalToConstant: 8).isActive = true
-        sideView.backgroundColor = UIColor.peakBlue
+//        sideView.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
+//        sideView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+//        sideView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+//        sideView.widthAnchor.constraint(equalToConstant: 8).isActive = true
+//        sideView.backgroundColor = UIColor.peakBlue
+        
         headerMainLabel.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
-        headerMainLabel.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 20).isActive = true
-        titleBackground.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
+        headerMainLabel.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 12).isActive = true
+        
+        titleBackground.leftAnchor.constraint(equalTo: self.leftAnchor, constant: -8).isActive = true
         titleBackground.heightAnchor.constraint(equalTo: headerMainLabel.heightAnchor, constant: 2).isActive = true
         titleBackground.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
         titleBackground.widthAnchor.constraint(equalTo: headerMainLabel.widthAnchor, constant: 28).isActive = true
@@ -96,7 +99,7 @@ extension RoutineTableViewHeader {
         check.isHidden = true
         
         headerWorkoutType.topAnchor.constraint(equalTo: self.headerMainLabel.bottomAnchor, constant: 6).isActive = true
-        headerWorkoutType.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 20).isActive = true
+        headerWorkoutType.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 12).isActive = true
         headerWorkoutType.text = "Workout type not specified"
         
         errorLabel.topAnchor.constraint(equalTo: self.headerMainLabel.bottomAnchor, constant: 6).isActive = true

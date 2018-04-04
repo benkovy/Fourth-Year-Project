@@ -58,13 +58,19 @@ extension EditMenuViewController: UITableViewDelegate, UITableViewDataSource {
         }
     }
     
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return "Edit"
+    }
+    
     func clear() {
         delegate?.menuDidRequestClear(forDay: day)
         self.dismiss(animated: true, completion: nil)
     }
     
     func add() {
-        delegate?.menuDidRequestAdd(value: ["asd":""], forDay: day)
+        self.dismiss(animated: true, completion: nil)
+        delegate?.menuDidRequestAdd(value: ["":""], forDay: day)
+        
     }
     
     @objc func closeMenu() {

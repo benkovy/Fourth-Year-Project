@@ -14,11 +14,14 @@ final class WebService {
     private let session = URLSession(configuration: URLSessionConfiguration.ephemeral)
     
     func load<A>(_ resource: Resource<A>, completion: @escaping (Result<A>?) -> ()) {
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
         session.dataTask(with: resource.request) { (data, _, _) in
+            DispatchQueue.main.async { UIApplication.shared.isNetworkActivityIndicatorVisible = false }
             let result = data.flatMap(resource.parse)
 //            self.printData(data)
             completion(Result(result, or: "Couldn't Parse data"))
         }.resume()
+        
     }
     
     private func printData(_ data: Data?) {
@@ -29,6 +32,7 @@ final class WebService {
     }
     
     func postImage(image: UIImage, forWorkoutID: String, completion: @escaping (Data?) -> ()) {
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
         let imageData = UIImageJPEGRepresentation(image, 1.0)
         guard let url = URL(string: "http://192.168.2.11:8080/image") else {return}
         let session = URLSession(configuration: .default)
@@ -52,12 +56,14 @@ final class WebService {
         mutableURLRequest.httpBody = uploadData
         
         let task = session.dataTask(with: mutableURLRequest, completionHandler: { (data, response, error) -> Void in
+            DispatchQueue.main.async { UIApplication.shared.isNetworkActivityIndicatorVisible = false }
             completion(data)
         })
         task.resume()
     }
     
     func postProfileImage(image: UIImage, forUserID: String, completion: @escaping (Data?) -> ()) {
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
         let imageData = UIImageJPEGRepresentation(image, 1.0)
         guard let url = URL(string: "http://192.168.2.11:8080/profileImage") else {return}
         let session = URLSession(configuration: .default)
@@ -81,6 +87,7 @@ final class WebService {
         mutableURLRequest.httpBody = uploadData
         
         let task = session.dataTask(with: mutableURLRequest, completionHandler: { (data, response, error) -> Void in
+            DispatchQueue.main.async { UIApplication.shared.isNetworkActivityIndicatorVisible = false }
             completion(data)
         })
         task.resume()

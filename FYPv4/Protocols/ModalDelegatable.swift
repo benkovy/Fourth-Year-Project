@@ -9,7 +9,7 @@
 import Foundation
 
 protocol ModalDelegatable: class {
-    func modalPassingBack(value: WorkoutType, forCellAt: IndexPath)
+    func modalPassingBack(value: [String], forCellAt: IndexPath)
     func modalDidCancel(forCellAt: IndexPath)
 }
 

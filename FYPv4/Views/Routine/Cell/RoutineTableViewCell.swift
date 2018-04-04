@@ -44,7 +44,7 @@ class RoutineTableViewCell: UITableViewCell {
         layout.minimumLineSpacing = 0
         layout.minimumInteritemSpacing = 0
         collectionView.collectionViewLayout = layout
-        self.configureSideLine()
+        self.configureButton()
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -57,8 +57,9 @@ class RoutineTableViewCell: UITableViewCell {
 
 extension RoutineTableViewCell {
     
-    func configureSideLine() {
-        chooseType.styleButtonFYP(withTitle: "Choose workout type")
+    func configureButton() {
+        let tc = UIColor.gray.withAlphaComponent(0.4)
+        chooseType.styleButtonFYP(withTitle: "Add", textColor: tc, bg: .clear)
         chooseType.isUserInteractionEnabled = false
     }
     

@@ -53,7 +53,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         self.window?.rootViewController = mainViewController
         self.window?.backgroundColor = .white
-        
        
         return true
     }

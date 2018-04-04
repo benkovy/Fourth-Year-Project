@@ -27,6 +27,7 @@ final class LoginViewController: UIViewController, CanSwitchTabBarViewController
     @IBOutlet weak var letsGoButton: UIButton!
     @IBOutlet weak var nextButton: UIButton!
     
+    var spinnerView: UIView?
     let datePicker = UIDatePicker()
     let webservice = WebService()
     var user = User()
@@ -121,11 +122,8 @@ final class LoginViewController: UIViewController, CanSwitchTabBarViewController
     }
     
     func createUser() {
-        let sv = LoginViewController.displaySpinnerForLogin(onView: self.view)
+        self.spinnerView = LoginViewController.displaySpinnerForLogin(onView: self.view)
         webservice.load(User.createUserRequest(user)) { (result) in
-            DispatchQueue.main.async {
-                LoginViewController.removeSpinner(spinner: sv)
-            }
             guard let result = result else { return }
             switch result {
             case .error(let error): print("Error: \(error)")
@@ -140,24 +138,42 @@ final class LoginViewController: UIViewController, CanSwitchTabBarViewController
         }
     }
     
-    func login(_ username: String, _ password: String) {
-        let sv = LoginViewController.displaySpinnerForLogin(onView: self.view)
-        webservice.load(Token.getToken(username, password)) { (result) in
-            DispatchQueue.main.async {
-                LoginViewController.removeSpinner(spinner: sv)
+    func initiateEmptyRoutine(forUser user: User) {
+        guard let token = user.token, let id = user.id else { return }
+        var routine = Routine()
+        routine.setUserId(id: id)
+        User.saveUserRoutine(webservice: webservice, token: token, routine: routine, callback: { res in
+            guard let result = res else { return }
+            switch result {
+            case .error(let error):
+                print(error.localizedDescription)
+            case .success(let routine):
+                DispatchQueue.main.async {
+                    UserDefaultsStore.store(persistables: routine)
+                    self.prepareToLeaveLogin()
+                }
             }
+            
+        })
+    }
+    
+    func login(_ username: String, _ password: String) {
+        webservice.load(Token.getToken(username, password)) { (result) in
             guard let result = result else { return }
             switch result {
             case .error(let error): print("Error: \(error)")
             case .success(let token):
-                self.user.password = nil
-                self.user.token = token
-                self.prepareToLeaveLogin()
+                DispatchQueue.main.async {
+                    self.user.password = nil
+                    self.user.token = token
+                    self.initiateEmptyRoutine(forUser: self.user)
+                }
             }
         }
     }
     
     func loginAndGetUser(_ username: String, _ password: String) {
+        self.spinnerView = LoginViewController.displaySpinnerForLogin(onView: self.view)
         webservice.load(User.loginAndGetToken(username, password)) { (result) in
             guard let result = result else { return }
             switch result {
@@ -173,6 +189,9 @@ final class LoginViewController: UIViewController, CanSwitchTabBarViewController
         UserDefaultsStore.store(persistables: user)
         UserDefaultsStore.delete(withKey: Routine.self)
         DispatchQueue.main.async {
+            if let sv = self.spinnerView {
+                LoginViewController.removeSpinner(spinner: sv)
+            }
             self.switchTo(tabBarState: .user(self.user))
         }
     }

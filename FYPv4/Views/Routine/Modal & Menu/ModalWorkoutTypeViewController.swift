@@ -10,16 +10,25 @@ import UIKit
 
 class ModalWorkoutTypeViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
 
+    @IBOutlet weak var currentTags: UILabel!
     @IBOutlet weak var picker: UIPickerView!
     @IBOutlet weak var modalView: UIView!
-    @IBOutlet weak var doneButton: UIButton!
+    @IBOutlet weak var chooseButton: UISegmentedControl!
+    
+    var pickerWillReturnWithValues: (([String]) -> ())?
+    
     let pickerItems = WorkoutType.allTypes
     weak var delegate: ModalDelegatable?
     var day: String
     let indexPath: IndexPath
+    var tags: [String]
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        currentTags.setFontTo(style: .paragraph)
+        currentTags.text = tags.joined(separator: "|").capitalized
+        modalView.layer.borderColor = UIColor.peakBlue.cgColor
+        modalView.layer.borderWidth = 1
         self.picker.delegate = self
         self.picker.dataSource = self
         let gesture = UITapGestureRecognizer(target: self, action: #selector(closeModal))
@@ -27,14 +36,15 @@ class ModalWorkoutTypeViewController: UIViewController, UIPickerViewDelegate, UI
         self.view.backgroundColor = UIColor.black.withAlphaComponent(0.5)
         self.modalView.clipsToBounds = true
         self.modalView.roundCorners(by: 20)
-        self.doneButton.styleButtonFYP(withTitle: "Done")
         self.modalPresentationStyle = .overCurrentContext
+        setupSgementControl()
     }
     
-    init(delegate: ModalDelegatable, day: String, indexPath: IndexPath) {
+    init(delegate: ModalDelegatable, day: String, indexPath: IndexPath, currentTags: [String]?) {
         self.delegate = delegate
         self.day = day
         self.indexPath = indexPath
+        self.tags = currentTags ?? []
         super.init(nibName: ModalWorkoutTypeViewController.nibName, bundle: nil)
         self.modalTransitionStyle = .crossDissolve
         self.modalPresentationStyle = .overFullScreen
@@ -44,10 +54,42 @@ class ModalWorkoutTypeViewController: UIViewController, UIPickerViewDelegate, UI
         fatalError("init(coder:) has not been implemented")
     }
     
-    @IBAction func doneButtonPress(_ sender: UIButton) {
-        let value = pickerItems[picker.selectedRow(inComponent: 0)]
-        delegate?.modalPassingBack(value: value, forCellAt: self.indexPath)
-        self.dismiss(animated: true, completion: nil)
+    func setupSgementControl() {
+        chooseButton.isMomentary = true
+        chooseButton.removeAllSegments()
+        let font = UIFont.systemFont(ofSize: 16)
+        chooseButton.setTitleTextAttributes([NSAttributedStringKey.font: font, NSAttributedStringKey.foregroundColor: UIColor.peakBlue], for: .normal)
+        chooseButton.insertSegment(withTitle: "Add", at: 0, animated: true)
+        chooseButton.insertSegment(withTitle: "Done", at: 1, animated: true)
+        chooseButton.insertSegment(withTitle: "Remove", at: 2, animated: true)
+        chooseButton.backgroundColor = .white
+        chooseButton.roundCorners(by: 10)
+        chooseButton.layer.borderColor = UIColor.peakBlue.cgColor
+        chooseButton.layer.borderWidth = 1
+        chooseButton.layer.masksToBounds = true
+    }
+    
+    @IBAction func chooseButtonPress(_ sender: UISegmentedControl) {
+        let seg = sender.selectedSegmentIndex
+        let value = String(describing:pickerItems[picker.selectedRow(inComponent: 0)])
+        switch seg {
+        case 0:
+            if !tags.contains(value) {
+                tags.append(value)
+            }
+            currentTags.text = tags.joined(separator: " | ").capitalized
+        case 1:
+            pickerWillReturnWithValues?(tags)
+            self.dismiss(animated: true, completion: nil)
+        case 2:
+            if let index = tags.index(of: value) {
+                tags.remove(at: index)
+            }
+            currentTags.text = tags.joined(separator: " | ").capitalized
+        default:
+            print("How?")
+        }
+        
     }
     
     @objc func closeModal() {
@@ -64,7 +106,7 @@ class ModalWorkoutTypeViewController: UIViewController, UIPickerViewDelegate, UI
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return String(describing: pickerItems[row])
+        return String(describing: pickerItems[row]).capitalized
     }
     
 }
