@@ -82,6 +82,11 @@ extension User {
         return userResponse
     }
     
+    static func userCreatedWorkouts(token: Token) -> Resource<[WebWorkout]> {
+        let userResponse = Resource<[WebWorkout]>(Router.workoutsForUser(token: token).request)
+        return userResponse
+    }
+    
     static func userRoutineWithToken(token: Token) -> Resource<Routine> {
         let userResponse = Resource<Routine>(Router.tokenRoutine(token: token).request)
         return userResponse

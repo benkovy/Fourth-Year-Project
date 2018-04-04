@@ -34,6 +34,7 @@ class HomeViewController: UIViewController, CollectionViewDelegatable {
         super.viewDidLoad()
         configureUI(.homeStyle)
         self.delegateCollectionView()
+        self.collectionView.alwaysBounceVertical = true
         collectionView.alwaysBounceVertical = true
         collectionView.register(HomeCollectionViewCell.self)
         let nib = UINib(nibName: "HomeCollectionReusableViewHeader", bundle: nil)
@@ -61,10 +62,8 @@ class HomeViewController: UIViewController, CollectionViewDelegatable {
                 print(error)
             case .success(let workouts):
                 self.content = workouts.reversed()
-                DispatchQueue.main.async {
-                    self.images = self.imagesForWorkouts(workouts: workouts)
-                    self.updateContent()
-                }
+                self.images = self.imagesForWorkouts(workouts: workouts)
+                self.updateContent()
             }
         }
     }
@@ -95,7 +94,6 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        
         switch kind {
         case UICollectionElementKindSectionHeader:
             let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "header", for: indexPath) as! HomeCollectionReusableViewHeader
@@ -106,12 +104,17 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             return UICollectionReusableView()
         }
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let vc = WorkoutDetailView(workout: content[indexPath.row], canAdd: false, day: 0, image: self.images[indexPath.row])
+        navigationController?.present(vc, animated: true, completion: nil)
+    }
 }
 
 extension HomeViewController: UserAuthDelegatable { }
 
 
-extension HomeViewController {
+extension UIViewController {
     func imagesForWorkouts(workouts: [WebWorkout]) -> [UIImage?] {
         var allImages: [UIImage?] = []
         workouts.reversed().forEach { w in
@@ -121,7 +124,7 @@ extension HomeViewController {
                 } else {
                     allImages.append(nil)
                 }
-            }
+            } else { allImages.append(nil) }
         }
         return allImages
     }

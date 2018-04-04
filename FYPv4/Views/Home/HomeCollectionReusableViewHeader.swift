@@ -39,7 +39,7 @@ extension HomeCollectionReusableViewHeader {
         self.topLabel.setFontTo(style: .title)
         self.bottomLabel.setFontTo(style: .name)
         if let routine = UserDefaultsStore.retrieve(Routine.self), let day = Date.intDay() {
-            self.bottomLabel.text = routine.days[day].initialized?
+            self.bottomLabel.text = routine.days[day - 1].initialized?
                 .joined(separator: " | ")
                 .capitalized
                 ?? "No workout scheduled"

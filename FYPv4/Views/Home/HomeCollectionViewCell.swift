@@ -38,7 +38,7 @@ extension HomeCollectionViewCell {
         self.workoutName.setFontTo(style: .title)
         self.creatorName.setFontTo(style: .name)
         self.worked.setFontTo(style: .name)
-        self.worked.text = "\(workout.tags.joined(separator: " | "))"
+        self.worked.text = "\(workout.tags.joined(separator: " | ").capitalized)"
         self.workoutName.text = workout.name
         self.creatorName.text = workout.creatorName
         self.mainContentView.layer.applySketchShadow(color: .black, alpha: 0.15, x: -2, y: 9, blur: 22, spread: 0)
@@ -59,7 +59,7 @@ extension HomeCollectionViewCell {
         self.workoutName.setFontTo(style: .title)
         self.creatorName.setFontTo(style: .name)
         self.worked.setFontTo(style: .name)
-        self.worked.text = "Worked: \(workout.rating)"
+        self.worked.text = "\(workout.tags.joined(separator: " | ").capitalized)"
         self.workoutName.text = workout.name
         self.creatorName.text = workout.creatorName
         self.mainContentView.layer.applySketchShadow(color: .black, alpha: 0.15, x: -2, y: 9, blur: 22, spread: 0)

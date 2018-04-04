@@ -61,6 +61,7 @@ class WorkoutDetailView: UIViewController, TableViewDelegatable, ErrorViewDelega
         tableView.showsVerticalScrollIndicator = false
         tableView.layer.borderWidth = 1
         tableView.layer.borderColor = UIColor.peakBlue.cgColor
+        
     }
     
     func setupSgementControl() {
@@ -195,7 +196,7 @@ extension WorkoutDetailView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch (indexPath.section, indexPath.row) {
         case (0,0):
-            return 300
+            return 240
         case (1,_):
             return self.retrieveCollapsed(row: indexPath.row) ? 72 : 160
         default:

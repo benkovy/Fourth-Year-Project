@@ -8,14 +8,17 @@
 
 import UIKit
 
-class ProfileViewController: UIViewController, CanSwitchTabBarViewControllers {
+class ProfileViewController: UIViewController, CanSwitchTabBarViewControllers, CollectionViewDelegatable {
     
+    @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var profilePicContainer: UIView!
     @IBOutlet weak var profileImageMask: UIView!
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var userDescription: UITextView!
-    @IBOutlet weak var fitnessTypes: UILabel!
+    
+    var content: [WebWorkout] = []
+    var images: [UIImage?] = []
     
     let webservice: WebService
     var user: User
@@ -34,13 +37,31 @@ class ProfileViewController: UIViewController, CanSwitchTabBarViewControllers {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureViews()
+        delegateCollectionView()
+        collectionView.alwaysBounceVertical = true
+        collectionView.register(HomeCollectionViewCell.self)
         let barButtonRight = UIBarButtonItem(image: #imageLiteral(resourceName: "menu"), style: .plain, target: self, action: #selector(handleUserMenu))
         self.navigationItem.setRightBarButton(barButtonRight, animated: true)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         self.configureUI(.regularWhite)
-        
+        self.getUserContent()
+    }
+    
+    func getUserContent() {
+        guard let token = user.token else { return }
+        webservice.load(User.userCreatedWorkouts(token: token), completion: { res in
+            guard let result = res else { return }
+            switch result {
+            case .error(_):
+                print("There was an error")
+            case .success(let workouts):
+                self.content = workouts
+                self.images = self.imagesForWorkouts(workouts: workouts)
+                self.collectionView.reloadData()
+            }
+        })
     }
 }
 
@@ -58,10 +79,8 @@ extension ProfileViewController {
         profileImageMask.roundCorners(by: 15)
         nameLabel.text = user.fullName
         nameLabel.setFontTo(style: .title)
-        fitnessTypes.setFontTo(style: .paragraph)
         userDescription.setFontTo(style: .paragraph)
         userDescription.text = user.description
-        fitnessTypes.text = user.type
     }
     
     @objc func handleUserMenu() {
@@ -82,6 +101,30 @@ extension ProfileViewController {
         navigationController?.pushViewController(vc, animated: true)
         
     }
+}
+
+extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return content.count
+    }
     
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell: HomeCollectionViewCell = collectionView.dequeueReusableCell(forIndexPath: indexPath)
+        cell.configureCellWithMovements(workout: content[indexPath.row], image: images[indexPath.row])
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: collectionView.bounds.width, height: 170)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSize(width: view.frame.size.width, height: 10)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let vc = WorkoutDetailView(workout: content[indexPath.row], canAdd: false, day: 0, image: self.images[indexPath.row])
+        navigationController?.present(vc, animated: true, completion: nil)
+    }
 }

@@ -21,6 +21,7 @@ enum Router {
     case workoutMovements(amount: Int)
     case updateUser(user: User, id: String)
     case workoutsForTags(tags: [String])
+    case workoutsForUser(token: Token)
     
     // Library http://131.162.212.76:8080/ / Home / http://192.168.2.11:8080/
 //    private var urlPath: String {
@@ -74,6 +75,8 @@ enum Router {
             return "http://192.168.2.11:8080/user/\(id)"
         case .workoutsForTags(_):
             return "http://192.168.2.11:8080/workoutWithTags"
+        case .workoutsForUser(_):
+            return "http://192.168.2.11:8080/workoutsForUser"
         }
     }
     
@@ -88,6 +91,8 @@ enum Router {
     
     var headerField: String {
         switch self {
+        case .workoutsForUser(_):
+            return "Authorization"
         case .workoutsForTags(_):
             return "Content-Type"
         case .updateUser(_):
@@ -117,6 +122,8 @@ enum Router {
     
     var method: String {
         switch self {
+        case .workoutsForUser(_):
+            return "GET"
         case .workoutsForTags(_):
             return "POST"
         case .updateUser(_):
@@ -146,6 +153,10 @@ enum Router {
     
     var contentType: String {
         switch self {
+        case .workoutsForUser(let token):
+            let tokenString = token.token
+            let data = "Bearer \(tokenString)"
+            return data
         case .workoutsForTags(_):
             return "application/json"
         case .updateUser(_):
@@ -188,6 +199,8 @@ enum Router {
     
     var body: Data {
         switch self {
+        case .workoutsForUser(_):
+            return Data()
         case .workoutsForTags(let tags):
             let data = try? JSONEncoder().encode(tags)
             return data ?? Data()

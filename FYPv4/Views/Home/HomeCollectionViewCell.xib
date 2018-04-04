@@ -6,7 +6,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -49,8 +48,8 @@
                                     <constraint firstItem="wgO-bC-BWr" firstAttribute="leading" secondItem="7Y6-iQ-3TA" secondAttribute="leading" constant="16" id="lml-cS-peo"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="53e-AO-2cP">
-                                <rect key="frame" x="112.5" y="121" width="86.5" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="headTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="53e-AO-2cP">
+                                <rect key="frame" x="8" y="121" width="191" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -76,7 +75,6 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="53e-AO-2cP" firstAttribute="width" secondItem="feW-d5-LQO" secondAttribute="width" multiplier="0.25" id="8Je-T8-Ov1"/>
                             <constraint firstItem="73B-KE-8r9" firstAttribute="leading" secondItem="feW-d5-LQO" secondAttribute="leading" constant="8" id="DgC-dU-5bU"/>
                             <constraint firstItem="7Y6-iQ-3TA" firstAttribute="leading" secondItem="UR6-b2-IAH" secondAttribute="trailing" constant="-8" id="EW6-HL-Wk6"/>
                             <constraint firstAttribute="bottom" secondItem="53e-AO-2cP" secondAttribute="bottom" constant="8" id="FuJ-5S-Dvx"/>
@@ -84,6 +82,7 @@
                             <constraint firstItem="25c-Bp-hNe" firstAttribute="top" secondItem="UR6-b2-IAH" secondAttribute="bottom" constant="2" id="GTH-ik-ziU"/>
                             <constraint firstItem="Jac-zv-Ekz" firstAttribute="leading" secondItem="feW-d5-LQO" secondAttribute="leading" constant="8" id="Hnj-Kz-LJH"/>
                             <constraint firstAttribute="trailing" secondItem="7Y6-iQ-3TA" secondAttribute="trailing" id="HqR-Ou-ahe"/>
+                            <constraint firstItem="53e-AO-2cP" firstAttribute="leading" secondItem="feW-d5-LQO" secondAttribute="leading" constant="8" id="IPM-Pb-erc"/>
                             <constraint firstItem="Jac-zv-Ekz" firstAttribute="top" secondItem="73B-KE-8r9" secondAttribute="bottom" constant="2" id="MVo-nD-U9C"/>
                             <constraint firstItem="i2E-9e-ifP" firstAttribute="leading" secondItem="feW-d5-LQO" secondAttribute="leading" constant="8" id="Mf0-60-oQf"/>
                             <constraint firstItem="7Y6-iQ-3TA" firstAttribute="leading" secondItem="25c-Bp-hNe" secondAttribute="trailing" constant="-8" id="OnY-aZ-GZo"/>

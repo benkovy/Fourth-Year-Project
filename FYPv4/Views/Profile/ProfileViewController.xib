@@ -12,7 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ProfileViewController" customModule="FYPv4" customModuleProvider="target">
             <connections>
-                <outlet property="fitnessTypes" destination="aFS-2R-Bzw" id="v62-kU-svI"/>
+                <outlet property="collectionView" destination="MMk-qG-RsN" id="Cnh-7a-2rI"/>
                 <outlet property="nameLabel" destination="7Iw-lJ-8FX" id="GvM-08-sI3"/>
                 <outlet property="profileImageMask" destination="Iem-r9-JtS" id="EvZ-GS-gsz"/>
                 <outlet property="profileImageView" destination="mS2-rK-SeN" id="01C-WA-zLp"/>
@@ -71,12 +71,6 @@
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                 </textView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aFS-2R-Bzw">
-                    <rect key="frame" x="32" y="152" width="327" height="21"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Iw-lJ-8FX">
                     <rect key="frame" x="145" y="28" width="214" height="21"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -84,32 +78,43 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CdN-9g-M6N">
-                    <rect key="frame" x="0.0" y="189" width="375" height="1"/>
+                    <rect key="frame" x="0.0" y="160" width="375" height="1"/>
                     <color key="backgroundColor" red="0.0" green="0.51372549020000002" blue="0.98823529409999999" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="1" id="oFv-Se-Ebs"/>
                     </constraints>
                 </view>
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="MMk-qG-RsN">
+                    <rect key="frame" x="0.0" y="161" width="375" height="506"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="WcA-0e-Smz">
+                        <size key="itemSize" width="50" height="50"/>
+                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    </collectionViewFlowLayout>
+                </collectionView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
+                <constraint firstItem="CdN-9g-M6N" firstAttribute="top" secondItem="7Y6-fO-R9u" secondAttribute="bottom" constant="24" id="03h-4k-Nzy"/>
                 <constraint firstItem="aQd-60-C22" firstAttribute="top" secondItem="7Iw-lJ-8FX" secondAttribute="bottom" constant="-4" id="6WS-bo-unF"/>
                 <constraint firstItem="7Y6-fO-R9u" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="BX8-vl-U3b"/>
                 <constraint firstItem="7Iw-lJ-8FX" firstAttribute="leading" secondItem="7Y6-fO-R9u" secondAttribute="trailing" constant="21" id="Cgs-Vl-GDA"/>
                 <constraint firstItem="CdN-9g-M6N" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="EhN-LE-DaR"/>
-                <constraint firstItem="CdN-9g-M6N" firstAttribute="top" secondItem="aFS-2R-Bzw" secondAttribute="bottom" constant="16" id="Ful-yH-JQ5"/>
-                <constraint firstItem="aFS-2R-Bzw" firstAttribute="top" secondItem="7Y6-fO-R9u" secondAttribute="bottom" constant="16" id="PtN-bO-qgp"/>
+                <constraint firstItem="MMk-qG-RsN" firstAttribute="top" secondItem="CdN-9g-M6N" secondAttribute="bottom" id="QsD-MU-bCd"/>
                 <constraint firstItem="7Y6-fO-R9u" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="8" id="Sny-Cj-zQH"/>
+                <constraint firstItem="MMk-qG-RsN" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="YE0-N4-VLb"/>
                 <constraint firstAttribute="trailing" secondItem="CdN-9g-M6N" secondAttribute="trailing" id="aQ7-Fl-geJ"/>
                 <constraint firstItem="aQd-60-C22" firstAttribute="leading" secondItem="7Y6-fO-R9u" secondAttribute="trailing" constant="16" id="kAK-Hb-zbZ"/>
-                <constraint firstItem="aFS-2R-Bzw" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="32" id="nTp-9T-i1U"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="aFS-2R-Bzw" secondAttribute="trailing" constant="16" id="ulJ-u4-BlK"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="MMk-qG-RsN" secondAttribute="bottom" id="nxN-jn-P3R"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="7Iw-lJ-8FX" secondAttribute="trailing" constant="16" id="vWO-Th-sh6"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="aQd-60-C22" secondAttribute="trailing" constant="16" id="wDz-1l-KcD"/>
                 <constraint firstItem="7Iw-lJ-8FX" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="8" id="wLv-VS-7hV"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="MMk-qG-RsN" secondAttribute="trailing" id="zCc-yx-jba"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
-            <point key="canvasLocation" x="24.5" y="51.5"/>
+            <point key="canvasLocation" x="-148" y="27"/>
         </view>
     </objects>
 </document>

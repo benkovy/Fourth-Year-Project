@@ -15,6 +15,9 @@ class CreateWorkoutViewController: UIViewController, TableViewDelegatable, Movem
     @IBOutlet weak var tableView: UITableView!
     var imagePicker: UIImagePickerController!
     
+    var didSaveRoutine: (() -> ())?
+    var saveRoutineError: (() -> ())?
+    
     let webservice = WebService()
     var movements: [Movement?] = []
     var tags: [String] = []
@@ -334,7 +337,8 @@ extension CreateWorkoutViewController {
         let tags = workout.tags
         let alert = UIAlertController(title: "Add to day", message: nil, preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: NSLocalizedString("Just add to my workouts", comment: "Default action"), style: .cancel, handler: { _ in
-            
+            self.didSaveRoutine?()
+            self.navigationController?.popViewController(animated: true)
         }))
         alert.addAction(UIAlertAction(title: NSLocalizedString("Sunday", comment: "Sunday"), style: .default, handler: { _ in
             self.addDayToRoutine(workout, forDay: 0, andTags: tags)
@@ -378,14 +382,12 @@ extension CreateWorkoutViewController {
             self.navigationItem.rightBarButtonItem?.isEnabled = true
             guard let result = res else {return}
             switch result {
-            case .error(let error):
-                DispatchQueue.main.async {
-                    self.errorView?.callError(withTitle: error.localizedDescription, andColor: .red)
-                }
+            case .error(_):
+                self.saveRoutineError?()
+                self.navigationController?.popViewController(animated: true)
             case .success(_):
-                DispatchQueue.main.async {
-                    self.navigationController?.popViewController(animated: true)
-                }
+                self.didSaveRoutine?()
+                self.navigationController?.popViewController(animated: true)
             }
         })
     }
