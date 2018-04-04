@@ -17,7 +17,6 @@ class HomeCollectionReusableViewHeader: UICollectionReusableView {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
     }
 }
 
@@ -31,12 +30,31 @@ extension HomeCollectionReusableViewHeader {
             let num = Int.randRange(lower: 1, upper: 4)
             self.imageView.image = UIImage(named: "t\(num)")
         }
+        if let weekday = Date.dayOfTheWeek(plusOffset: 0) {
+            self.topLabel.text = weekday
+        }
         self.imageView.contentMode = .scaleAspectFill
         self.imageView.layer.masksToBounds = true
         self.imageView.layer.cornerRadius = 32
         self.topLabel.setFontTo(style: .title)
         self.bottomLabel.setFontTo(style: .name)
-        self.topLabel.text = "Today"
-        self.bottomLabel.text = Date.now(withFormat: "dd.MM.yyyy")
+        if let routine = UserDefaultsStore.retrieve(Routine.self), let day = Date.intDay() {
+            self.bottomLabel.text = routine.days[day].initialized?
+                .joined(separator: " | ")
+                .capitalized
+                ?? "No workout scheduled"
+        } else {
+            self.bottomLabel.text = "No workout scheduled"
+        }
+    }
+}
+
+extension Date {
+    static func intDay() -> Int? {
+        let date = Date()
+        guard let day = Calendar.current.date(byAdding: .day, value: 0, to: date) else { return nil }
+        let myCalendar = Calendar(identifier: .gregorian)
+        let weekDay = myCalendar.component(.weekday, from: day)
+        return weekDay
     }
 }

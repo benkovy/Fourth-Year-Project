@@ -18,7 +18,14 @@ class RoutineViewController: UIViewController, TableViewDelegatable, ErrorViewDe
     let offset = Date.getDayOfWeek()
     let webservice: WebService
     var storedOffsets = [Int: CGFloat]()
-    var routine: Routine?
+    var routine: Routine? {
+        willSet {
+            if let r = newValue {
+                images = Routine.imageCache(routine: r)
+            }
+        }
+    }
+    var images: [[UIImage]?] = []
     
     init(webservice: WebService) {
         self.webservice = webservice
@@ -42,12 +49,12 @@ class RoutineViewController: UIViewController, TableViewDelegatable, ErrorViewDe
     override func viewWillAppear(_ animated: Bool) {
         self.configureUI(.regularWhite)
         let add = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(handleNewWorkout))
-        add.tintColor = .gray
         navigationItem.setRightBarButton(add, animated: true)
-        self.stateRoutine()
+        let refresh = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(stateRoutine))
+        navigationItem.setLeftBarButton(refresh, animated: true)
     }
     
-    func stateRoutine() {
+    @objc func stateRoutine() {
         if let user = UserDefaultsStore.retrieve(User.self) {
             if user.userType() == "ACC" {
                 errorView?.callError(withTitle: "Retrieving routine", andColor: UIColor.peakBlue)
@@ -97,6 +104,12 @@ extension RoutineViewController: UICollectionViewDelegate, UICollectionViewDataS
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell: HomeCollectionViewCell = collectionView.dequeueReusableCell(forIndexPath: indexPath)
+        let workoutImage: UIImage?
+        if let day = Date.givenDay(section: collectionView.tag), let dayImageArray = self.images[day] {
+            workoutImage = dayImageArray[indexPath.row]
+        } else {
+            workoutImage = nil
+        }
         
         switch getTableViewCellType(indexPath: collectionView.tag) {
         case .empty:
@@ -104,7 +117,7 @@ extension RoutineViewController: UICollectionViewDelegate, UICollectionViewDataS
         case .finalized:
             if let index = Date.givenDay(section: collectionView.tag) {
                 if let workout = self.routine?.days[index].finalized?.first {
-                    cell.configureCellWithMovements(workout: workout)
+                    cell.configureCellWithMovements(workout: workout, image: workoutImage)
                 } else {
                     cell.configureCell(workout: Workout(name: "", creator: " ", creatorName: " ", time: 32, description: "", image: nil, rating: 0, id: "", tags: ["dadada"]))
                 }
@@ -114,7 +127,7 @@ extension RoutineViewController: UICollectionViewDelegate, UICollectionViewDataS
                 cell.configureCell(workout: Workout(name: "", creator: " ", creatorName: " ", time: 32, description: "", image: nil, rating: 0, id: "", tags: ["dadada"]))
                 return cell
             }
-            cell.configureCellWithMovements(workout: w)
+            cell.configureCellWithMovements(workout: w, image: workoutImage)
         }
         
         return cell
@@ -131,7 +144,13 @@ extension RoutineViewController: UICollectionViewDelegate, UICollectionViewDataS
         if r.days[day].workoutId != nil {
             add = false
         }
-        let vc = WorkoutDetailView(workout: workout, canAdd: add, day: collectionView.tag)
+        let workoutImage: UIImage?
+        if let day = Date.givenDay(section: collectionView.tag), let dayImageArray = self.images[day] {
+            workoutImage = dayImageArray[indexPath.row]
+        } else {
+            workoutImage = nil
+        }
+        let vc = WorkoutDetailView(workout: workout, canAdd: add, day: collectionView.tag, image: workoutImage)
         vc.userDidSelect = {
             self.getRoutineWrapper()
         }
@@ -293,8 +312,8 @@ extension RoutineViewController: ModalDelegatable {
             r.initializeDay(number: forCellAt.section, toValue: value)
         }
         routine = r
-        if let user = UserDefaultsStore.retrieve(User.self) {
-            self.saveRoutine(user: user) { (result) in
+        if let user = UserDefaultsStore.retrieve(User.self), let _ = user.token {
+            self.saveRoutine(user: user, value: value) { (result) in
                 switch result {
                 case .error(let error):
                     print("error: \(error)")
@@ -307,9 +326,11 @@ extension RoutineViewController: ModalDelegatable {
                 }
             }
         } else {
-            self.tableView.reloadData()
+            let resource = WebWorkout.workoutsForTags(tags: value)
+            webservice.load(resource, completion: { res in
+                print(res)
+            })
         }
-        
     }
     
     func modalDidCancel(forCellAt: IndexPath) {
@@ -356,7 +377,7 @@ extension RoutineViewController {
         return user.userHasToken()
     }
     
-    func saveRoutine(user: User, callback: @escaping (Result<Routine>) -> ()) {
+    func saveRoutine(user: User, value: [String] = [], callback: @escaping (Result<Routine>) -> ()) {
         if self.hasToken(user: user) {
             guard let token = user.token, var r = self.routine, let id = user.id else { return }
             r.setUserId(id: id)
@@ -395,7 +416,7 @@ extension RoutineViewController: EditMenuDelegatable {
         guard var r = self.routine else { return }
         r.emptyDay(number: forDay)
         routine = r
-        if let user = UserDefaultsStore.retrieve(User.self) {
+        if let user = UserDefaultsStore.retrieve(User.self), let _ = user.token {
             self.saveRoutine(user: user) { (result) in
                 switch result {
                 case .error(let error):
@@ -407,6 +428,10 @@ extension RoutineViewController: EditMenuDelegatable {
                     }
                 }
             }
+        } else {
+            guard let r = self.routine else {return}
+            UserDefaultsStore.store(persistables: r)
+            tableView.reloadData()
         }
     }
     

@@ -32,9 +32,16 @@ class WorkoutDetailViewTableViewCell: UITableViewCell {
         name.setFontTo(style: .title)
         creator.setFontTo(style: .name)
         wDescription.setFontTo(style: .header)
+        imageWorkout.contentMode = .scaleAspectFill
+        imageWorkout.layer.masksToBounds = true
     }
     
-    func configure(with workout: WebWorkout) {
+    func configure(with workout: WebWorkout, image: UIImage?) {
+        if let img = image {
+            imageWorkout.image = img
+        } else {
+            imageWorkout.image = UIImage(named: "t\(Int.randRange(lower: 1, upper: 4))")
+        }
         name.text = workout.name
         creator.text = workout.creatorName
         wDescription.text = workout.description

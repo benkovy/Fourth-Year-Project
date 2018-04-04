@@ -40,6 +40,10 @@ extension WebWorkout {
         return userResponse
     }
     
+    static func workoutsForTags(tags: [String]) -> Resource<[WebWorkout]> {
+        let userResponse = Resource<[WebWorkout]>(Router.workoutsForTags(tags: tags).request)
+        return userResponse
+    }
     
     static func saveWorkout(webservice: WebService, token: Token, workout: WebWorkout, callback: @escaping (Result<Workout>) -> ()) {
         webservice.load(WebWorkout.postWorkout(token: token, workout: workout), completion: { res in

@@ -38,22 +38,20 @@ extension HomeCollectionViewCell {
         self.workoutName.setFontTo(style: .title)
         self.creatorName.setFontTo(style: .name)
         self.worked.setFontTo(style: .name)
-        self.worked.text = "Worked: \(workout.rating)"
+        self.worked.text = "\(workout.tags.joined(separator: " | "))"
         self.workoutName.text = workout.name
         self.creatorName.text = workout.creatorName
         self.mainContentView.layer.applySketchShadow(color: .black, alpha: 0.15, x: -2, y: 9, blur: 22, spread: 0)
         self.mainContentView.roundCorners(by: 16)
     }
     
-    func configureCellWithMovements(workout: WebWorkout) {
+    func configureCellWithMovements(workout: WebWorkout, image: UIImage?) {
         
-        if workout.image == nil {
+        if image == nil {
             let num = Int.randRange(lower: 1, upper: 4)
             self.workoutImage.image = UIImage(named: "t\(num)")
-        } else if let image = workout.image {
-            if let data = Data(base64Encoded: image) {
-                self.workoutImage.image = UIImage(data: data)
-            }
+        } else if let img = image {
+            workoutImage.image = img
         }
         self.layer.masksToBounds = false
         self.imageViewContainer.roundCorners(by: 16)

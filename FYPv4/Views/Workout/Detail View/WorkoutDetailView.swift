@@ -20,6 +20,7 @@ class WorkoutDetailView: UIViewController, TableViewDelegatable, ErrorViewDelega
     let day: Int
     let segmentBool: Bool
     var collapsed: [Bool] = []
+    let image: UIImage?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,9 +36,10 @@ class WorkoutDetailView: UIViewController, TableViewDelegatable, ErrorViewDelega
         setupErrorView()
     }
     
-    init(workout: WebWorkout, canAdd: Bool, day: Int) {
+    init(workout: WebWorkout, canAdd: Bool, day: Int, image: UIImage?) {
         self.workout = workout
         self.day = day
+        self.image = image
         self.segmentBool = canAdd
         if let movements = workout.movements {
             for _ in movements {
@@ -104,10 +106,7 @@ class WorkoutDetailView: UIViewController, TableViewDelegatable, ErrorViewDelega
     }
     
     func addDayToRoutine(_ workout: WebWorkout, forDay day: Int, andTags: [String]) {
-        guard var routine = UserDefaultsStore.retrieve(Routine.self) else {
-            self.dismiss(animated: true, completion: nil)
-            return
-        }
+        guard var routine = UserDefaultsStore.retrieve(Routine.self) else { return }
         
         guard let dayG = Date.givenDay(section: day) else { return }
         routine.finalizeDay(number: dayG, toWorkout: [workout], withTags: andTags)
@@ -116,35 +115,21 @@ class WorkoutDetailView: UIViewController, TableViewDelegatable, ErrorViewDelega
         
         guard let user = UserDefaultsStore.retrieve(User.self), let token = user.token else {
             errorView?.callError(withTitle: "Please login to an account", andColor: .red)
-            self.dismiss(animated: true, completion: nil)
             return
         }
-        let sv = WorkoutDetailView.displaySpinner(onView: self.view)
+        
         User.saveUserRoutine(webservice: webservice, token: token, routine: routine, callback: { res in
-            DispatchQueue.main.async {
-                WorkoutDetailView.removeSpinner(spinner: sv)
-            }
             guard let result = res else {return}
             switch result {
             case .error(let error):
-                DispatchQueue.main.async {
-                    self.errorView?.callError(withTitle: error.localizedDescription, andColor: .red)
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                        self.dismiss(animated: true, completion: nil)
-                    }
-                }
+                self.errorView?.callError(withTitle: error.localizedDescription, andColor: .red)
+                self.dismiss(animated: true, completion: nil)
             case .success(_):
-                DispatchQueue.main.async {
-                    self.userDidSelect?()
-                }
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                    self.dismiss(animated: true, completion: nil)
-                }
+                self.userDidSelect?()
+                self.dismiss(animated: true, completion: nil)
             }
-            
         })
     }
-    
 }
 
 extension WorkoutDetailView: UITableViewDelegate, UITableViewDataSource {
@@ -171,7 +156,7 @@ extension WorkoutDetailView: UITableViewDelegate, UITableViewDataSource {
         switch (indexPath.section, indexPath.row) {
         case (0,0):
             let cell: WorkoutDetailViewTableViewCell = tableView.dequeueReusableCell(forIndexPath: indexPath)
-            cell.configure(with: workout)
+            cell.configure(with: workout, image: image)
             cell.selectionStyle = .none
             return cell
         case (1,_):
@@ -217,4 +202,21 @@ extension WorkoutDetailView: UITableViewDelegate, UITableViewDataSource {
             return 0
         }
     }
+}
+
+
+extension UIImage {
+    
+    func resize(to width: CGFloat) -> UIImage? {
+        let scale = width / self.size.width
+        let newHeight = self.size.height * scale
+        UIGraphicsBeginImageContext(CGSize(width: width, height: newHeight))
+        defer {
+            UIGraphicsEndImageContext()
+        }
+        
+        self.draw(in: CGRect(x: 0, y: 0, width: width, height: newHeight))
+        return UIGraphicsGetImageFromCurrentImageContext()
+    }
+    
 }

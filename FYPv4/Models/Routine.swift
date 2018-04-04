@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 struct Routine: Codable {
     let id: String?
@@ -155,5 +156,33 @@ extension Day {
         if let routine_id = try? values.decode(String.self, forKey: Day.CodingKeys.routine_id) {
             self.routine_id = routine_id
         } else { self.routine_id = "NOTHING" }
+    }
+}
+
+
+extension Routine {
+    static func imageCache(routine: Routine) -> [[UIImage]?] {
+        
+        var allImages: [[UIImage]?] = []
+        routine.days
+            .sorted(by: {$0.day < $1.day})
+            .forEach { day in
+                var workoutImgs: [UIImage] = []
+                if let workouts = day.finalized {
+                    workouts.forEach { w in
+                        if let imgStr = w.image {
+                            if let data = Data(base64Encoded: imgStr), let image = UIImage(data: data) {
+                                workoutImgs.append(image)
+                            }
+                        }
+                    }
+                    if !workoutImgs.isEmpty {
+                        allImages.append(workoutImgs)
+                    } else {
+                        allImages.append(nil)
+                    }
+                } else { allImages.append(nil) }
+        }
+        return allImages
     }
 }

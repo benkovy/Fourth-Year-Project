@@ -35,7 +35,6 @@ class ProfileViewController: UIViewController, CanSwitchTabBarViewControllers {
         super.viewDidLoad()
         self.configureViews()
         let barButtonRight = UIBarButtonItem(image: #imageLiteral(resourceName: "menu"), style: .plain, target: self, action: #selector(handleUserMenu))
-        barButtonRight.tintColor = .gray
         self.navigationItem.setRightBarButton(barButtonRight, animated: true)
     }
     

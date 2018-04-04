@@ -16,6 +16,7 @@ class HomeViewController: UIViewController, CollectionViewDelegatable {
     var refreshControl: UIRefreshControl
     
     var content: [WebWorkout] = []
+    var images: [UIImage?] = []
     
     init(webservice: WebService) {
         self.webservice = webservice
@@ -33,6 +34,7 @@ class HomeViewController: UIViewController, CollectionViewDelegatable {
         super.viewDidLoad()
         configureUI(.homeStyle)
         self.delegateCollectionView()
+        collectionView.alwaysBounceVertical = true
         collectionView.register(HomeCollectionViewCell.self)
         let nib = UINib(nibName: "HomeCollectionReusableViewHeader", bundle: nil)
         collectionView.register(nib, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "header")
@@ -60,6 +62,7 @@ class HomeViewController: UIViewController, CollectionViewDelegatable {
             case .success(let workouts):
                 self.content = workouts.reversed()
                 DispatchQueue.main.async {
+                    self.images = self.imagesForWorkouts(workouts: workouts)
                     self.updateContent()
                 }
             }
@@ -79,7 +82,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell: HomeCollectionViewCell = collectionView.dequeueReusableCell(forIndexPath: indexPath)
-        cell.configureCellWithMovements(workout: content[indexPath.row])
+        cell.configureCellWithMovements(workout: content[indexPath.row], image: images[indexPath.row])
         return cell
     }
     
@@ -106,3 +109,20 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
 }
 
 extension HomeViewController: UserAuthDelegatable { }
+
+
+extension HomeViewController {
+    func imagesForWorkouts(workouts: [WebWorkout]) -> [UIImage?] {
+        var allImages: [UIImage?] = []
+        workouts.reversed().forEach { w in
+            if let imgStr = w.image {
+                if let data = Data(base64Encoded: imgStr), let image = UIImage(data: data) {
+                    allImages.append(image)
+                } else {
+                    allImages.append(nil)
+                }
+            }
+        }
+        return allImages
+    }
+}

@@ -11,6 +11,7 @@ import UIKit
 class ErrorView: UIView {
     
     var errorLabel = UILabel()
+    var inUse = false
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -27,13 +28,25 @@ class ErrorView: UIView {
 
 extension ErrorView {
     func callError(withTitle title: String, andColor color: UIColor) {
-        self.backgroundColor = color
-        self.errorLabel.text = title
-        UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: .curveEaseInOut, animations: {
-             self.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height)
-        }, completion: { finished in
-            self.hideError()
-        })
+        if !inUse {
+            self.backgroundColor = color
+            self.errorLabel.text = title
+            self.inUse = true
+            UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: .curveEaseInOut, animations: {
+                self.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height)
+            }, completion: { finished in
+                self.hideError()
+                self.inUse = false
+            })
+        } else {
+            UIView.animate(withDuration: 0.3, delay: 0.7, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: .curveEaseInOut, animations: {
+                self.inUse = true
+                self.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height)
+            }, completion: { finished in
+                self.hideError()
+                self.inUse = false
+            })
+        }
     }
     
     func hideError() {
