@@ -81,6 +81,7 @@ extension ProfileViewController {
         nameLabel.setFontTo(style: .title)
         userDescription.setFontTo(style: .paragraph)
         userDescription.text = user.description
+        userDescription.textContainer.maximumNumberOfLines = 4
     }
     
     @objc func handleUserMenu() {

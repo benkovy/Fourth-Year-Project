@@ -44,6 +44,7 @@ class RoutineViewController: UIViewController, TableViewDelegatable, ErrorViewDe
         tableView.reloadData()
         errorView = ErrorView(frame: CGRect(x: 0, y: -40, width: self.view.frame.width, height: 40))
         setupErrorView()
+        stateRoutine()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -61,15 +62,11 @@ class RoutineViewController: UIViewController, TableViewDelegatable, ErrorViewDe
                 self.getRoutine(user: user) { (result) in
                     switch result {
                     case .error(_):
-                        DispatchQueue.main.async {
-                            self.errorView?.callError(withTitle: "Routine couldn't be retrieved", andColor: .red)
-                        }
+                        self.errorView?.callError(withTitle: "Routine couldn't be retrieved", andColor: .red)
                     case .success(let routine):
                         self.routine = routine
-                        DispatchQueue.main.async {
-                            self.errorView?.callError(withTitle: "Routine is up to date", andColor: UIColor.peakBlue)
-                            self.tableView.reloadData()
-                        }
+                        self.errorView?.callError(withTitle: "Routine is up to date", andColor: UIColor.peakBlue)
+                        self.tableView.reloadData()
                     }
                 }
             } else {

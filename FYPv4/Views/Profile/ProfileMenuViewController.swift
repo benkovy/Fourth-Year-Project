@@ -130,7 +130,7 @@ extension ProfileMenuViewController: UITableViewDelegate, UITableViewDataSource 
                 }
             }
             cell.didRequestPlaceholder = { return self.nameFor(indexPath: indexPath)}
-            cell.textView.textContainer.maximumNumberOfLines = 4
+            cell.textView.textContainer.maximumNumberOfLines = 2
             cell.textView.textContainer.lineBreakMode = .byTruncatingTail
             return cell
         case 3:
@@ -153,7 +153,7 @@ extension ProfileMenuViewController: UITableViewDelegate, UITableViewDataSource 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch indexPath.row {
         case 2:
-            return 104
+            return 64
         default:
             return 44
         }
