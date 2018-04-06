@@ -53,6 +53,11 @@ class RoutineViewController: UIViewController, TableViewDelegatable, ErrorViewDe
         navigationItem.setRightBarButton(add, animated: true)
         let refresh = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(stateRoutine))
         navigationItem.setLeftBarButton(refresh, animated: true)
+        if let user = UserDefaultsStore.retrieve(User.self) {
+            if user.token == nil {
+                navigationItem.rightBarButtonItem?.isEnabled = false
+            }
+        }
     }
     
     @objc func stateRoutine() {
