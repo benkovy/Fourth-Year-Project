@@ -49,9 +49,27 @@ extension ErrorView {
         }
     }
     
+    func callError(withTitle title: String, andColor color: UIColor, doneDisplaying: @escaping () -> ()) {
+        self.backgroundColor = color
+        self.errorLabel.text = title
+        UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: .curveEaseInOut, animations: {
+            self.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height)
+        }, completion: { finished in
+            self.hideErrorAfterCompletion(complete: doneDisplaying)
+        })
+    }
+    
     func hideError() {
         UIView.animate(withDuration: 0.3, delay: 1.5, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: .curveEaseInOut, animations: {
             self.frame = CGRect(x: 0, y: -self.frame.height, width: self.frame.width, height: self.frame.height)
         }, completion: nil)
+    }
+    
+    func hideErrorAfterCompletion(complete: @escaping () -> ()) {
+        UIView.animate(withDuration: 0.3, delay: 1.5, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: .curveEaseInOut, animations: {
+            self.frame = CGRect(x: 0, y: -self.frame.height, width: self.frame.width, height: self.frame.height)
+        }, completion: {finished in
+            complete()
+        })
     }
 }

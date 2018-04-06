@@ -9,7 +9,9 @@
 import Foundation
 import UIKit
 
-extension UITableViewCell {
+
+
+extension UIView {
     class func displaySpinner(onView : UIView) -> UIView {
         let spinnerView = UIView.init(frame: onView.bounds)
         spinnerView.backgroundColor = .clear

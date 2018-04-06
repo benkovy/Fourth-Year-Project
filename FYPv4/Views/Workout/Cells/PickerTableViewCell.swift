@@ -35,12 +35,16 @@ class PickerTableViewCell: UITableViewCell {
     
     @IBAction func removeTag(_ sender: UIButton) {
         let index = pickerView.selectedRow(inComponent: 0)
-        didRemoveRow?(index)
+        if pickerView.numberOfRows(inComponent: 0) != 0 {
+            didRemoveRow?(index)
+        }
     }
     
     @IBAction func addTag(_ sender: UIButton) {
         let index = pickerView.selectedRow(inComponent: 0)
-        didAddRow?(index)
+        if pickerView.numberOfRows(inComponent: 0) != 0 {
+            didAddRow?(index)
+        }
     }
 }
 
@@ -54,7 +58,11 @@ extension PickerTableViewCell: UIPickerViewDelegate, UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return didRequestTitles?(row)
+        if let str = didRequestTitles?(row) {
+            return str
+        } else {
+            return "Please wait"
+        }
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {

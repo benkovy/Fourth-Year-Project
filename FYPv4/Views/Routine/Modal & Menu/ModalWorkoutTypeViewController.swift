@@ -17,7 +17,8 @@ class ModalWorkoutTypeViewController: UIViewController, UIPickerViewDelegate, UI
     
     var pickerWillReturnWithValues: (([String]) -> ())?
     
-    let pickerItems = WorkoutType.allTypes
+    let webservice = WebService()
+    var pickerItems: [String]?
     weak var delegate: ModalDelegatable?
     var day: String
     let indexPath: IndexPath
@@ -54,6 +55,10 @@ class ModalWorkoutTypeViewController: UIViewController, UIPickerViewDelegate, UI
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        self.getWorkoutTypes()
+    }
+    
     func setupSgementControl() {
         chooseButton.isMomentary = true
         chooseButton.removeAllSegments()
@@ -69,9 +74,25 @@ class ModalWorkoutTypeViewController: UIViewController, UIPickerViewDelegate, UI
         chooseButton.layer.masksToBounds = true
     }
     
+    func getWorkoutTypes() {
+        let sv = UIView.displaySpinner(onView: modalView)
+        webservice.load(WebWorkout.workoutTag(tags: []), completion: { res in
+            UIView.removeSpinner(spinner: sv)
+            guard let result = res else { return }
+            switch result {
+            case .error(_):
+                print("There was an error in retrieving the tags")
+            case .success(let tags):
+                self.pickerItems = tags.compactMap { $0.name }
+                self.picker.reloadAllComponents()
+            }
+        })
+    }
+    
     @IBAction func chooseButtonPress(_ sender: UISegmentedControl) {
         let seg = sender.selectedSegmentIndex
-        let value = String(describing:pickerItems[picker.selectedRow(inComponent: 0)])
+        guard let str = self.pickerItems?[picker.selectedRow(inComponent: 0)] else { return }
+        let value = String(describing: str)
         switch seg {
         case 0:
             if !tags.contains(value) {
@@ -102,11 +123,12 @@ class ModalWorkoutTypeViewController: UIViewController, UIPickerViewDelegate, UI
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return pickerItems.count
+        return pickerItems?.count ?? 0
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return String(describing: pickerItems[row]).capitalized
+        guard let str = self.pickerItems?[row] else { return "Please Wait"}
+        return String(describing: str).capitalized
     }
     
 }

@@ -31,6 +31,12 @@ class RoutineTableViewHeader: UIView {
         return view
     }()
     
+    let arrow: UIImageView = {
+        let view = UIImageView(image: #imageLiteral(resourceName: "arrow"))
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     var titleBackground: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -65,7 +71,7 @@ class RoutineTableViewHeader: UIView {
         addSubview(titleBackground)
         addSubview(headerMainLabel)
         addSubview(headerWorkoutType)
-//        addSubview(sideView)
+        addSubview(arrow)
         addSubview(moreButton)
         addSubview(errorLabel)
         self.configureHeader()
@@ -109,6 +115,9 @@ extension RoutineTableViewHeader {
         
         moreButton.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -12).isActive = true
         moreButton.topAnchor.constraint(equalTo: self.topAnchor, constant: 6).isActive = true
+        
+        arrow.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -12).isActive = true
+        arrow.topAnchor.constraint(equalTo: self.bottomAnchor, constant: 4).isActive = true
         titleBackground.roundCorners(by: 4)
     }
 }

@@ -21,6 +21,13 @@ struct WebWorkout: Codable {
     var tags: [String]
 }
 
+
+struct WorkoutStr: Codable {
+    let id: String
+    let name: String
+}
+
+
 extension WebWorkout {
     init(workout: Workout, movements: [Movement]) {
         self.name = workout.name
@@ -42,6 +49,11 @@ extension WebWorkout {
     
     static func workoutsForTags(tags: [String]) -> Resource<[WebWorkout]> {
         let userResponse = Resource<[WebWorkout]>(Router.workoutsForTags(tags: tags).request)
+        return userResponse
+    }
+    
+    static func workoutTag(tags: [String]) -> Resource<[WorkoutStr]> {
+        let userResponse = Resource<[WorkoutStr]>(Router.tag(tag: tags).request)
         return userResponse
     }
     

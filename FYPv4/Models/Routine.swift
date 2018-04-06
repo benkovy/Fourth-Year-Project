@@ -36,6 +36,19 @@ extension Routine {
         self.user_id = id
     }
     
+    mutating func addWorkoutsToDay(number: Int, toWorkout: [WebWorkout], withTags: [String]) {
+        var ordered = self.days.sorted(by: {$0.day < $1.day})
+        ordered[number] = Day(
+            initialized: withTags,
+            workoutId: nil,
+            finalized: toWorkout,
+            empty: false,
+            id: ordered[number].id,
+            day: ordered[number].day,
+            routine_id: ordered[number].routine_id)
+        self.days = ordered
+    }
+    
     mutating func finalizeDay(number: Int, toWorkout: [WebWorkout], withTags: [String]) {
         var ordered = self.days.sorted(by: {$0.day < $1.day})
         ordered[number] = Day(

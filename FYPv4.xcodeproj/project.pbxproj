@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		780E218920770C36001C1FAD /* AddWorkoutTypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 780E218720770C36001C1FAD /* AddWorkoutTypeViewController.swift */; };
+		780E218A20770C36001C1FAD /* AddWorkoutTypeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 780E218820770C36001C1FAD /* AddWorkoutTypeViewController.xib */; };
 		7822048B20193B3700439343 /* Resource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7822048A20193B3700439343 /* Resource.swift */; };
 		7822048D20193CC200439343 /* WebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7822048C20193CC200439343 /* WebService.swift */; };
 		7822048F20193FA800439343 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7822048E20193FA800439343 /* Router.swift */; };
@@ -120,6 +122,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		780E218720770C36001C1FAD /* AddWorkoutTypeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWorkoutTypeViewController.swift; sourceTree = "<group>"; };
+		780E218820770C36001C1FAD /* AddWorkoutTypeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddWorkoutTypeViewController.xib; sourceTree = "<group>"; };
 		7822048A20193B3700439343 /* Resource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resource.swift; sourceTree = "<group>"; };
 		7822048C20193CC200439343 /* WebService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebService.swift; sourceTree = "<group>"; };
 		7822048E20193FA800439343 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
@@ -486,6 +490,8 @@
 				78F0B19C205718E500918F07 /* ModalWorkoutTypeViewController.xib */,
 				782828BC205A93AD00E1D80C /* EditMenuViewController.swift */,
 				782828BD205A93AD00E1D80C /* EditMenuViewController.xib */,
+				780E218720770C36001C1FAD /* AddWorkoutTypeViewController.swift */,
+				780E218820770C36001C1FAD /* AddWorkoutTypeViewController.xib */,
 			);
 			path = "Modal & Menu";
 			sourceTree = "<group>";
@@ -630,6 +636,7 @@
 				78E5A501206189A300F9903F /* CreateWorkoutViewController.xib in Resources */,
 				7885954D206808AA00BA2371 /* PickerTableViewCell.xib in Resources */,
 				788AAAD92050AFB10015BE06 /* RoutineTableViewCell.xib in Resources */,
+				780E218A20770C36001C1FAD /* AddWorkoutTypeViewController.xib in Resources */,
 				7823717B20716CDA00C3B2AB /* MovementDetailViewTableViewCell.xib in Resources */,
 				7885954920659B8200BA2371 /* InputTableViewCell.xib in Resources */,
 				78A8025C2073DC11000A1138 /* ProfileMenuViewController.xib in Resources */,
@@ -762,6 +769,7 @@
 			files = (
 				78F0B19A2055A8BE00918F07 /* RoutineType.swift in Sources */,
 				78D85006201C22B2008FFFB3 /* LoginViewControllerTextViewExtension.swift in Sources */,
+				780E218920770C36001C1FAD /* AddWorkoutTypeViewController.swift in Sources */,
 				788AAAE1205168570015BE06 /* WorkoutType.swift in Sources */,
 				7822049F201A53AB00439343 /* PeakUITextField.swift in Sources */,
 				78F0B1982055A83200918F07 /* RoutineViewModel.swift in Sources */,

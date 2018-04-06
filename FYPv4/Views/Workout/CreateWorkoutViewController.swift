@@ -22,6 +22,7 @@ class CreateWorkoutViewController: UIViewController, TableViewDelegatable, Movem
     var movements: [Movement?] = []
     var tags: [String] = []
     var image: UIImage?
+    var tagsForPicker: [String]?
     let maxMovements = 15
     var num = 0
     var name: String?
@@ -36,6 +37,7 @@ class CreateWorkoutViewController: UIViewController, TableViewDelegatable, Movem
         tableView.register(InputTableViewCell.self)
         tableView.register(PickerTableViewCell.self)
         errorView = ErrorView(frame: CGRect(x: 0, y: -40, width: self.view.frame.width, height: 40))
+        getWorkoutTypes()
         setupErrorView()
     }
     
@@ -67,6 +69,19 @@ class CreateWorkoutViewController: UIViewController, TableViewDelegatable, Movem
         case (0,3): return "Tags"
         default: return ""
         }
+    }
+    
+    func getWorkoutTypes() {
+        webservice.load(WebWorkout.workoutTag(tags: []), completion: { res in
+            guard let result = res else { return }
+            switch result {
+            case .error(_):
+                print("There was an error in retrieving the tags")
+            case .success(let tags):
+                self.tagsForPicker = tags.compactMap { $0.name }
+                self.tableView.reloadData()
+            }
+        })
     }
 }
 
@@ -132,20 +147,22 @@ extension CreateWorkoutViewController: UITableViewDelegate, UITableViewDataSourc
                 cell.pickerView.tag = indexPath.row + indexPath.section
                 cell.pickerView.selectRow(4, inComponent: 0, animated: true)
                 cell.didRequestComponents = { return 1 }
-                cell.didRequestRows = { return WorkoutType.allTypes.count }
-                cell.didRequestTitles = { row in return String(describing: WorkoutType.allTypes[row]) }
+                cell.didRequestRows = { return self.tagsForPicker?.count ?? 0 }
+                cell.didRequestTitles = { row in return String(describing: self.tagsForPicker?[row] ?? "Please Wait")  }
                 cell.didAddRow = { row in
                     let index =  IndexPath(row: 3, section: 0)
-                    if !self.tags.contains(String(describing: WorkoutType.allTypes[row])) {
-                        self.tags.append(String(describing: WorkoutType.allTypes[row]))
+                    guard let str = self.tagsForPicker?[row] else { return }
+                    if !self.tags.contains(String(describing: str)) {
+                        self.tags.append(String(describing: str))
                         self.tableView.beginUpdates()
                         self.tableView.reloadRows(at: [index], with: .none)
                         self.tableView.endUpdates()
                     }
                 }
                 cell.didRemoveRow = { row in
+                    guard let str = self.tagsForPicker?[row] else { return }
                     let path =  IndexPath(row: 3, section: 0)
-                    if let index = self.tags.index(of: String(describing: WorkoutType.allTypes[row])) {
+                    if let index = self.tags.index(of: String(describing: str)) {
                         self.tags.remove(at: index)
                         self.tableView.reloadRows(at: [path], with: .none)
                     }

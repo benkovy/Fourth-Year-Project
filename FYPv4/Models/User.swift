@@ -44,7 +44,7 @@ extension User {
         self.lastname = ""
         self.email = ""
         self.password = ""
-        self.description = "This is my description"
+        self.description = "You don't have a description! Add one using the button in the top right."
         self.dateofbirth = ""
         self.type = "ACC"
         self.id = nil

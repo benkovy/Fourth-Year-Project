@@ -111,10 +111,14 @@ extension RoutineViewController: UICollectionViewDelegate, UICollectionViewDataS
         switch getTableViewCellType(indexPath: collectionView.tag) {
         case .empty:
             cell.configureCell(workout: Workout(name: "THIS WORKOUT", creator: "Ben Kovacs", creatorName: "Ben Kovacs", time: 32, description: "BLAH", image: nil, rating: 324, id: "asdasdasd", tags: ["dadada"]))
+            cell.mainContentView.layer.borderColor = UIColor.clear.cgColor
+            cell.mainContentView.layer.borderWidth = 0
         case .finalized:
             if let index = Date.givenDay(section: collectionView.tag) {
                 if let workout = self.routine?.days[index].finalized?.first {
                     cell.configureCellWithMovements(workout: workout, image: workoutImage)
+                    cell.mainContentView.layer.borderColor = UIColor.green.cgColor
+                    cell.mainContentView.layer.borderWidth = 1
                 } else {
                     cell.configureCell(workout: Workout(name: "", creator: " ", creatorName: " ", time: 32, description: "", image: nil, rating: 0, id: "", tags: ["dadada"]))
                 }
@@ -125,6 +129,8 @@ extension RoutineViewController: UICollectionViewDelegate, UICollectionViewDataS
                 return cell
             }
             cell.configureCellWithMovements(workout: w, image: workoutImage)
+            cell.mainContentView.layer.borderColor = UIColor.clear.cgColor
+            cell.mainContentView.layer.borderWidth = 0
         }
         
         return cell
@@ -141,12 +147,20 @@ extension RoutineViewController: UICollectionViewDelegate, UICollectionViewDataS
         if r.days[day].workoutId != nil {
             add = false
         }
+        
+        if let user = UserDefaultsStore.retrieve(User.self) {
+            if user.token == nil {
+                add = false
+            }
+        }
+        
         let workoutImage: UIImage?
         if let day = Date.givenDay(section: collectionView.tag), let dayImageArray = self.images[day] {
             workoutImage = dayImageArray[indexPath.row]
         } else {
             workoutImage = nil
         }
+        
         let vc = WorkoutDetailView(workout: workout, canAdd: add, day: collectionView.tag, image: workoutImage)
         vc.userDidSelect = {
             self.getRoutineWrapper()
@@ -197,20 +211,27 @@ extension RoutineViewController: UITableViewDataSource, UITableViewDelegate {
         case .empty:
             headerView.headerWorkoutType.text = "No workout type specified"
             headerView.check.isHidden = true
+            headerView.arrow.isHidden = true
         case .finalized:
             guard let r = self.routine else { return headerView }
             headerView.headerWorkoutType.text = r.days[index].initialized?.joined(separator: " | ").capitalized ?? "No workout type specified"
             headerView.check.isHidden = false
+            headerView.arrow.isHidden = true
         case .initialized:
             guard let r = self.routine else { return headerView }
             let types = r.days[index].initialized?.joined(separator: " | ").capitalized ?? "No workout type specified"
             if r.days[index].finalized?.count == 0 {
                 headerView.errorLabel.text = "No workouts for: \(types)"
+                headerView.arrow.isHidden = true
             } else {
                 headerView.errorLabel.text = ""
             }
             headerView.headerWorkoutType.text = types
             headerView.check.isHidden = true
+            headerView.arrow.isHidden = true
+            if let c = r.days[index].finalized?.count {
+                headerView.arrow.isHidden = c > 1 ? false : true
+            }
         }
         return headerView
     }
@@ -311,17 +332,24 @@ extension RoutineViewController: ModalDelegatable {
                 case .error(let error):
                     print("error: \(error)")
                 case .success(let routine):
-                    DispatchQueue.main.async {
-                        self.errorView?.callError(withTitle: "Routine updated", andColor: UIColor.peakBlue)
-                        self.routine = routine
-                        self.tableView.reloadData()
-                    }
+                    self.errorView?.callError(withTitle: "Routine updated", andColor: UIColor.peakBlue)
+                    self.routine = routine
+                    self.tableView.reloadData()
                 }
             }
-        } else {
+        } else if !value.isEmpty {
             let resource = WebWorkout.workoutsForTags(tags: value)
             webservice.load(resource, completion: { res in
-                
+                guard let result = res else { return }
+                switch result {
+                case .error(_):
+                    print("Error in retreiving workouts for no user")
+                case .success(let workouts):
+                    guard let dayG = Date.givenDay(section: forCellAt.section) else { return }
+                    r.addWorkoutsToDay(number: dayG, toWorkout: workouts, withTags: value)
+                    self.routine = r
+                    self.tableView.reloadData()
+                }
             })
         }
     }
@@ -335,16 +363,28 @@ extension RoutineViewController: ModalDelegatable {
 extension RoutineViewController {
     
     @objc func handleNewWorkout() {
-        let vc = CreateWorkoutViewController()
-        vc.didSaveRoutine = {
-            self.errorView?.callError(withTitle: "Saved Workout", andColor: .peakBlue)
-            self.stateRoutine()
-        }
-        vc.saveRoutineError = {
-            self.errorView?.callError(withTitle: "Error", andColor: .red)
-            self.tableView.reloadData()
-        }
-        self.navigationController?.pushViewController(vc, animated: true)
+        
+        let alert = UIAlertController(title: "Options", message: nil, preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: "cancel"), style: .cancel, handler: { _ in
+            print("add workout")
+        }))
+        alert.addAction(UIAlertAction(title: NSLocalizedString("Create New Workout", comment: "Default action"), style: .default, handler: { _ in
+            let vc = CreateWorkoutViewController()
+            vc.didSaveRoutine = {
+                self.errorView?.callError(withTitle: "Saved Workout", andColor: .peakBlue)
+                self.stateRoutine()
+            }
+            vc.saveRoutineError = {
+                self.errorView?.callError(withTitle: "Error", andColor: .red)
+                self.tableView.reloadData()
+            }
+            self.navigationController?.pushViewController(vc, animated: true)
+        }))
+        alert.addAction(UIAlertAction(title: NSLocalizedString("Add a Workout Type", comment: "add"), style: .default, handler: { _ in
+            let vc = AddWorkoutTypeViewController()
+            self.present(vc, animated: true, completion: nil)
+        }))
+        self.present(alert, animated: true, completion: nil)
     }
     
     @objc func handleOptionOne() {

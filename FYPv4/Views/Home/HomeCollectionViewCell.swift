@@ -85,6 +85,10 @@ extension HomeCollectionViewCell {
             movement2.text = ""
             movement3.text = ""
         }
+        
+        movement1.lineBreakMode = .byTruncatingMiddle
+        movement2.lineBreakMode = .byTruncatingMiddle
+        movement3.lineBreakMode = .byTruncatingMiddle
     }
     
     func labelForMovement(movement: Movement) -> String {
