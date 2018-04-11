@@ -13,7 +13,3 @@ enum WorkoutDay {
     case initialized
     case finalized
 }
-
-extension WorkoutDay {
-    
-}

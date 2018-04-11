@@ -108,7 +108,12 @@ extension RoutineViewController: UICollectionViewDelegate, UICollectionViewDataS
         let cell: HomeCollectionViewCell = collectionView.dequeueReusableCell(forIndexPath: indexPath)
         let workoutImage: UIImage?
         if let day = Date.givenDay(section: collectionView.tag), let dayImageArray = self.images[day] {
-            workoutImage = dayImageArray[indexPath.row]
+            if indexPath.row > dayImageArray.count - 1 {
+                workoutImage = #imageLiteral(resourceName: "t4")
+            } else {
+                workoutImage = dayImageArray[indexPath.row]
+            }
+            
         } else {
             workoutImage = nil
         }

@@ -16,15 +16,12 @@ final class WebService {
     func load<A>(_ resource: Resource<A>, completion: @escaping (Result<A>?) -> ()) {
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
         session.dataTask(with: resource.request) { (data, _, _) in
-            
             let result = data.flatMap(resource.parse)
-//            self.printData(data)
-        DispatchQueue.main.async {
-             completion(Result(result, or: "Couldn't Parse data"))
-             UIApplication.shared.isNetworkActivityIndicatorVisible = false
-        }
+            DispatchQueue.main.async {
+                completion(Result(result, or: "Couldn't Parse data"))
+                UIApplication.shared.isNetworkActivityIndicatorVisible = false
+            }
        }.resume()
-        
     }
     
     private func printData(_ data: Data?) {

@@ -19,7 +19,6 @@
 		7822049F201A53AB00439343 /* PeakUITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7822049E201A53AB00439343 /* PeakUITextField.swift */; };
 		782204A3201A800000439343 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782204A2201A800000439343 /* UIColorExtension.swift */; };
 		7822F8CE2006790800439343 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7822F8CD2006790800439343 /* AppDelegate.swift */; };
-		7822F8D02006790800439343 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7822F8CF2006790800439343 /* ViewController.swift */; };
 		7822F8D32006790800439343 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7822F8D12006790800439343 /* Main.storyboard */; };
 		7822F8D62006790800439343 /* FYPv4.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7822F8D42006790800439343 /* FYPv4.xcdatamodeld */; };
 		7822F8D82006790800439343 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7822F8D72006790800439343 /* Assets.xcassets */; };
@@ -28,8 +27,6 @@
 		7822F8F12006790800439343 /* FYPv4UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7822F8F02006790800439343 /* FYPv4UITests.swift */; };
 		7822F8FF2006797C00439343 /* Workout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7822F8FE2006797C00439343 /* Workout.swift */; };
 		7822F90220067BE700439343 /* Movement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7822F90120067BE700439343 /* Movement.swift */; };
-		7822F9072006821D00439343 /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7822F9062006821D00439343 /* Database.swift */; };
-		7822F9092006893600439343 /* Workouts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7822F9082006893600439343 /* Workouts.swift */; };
 		7822F90B200E40D400439343 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7822F90A200E40D400439343 /* User.swift */; };
 		7822F90E2010E65E00439343 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7822F90C2010E65E00439343 /* HomeViewController.swift */; };
 		7822F90F2010E65E00439343 /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7822F90D2010E65E00439343 /* HomeViewController.xib */; };
@@ -74,7 +71,6 @@
 		788AAAD92050AFB10015BE06 /* RoutineTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 788AAAD72050AFB10015BE06 /* RoutineTableViewCell.xib */; };
 		788AAADB2050B08B0015BE06 /* TableViewDelegatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 788AAADA2050B08B0015BE06 /* TableViewDelegatable.swift */; };
 		788AAADD205166340015BE06 /* Routine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 788AAADC205166340015BE06 /* Routine.swift */; };
-		788AAADF205166FA0015BE06 /* DaysOfTheWeek.swift in Sources */ = {isa = PBXBuildFile; fileRef = 788AAADE205166FA0015BE06 /* DaysOfTheWeek.swift */; };
 		788AAAE1205168570015BE06 /* WorkoutType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 788AAAE0205168570015BE06 /* WorkoutType.swift */; };
 		788AAAE320517B110015BE06 /* UserAuthDelegatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 788AAAE220517B110015BE06 /* UserAuthDelegatable.swift */; };
 		788AAAE52051944C0015BE06 /* NoRoutineUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 788AAAE42051944C0015BE06 /* NoRoutineUIView.swift */; };
@@ -95,10 +91,8 @@
 		78E5A6002062DC4000F9903F /* MovementDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 78E5A5FE2062DC4000F9903F /* MovementDetailView.xib */; };
 		78F0B188205387B500918F07 /* RoutineViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F0B187205387B500918F07 /* RoutineViewState.swift */; };
 		78F0B18A20544C3100918F07 /* RoutineTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F0B18920544C3100918F07 /* RoutineTableViewHeader.swift */; };
-		78F0B18C2054C02800918F07 /* DayByDayModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F0B18B2054C02800918F07 /* DayByDayModel.swift */; };
 		78F0B18E2054C25000918F07 /* WorkoutDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F0B18D2054C25000918F07 /* WorkoutDay.swift */; };
 		78F0B1982055A83200918F07 /* RoutineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F0B1972055A83200918F07 /* RoutineViewModel.swift */; };
-		78F0B19A2055A8BE00918F07 /* RoutineType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F0B1992055A8BE00918F07 /* RoutineType.swift */; };
 		78F0B19D205718E500918F07 /* ModalWorkoutTypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F0B19B205718E500918F07 /* ModalWorkoutTypeViewController.swift */; };
 		78F0B19E205718E500918F07 /* ModalWorkoutTypeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 78F0B19C205718E500918F07 /* ModalWorkoutTypeViewController.xib */; };
 		78F0B1A02057191900918F07 /* ModalDelegatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F0B19F2057191900918F07 /* ModalDelegatable.swift */; };
@@ -135,7 +129,6 @@
 		782204A2201A800000439343 /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		7822F8CA2006790800439343 /* FYPv4.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FYPv4.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7822F8CD2006790800439343 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		7822F8CF2006790800439343 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		7822F8D22006790800439343 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		7822F8D52006790800439343 /* FYPv4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FYPv4.xcdatamodel; sourceTree = "<group>"; };
 		7822F8D72006790800439343 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -149,8 +142,6 @@
 		7822F8F22006790800439343 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7822F8FE2006797C00439343 /* Workout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Workout.swift; sourceTree = "<group>"; };
 		7822F90120067BE700439343 /* Movement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movement.swift; sourceTree = "<group>"; };
-		7822F9062006821D00439343 /* Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
-		7822F9082006893600439343 /* Workouts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Workouts.swift; sourceTree = "<group>"; };
 		7822F90A200E40D400439343 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		7822F90C2010E65E00439343 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		7822F90D2010E65E00439343 /* HomeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeViewController.xib; sourceTree = "<group>"; };
@@ -195,7 +186,6 @@
 		788AAAD72050AFB10015BE06 /* RoutineTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RoutineTableViewCell.xib; sourceTree = "<group>"; };
 		788AAADA2050B08B0015BE06 /* TableViewDelegatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewDelegatable.swift; sourceTree = "<group>"; };
 		788AAADC205166340015BE06 /* Routine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Routine.swift; sourceTree = "<group>"; };
-		788AAADE205166FA0015BE06 /* DaysOfTheWeek.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaysOfTheWeek.swift; sourceTree = "<group>"; };
 		788AAAE0205168570015BE06 /* WorkoutType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutType.swift; sourceTree = "<group>"; };
 		788AAAE220517B110015BE06 /* UserAuthDelegatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UserAuthDelegatable.swift; path = FYPv4/Protocols/UserAuthDelegatable.swift; sourceTree = SOURCE_ROOT; };
 		788AAAE42051944C0015BE06 /* NoRoutineUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoRoutineUIView.swift; sourceTree = "<group>"; };
@@ -216,10 +206,8 @@
 		78E5A5FE2062DC4000F9903F /* MovementDetailView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MovementDetailView.xib; sourceTree = "<group>"; };
 		78F0B187205387B500918F07 /* RoutineViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineViewState.swift; sourceTree = "<group>"; };
 		78F0B18920544C3100918F07 /* RoutineTableViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineTableViewHeader.swift; sourceTree = "<group>"; };
-		78F0B18B2054C02800918F07 /* DayByDayModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayByDayModel.swift; sourceTree = "<group>"; };
 		78F0B18D2054C25000918F07 /* WorkoutDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutDay.swift; sourceTree = "<group>"; };
 		78F0B1972055A83200918F07 /* RoutineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineViewModel.swift; sourceTree = "<group>"; };
-		78F0B1992055A8BE00918F07 /* RoutineType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineType.swift; sourceTree = "<group>"; };
 		78F0B19B205718E500918F07 /* ModalWorkoutTypeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalWorkoutTypeViewController.swift; sourceTree = "<group>"; };
 		78F0B19C205718E500918F07 /* ModalWorkoutTypeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ModalWorkoutTypeViewController.xib; sourceTree = "<group>"; };
 		78F0B19F2057191900918F07 /* ModalDelegatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalDelegatable.swift; sourceTree = "<group>"; };
@@ -282,7 +270,6 @@
 			isa = PBXGroup;
 			children = (
 				7822F8CD2006790800439343 /* AppDelegate.swift */,
-				7822F8CF2006790800439343 /* ViewController.swift */,
 				7876A728204DF780001AEA9D /* Extensions */,
 				7822F91D2012694800439343 /* Protocols */,
 				7822F9102010E66F00439343 /* Views */,
@@ -318,9 +305,6 @@
 			isa = PBXGroup;
 			children = (
 				78D84FFF201BC0B0008FFFB3 /* BoolResponse.swift */,
-				7822F9062006821D00439343 /* Database.swift */,
-				78F0B18B2054C02800918F07 /* DayByDayModel.swift */,
-				788AAADE205166FA0015BE06 /* DaysOfTheWeek.swift */,
 				78D85001201BDF78008FFFB3 /* Email.swift */,
 				7823716B206D272300C3B2AB /* ErrorView.swift */,
 				7822F9242013E0EA00439343 /* LoginViewState.swift */,
@@ -330,7 +314,6 @@
 				7822F9262013E86100439343 /* Result.swift */,
 				7822048E20193FA800439343 /* Router.swift */,
 				788AAADC205166340015BE06 /* Routine.swift */,
-				78F0B1992055A8BE00918F07 /* RoutineType.swift */,
 				78F0B1972055A83200918F07 /* RoutineViewModel.swift */,
 				7822F9112010EBD300439343 /* TabItem.swift */,
 				7822F91E20126A6500439343 /* Token.swift */,
@@ -340,7 +323,6 @@
 				78237169206C358D00C3B2AB /* WebWorkout.swift */,
 				7822F8FE2006797C00439343 /* Workout.swift */,
 				78F0B18D2054C25000918F07 /* WorkoutDay.swift */,
-				7822F9082006893600439343 /* Workouts.swift */,
 				788AAAE0205168570015BE06 /* WorkoutType.swift */,
 			);
 			path = Models;
@@ -767,7 +749,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				78F0B19A2055A8BE00918F07 /* RoutineType.swift in Sources */,
 				78D85006201C22B2008FFFB3 /* LoginViewControllerTextViewExtension.swift in Sources */,
 				780E218920770C36001C1FAD /* AddWorkoutTypeViewController.swift in Sources */,
 				788AAAE1205168570015BE06 /* WorkoutType.swift in Sources */,
@@ -778,7 +759,6 @@
 				788AAAE7205199E00015BE06 /* NoRoutineActionDelegate.swift in Sources */,
 				7823717A20716CDA00C3B2AB /* MovementDetailViewTableViewCell.swift in Sources */,
 				7822F91C2012694000439343 /* NibLoadableView.swift in Sources */,
-				7822F9072006821D00439343 /* Database.swift in Sources */,
 				7822F92120126EAC00439343 /* Persistable.swift in Sources */,
 				788AAADB2050B08B0015BE06 /* TableViewDelegatable.swift in Sources */,
 				788AAAD520506B070015BE06 /* FYP + Date.swift in Sources */,
@@ -788,13 +768,11 @@
 				7823716C206D272300C3B2AB /* ErrorView.swift in Sources */,
 				788AAACF205040B00015BE06 /* FYP + Fonts.swift in Sources */,
 				7822F9252013E0EA00439343 /* LoginViewState.swift in Sources */,
-				7822F8D02006790800439343 /* ViewController.swift in Sources */,
 				788AAAC9204F36C80015BE06 /* CollectionViewDelegatable.swift in Sources */,
 				7885954820659B8200BA2371 /* InputTableViewCell.swift in Sources */,
 				78F0B18A20544C3100918F07 /* RoutineTableViewHeader.swift in Sources */,
 				7823716A206C358D00C3B2AB /* WebWorkout.swift in Sources */,
 				782204942019462900439343 /* ProfileViewController.swift in Sources */,
-				788AAADF205166FA0015BE06 /* DaysOfTheWeek.swift in Sources */,
 				78F0B18E2054C25000918F07 /* WorkoutDay.swift in Sources */,
 				782828BE205A93AD00E1D80C /* EditMenuViewController.swift in Sources */,
 				7822F91F20126A6500439343 /* Token.swift in Sources */,
@@ -806,7 +784,6 @@
 				7822F90E2010E65E00439343 /* HomeViewController.swift in Sources */,
 				7822048F20193FA800439343 /* Router.swift in Sources */,
 				7823716E206D288A00C3B2AB /* ErrorViewDelegate.swift in Sources */,
-				78F0B18C2054C02800918F07 /* DayByDayModel.swift in Sources */,
 				788AAACB204F884C0015BE06 /* FYP + CollectionView.swift in Sources */,
 				7822F90220067BE700439343 /* Movement.swift in Sources */,
 				78E5A5FF2062DC4000F9903F /* MovementDetailView.swift in Sources */,
@@ -830,7 +807,6 @@
 				78F0B19D205718E500918F07 /* ModalWorkoutTypeViewController.swift in Sources */,
 				7823717D2071D46E00C3B2AB /* ActivityIndicator.swift in Sources */,
 				7822F9272013E86100439343 /* Result.swift in Sources */,
-				7822F9092006893600439343 /* Workouts.swift in Sources */,
 				788AAACD204F8A890015BE06 /* ViewControllerStyles.swift in Sources */,
 				788AAAF02051D41C0015BE06 /* FYP + UIButton.swift in Sources */,
 				788AAAE52051944C0015BE06 /* NoRoutineUIView.swift in Sources */,

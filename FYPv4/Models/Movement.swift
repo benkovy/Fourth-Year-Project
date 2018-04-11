@@ -11,21 +11,10 @@ import Foundation
 struct Movement: Codable {
     let name: String
     let description: String
-//    let bodyPart: BodyPart
     let sets: Int
     let reps: Int
     let restTime: Int
     let image: Bool
-    
-//    enum BodyPart: String, Codable {
-//        case shoulder
-//        case chest
-//        case leg
-//        case core
-//        case bicep
-//        case tricep
-//        case back
-//    }
 }
 
 extension Movement {

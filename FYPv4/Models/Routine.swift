@@ -185,8 +185,11 @@ extension Routine {
                     workouts.forEach { w in
                         if let imgStr = w.image {
                             if let data = Data(base64Encoded: imgStr), let image = UIImage(data: data) {
+                                print(image)
                                 workoutImgs.append(image)
                             }
+                        } else {
+                            workoutImgs.append(#imageLiteral(resourceName: "t4"))
                         }
                     }
                     if !workoutImgs.isEmpty {
@@ -196,6 +199,7 @@ extension Routine {
                     }
                 } else { allImages.append(nil) }
         }
+        print(allImages)
         return allImages
     }
 }

@@ -26,11 +26,10 @@ enum Router {
     
     // Library http://131.162.212.76:8080/ / Home / http://192.168.2.11:8080/
     // https://peakbackend.vapor.cloud OR 192.168.2.11:8080
-    
     private var urlPath: String {
         switch self {
         case .tag(_):
-           return "http://192.168.2.11:8080/addTag"
+            return "http://192.168.2.11:8080/addTag"
         case .postWorkout(_):
             return "http://192.168.2.11:8080/workout"
         case .login(_, _):
@@ -52,13 +51,45 @@ enum Router {
         case .workoutMovements(let amount):
             return "http://192.168.2.11:8080/workoutAndMovements/\(amount)"
         case .updateUser(_, let id):
-            return "http://192.168.2.11:8080/\(id)"
+            return "http://192.168.2.11:8080/user/\(id)"
         case .workoutsForTags(_):
             return "http://192.168.2.11:8080/workoutWithTags"
         case .workoutsForUser(_):
             return "http://192.168.2.11:8080/workoutsForUser"
         }
     }
+//    private var urlPath: String {
+//        switch self {
+//        case .tag(_):
+//           return "http://131.162.208.111:8080/addTag" //
+//        case .postWorkout(_):
+//            return "http://131.162.208.111:8080/workout" //
+//        case .login(_, _):
+//            return "http://131.162.208.111:8080/login" //
+//        case .loginForUser(_, _):
+//            return "http://131.162.208.111:8080/loginForUser" //
+//        case .create(_ ):
+//            return "http://131.162.208.111:8080/users" //
+//        case .emailCheck(_ ):
+//            return "http://131.162.208.111:8080/email" //
+//        case .workout(_):
+//            return "http://131.162.208.111:8080/workout" //
+//        case .tokenAuth(_):
+//            return "http://131.162.208.111:8080/tokenUser" //
+//        case .tokenRoutine(_):
+//            return "http://131.162.208.111:8080/routineForToken" //
+//        case .saveRoutine(_,_):
+//            return "http://131.162.208.111:8080/routine" //
+//        case .workoutMovements(let amount):
+//            return "http://131.162.208.111:8080/workoutAndMovements/\(amount)" //
+//        case .updateUser(_, let id):
+//            return "http://131.162.208.111:8080/user/\(id)" //
+//        case .workoutsForTags(_):
+//            return "http://131.162.208.111:8080/workoutWithTags"
+//        case .workoutsForUser(_):
+//            return "http://131.162.208.111:8080/workoutsForUser"
+//        }
+//    }
     
     var request: URLRequest {
         let urlString = urlPath.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
